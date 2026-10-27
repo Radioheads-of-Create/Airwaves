@@ -8,7 +8,7 @@
   "airwaves.compass.south_west": "South-West",
   "airwaves.compass.west": "West",
   "airwaves.container.tuning_table": "Tuning Table",
-  "airwaves.direction.display": "%s° %s",
+  "airwaves.direction.display": "%s°%s",
   "airwaves.direction.target": "Target",
   "airwaves.tier.creative": "Creative",
   "airwaves.tier.high_power": "High-Power",
