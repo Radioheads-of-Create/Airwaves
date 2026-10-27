@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SAS",
+    " C "
+  ],
+  "key": {
+    "S": {
+      "item": "airwaves:silver_nugget"
+    },
+    "A": {
+      "item": "airwaves:cut_amethyst"
+    },
+    "C": {
+      "item": "airwaves:copper_wire"
+    }
+  },
+  "result": {
+    "id": "airwaves:crystal_oscillator",
+    "count": 1
+  }
+}

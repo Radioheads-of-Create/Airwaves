@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "airwaves:silver_nugget"
+    }
+  },
+  "result": {
+    "id": "airwaves:silver_ingot",
+    "count": 1
+  }
+}

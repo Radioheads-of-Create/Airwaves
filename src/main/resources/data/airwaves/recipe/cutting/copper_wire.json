@@ -1,0 +1,15 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "create:copper_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:copper_wire",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

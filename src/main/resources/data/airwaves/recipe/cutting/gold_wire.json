@@ -1,0 +1,15 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "create:golden_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:gold_wire",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}
