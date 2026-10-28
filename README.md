@@ -6,6 +6,8 @@ What is this mod?
 
 This fork (so to speak) aims to de-AI the original mod, fix bugs, change features, and more! Also being open source, for crying out loud.
 
+TODO: MAKE THIS DESCRIPTION BETTER
+
 What this aims to change:
 - No more AI
 - Dropping the Sable dependency (support will be added, just not required)
@@ -14,7 +16,7 @@ What this aims to change:
 
 # Credits
 People on the dev team!!
-This mod would have not been made as best as it would have been without these people:
+This mod would not have been made as well as it would have been without these people:
 
 Artists <br>
 - Ball
