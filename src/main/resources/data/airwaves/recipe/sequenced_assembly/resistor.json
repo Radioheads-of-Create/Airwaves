@@ -1,0 +1,50 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "airwaves:silver_wire"
+  },
+  "transitional_item": {
+    "id": "airwaves:incomplete_resistor"
+  },
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_resistor"
+        },
+        {
+          "item": "minecraft:coal"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_resistor"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_resistor"
+        },
+        {
+          "item": "minecraft:clay_ball"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_resistor"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:resistor",
+      "chance": 0.9
+    }
+  ],
+  "loops": 1
+}

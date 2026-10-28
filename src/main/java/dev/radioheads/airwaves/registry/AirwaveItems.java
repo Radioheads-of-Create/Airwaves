@@ -25,6 +25,7 @@ public final class AirwaveItems {
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
             INCOMPLETE_SPEAKER_CONE = registerBoardItem("incomplete_speaker_cone"),
+            INCOMPLETE_RESISTOR = registerBoardItem("incomplete_resistor"),
             TRANSISTOR = registerBoardItem("transistor");
 
     public static final ItemEntry<Item>
