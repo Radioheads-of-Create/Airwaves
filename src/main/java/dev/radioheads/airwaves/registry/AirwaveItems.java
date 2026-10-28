@@ -1,6 +1,6 @@
 package dev.radioheads.airwaves.registry;
 
-import com.simibubi.create.foundation.data.recipe.CommonMetal;
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
@@ -9,6 +9,7 @@ import dev.radioheads.airwaves.api.data.CapacitorData;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;
+
 
 public final class AirwaveItems {
     private AirwaveItems() {}
@@ -26,6 +27,10 @@ public final class AirwaveItems {
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
             TRANSISTOR = registerBoardItem("transistor");
 
+    public static final ItemEntry<SequencedAssemblyItem>
+            INCOMPLETE_RESISTOR = registerSequencedItem("incomplete_resistor"),
+            INCOMPLETE_SPEAKER_CONE = registerSequencedItem("incomplete_speaker_cone");
+
     public static final ItemEntry<Item>
             RAW_SILVER = Airwaves.REGISTRATE.item("raw_silver", Item::new)
                 .tag(Tags.Items.RAW_MATERIALS)
@@ -40,7 +45,7 @@ public final class AirwaveItems {
                     .tag(AirwaveTags.Items.NUGGETS_SILVER.tag)
                     .register(),
             SILVER_SHEET = Airwaves.REGISTRATE.item("silver_sheet", Item::new)
-                    .tag(CommonMetal.SILVER.plates)
+                    .tag(AirwaveTags.Items.SHEETS_SILVER.tag)
                     .register()
     ;
 
@@ -97,6 +102,10 @@ public final class AirwaveItems {
 
     private static ItemEntry<BoardItem> registerBoardItem(String path) {
         return Airwaves.REGISTRATE.item(path, BoardItem::new).register();
+    }
+
+    private static ItemEntry<SequencedAssemblyItem> registerSequencedItem(String path) {
+        return Airwaves.REGISTRATE.item(path, SequencedAssemblyItem::new).register();
     }
 
     private static <T extends Item> ItemEntry<T> registerSimpleItem(String path, NonNullFunction<Item.Properties, T> item) {

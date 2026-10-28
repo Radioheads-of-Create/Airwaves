@@ -1,0 +1,20 @@
+name: Push Notification
+
+on:
+  push:
+    branches-ignore:
+      - decomp
+      - l10n_master
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    env:
+      DISCORD_PUSH_WEBHOOK: ${{ secrets.DISCORD_PUSH_WEBHOOK }}
+    steps:
+      - name: Send push notification to discord
+        if: env.DISCORD_PUSH_WEBHOOK != ''
+        uses: wolfieboy09/action-discord-notifier@latest
+        with:
+          webhook: ${{ secrets.DISCORD_PUSH_WEBHOOK }}
+          message-title: "[${{ github.repository }}:${{ github.ref_name }}] ${{ github.event.size }} new ${{ github.event.size == 1 && 'commit' || 'commits' }}"

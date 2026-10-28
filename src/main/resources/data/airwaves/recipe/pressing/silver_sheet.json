@@ -1,0 +1,15 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "airwaves:silver_ingot"
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:silver_sheet",
+      "count": 1
+    }
+  ],
+  "processingTime": 100
+}

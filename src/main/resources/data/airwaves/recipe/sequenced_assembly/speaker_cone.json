@@ -1,0 +1,66 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "transitional_item": {
+    "id": "airwaves:incomplete_speaker_cone"
+  },
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_speaker_cone"
+        },
+        {
+          "tag": "c:nuggets"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_speaker_cone"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_speaker_cone"
+        },
+        {
+          "item": "airwaves:copper_wire"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_speaker_cone"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_speaker_cone"
+        },
+        {
+          "item": "airwaves:silver_sheet"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_speaker_cone"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:speaker_cone",
+      "chance": 0.9
+    }
+  ],
+  "loops": 1
+}
