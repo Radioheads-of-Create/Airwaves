@@ -1,0 +1,29 @@
+{
+  "parent": "airwaves:root",
+  "display": {
+    "icon": {
+      "id": "airwaves:speaker_cone"
+    },
+    "title": {
+      "text": "GOOD MORNIN VIETNAM!!"
+    },
+    "description": {
+      "text": "obtain a radio"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "get_speaker_cone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:radio"
+          }
+        ]
+      }
+    }
+  }
+}

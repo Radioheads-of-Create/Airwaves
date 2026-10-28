@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "id": "airwaves:radio"
+    },
+    "title": {
+      "text": "Airwaves"
+    },
+    "description": {
+      "text": "Listen to some radio"
+    },
+    "background": "airwaves:textures/gui/advancements/background.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "airwaves_root": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

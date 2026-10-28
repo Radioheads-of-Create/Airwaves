@@ -1,0 +1,29 @@
+{
+  "parent": "airwaves:root",
+  "display": {
+    "icon": {
+      "id": "airwaves:resistor"
+    },
+    "title": {
+      "text": "Join the resistance!! OHM!!!!"
+    },
+    "description": {
+      "text": "Join the Resistance by obtaining a resistor"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "get_speaker_cone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:resistor"
+          }
+        ]
+      }
+    }
+  }
+}
