@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Send push notification to discord
         if: env.DISCORD_PUSH_WEBHOOK != ''
-        uses: wolfieboy09/action-discord-notifier@1.3.1
+        uses: wolfieboy09/action-discord-notifier@latest
         with:
           webhook: ${{ secrets.DISCORD_PUSH_WEBHOOK }}
           message-title: "[${{ github.repository }}:${{ github.ref_name }}] {count} new {commits}"
