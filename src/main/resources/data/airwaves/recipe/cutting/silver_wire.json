@@ -1,0 +1,15 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "item": "airwaves:silver_sheet"
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:silver_wire",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

@@ -79,6 +79,7 @@ public final class AirwaveTags {
 
         INGOTS_SILVER(COMMON, "ingots/silver"),
         NUGGETS_SILVER(COMMON, "nuggets/silver"),
+        SHEETS_SILVER(COMMON, "sheets/silver"),
         ;
 
         public final TagKey<Item> tag;

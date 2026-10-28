@@ -9,6 +9,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;
 
+
 public final class AirwaveItems {
     private AirwaveItems() {}
 
@@ -23,6 +24,7 @@ public final class AirwaveItems {
             RESISTOR = registerBoardItem("resistor"),
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
+            INCOMPLETE_SPEAKER_CONE = registerBoardItem("incomplete_speaker_cone"),
             TRANSISTOR = registerBoardItem("transistor");
 
     public static final ItemEntry<Item>
@@ -37,6 +39,9 @@ public final class AirwaveItems {
             SILVER_NUGGET = Airwaves.REGISTRATE.item("silver_nugget", Item::new)
                     .tag(Tags.Items.NUGGETS)
                     .tag(AirwaveTags.Items.NUGGETS_SILVER.tag)
+                    .register(),
+            SILVER_SHEET = Airwaves.REGISTRATE.item("silver_sheet", Item::new)
+                    .tag(AirwaveTags.Items.SHEETS_SILVER.tag)
                     .register()
     ;
 
