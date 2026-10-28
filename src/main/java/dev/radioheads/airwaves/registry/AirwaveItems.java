@@ -49,6 +49,7 @@ public final class AirwaveItems {
                     .register()
     ;
 
+
     public static final ItemEntry<SpoolItem>
         EMPTY_COIL = registerSpool("empty"),
         COPPER_COIL = registerSpool("copper"),

@@ -26,6 +26,10 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.Map;
 
+import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static com.simibubi.create.foundation.data.TagGen.tagBlockAndItem;
+
 public final class AirwaveBlocks {
     private AirwaveBlocks() {}
 
@@ -79,6 +83,22 @@ public final class AirwaveBlocks {
             )))
             .build()
             .register();
+
+    public static final BlockEntry<Block>
+            SILVER_BLOCK = Airwaves.REGISTRATE.block("silver_block", Block::new)
+                .initialProperties(() -> Blocks.IRON_BLOCK)
+                .properties(p -> p.mapColor(MapColor.TERRACOTTA_WHITE)
+                        .requiresCorrectToolForDrops())
+                .transform(pickaxeOnly())
+                .blockstate(simpleCubeAll("silver_block"))
+                .tag(BlockTags.NEEDS_IRON_TOOL)
+                .tag(Tags.Blocks.STORAGE_BLOCKS)
+                .tag(BlockTags.BEACON_BASE_BLOCKS)
+                .transform(tagBlockAndItem(CommonMetal.SILVER.storageBlocks))
+                .tag(Tags.Items.STORAGE_BLOCKS)
+                .build()
+                .lang("Block of Silver")
+                .register();
 
     //TODO
     public static final BlockEntry<RadioBlock>
