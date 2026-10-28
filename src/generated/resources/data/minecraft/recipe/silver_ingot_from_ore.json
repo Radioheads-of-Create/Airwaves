@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_silver"
+  },
+  "result": {
+    "count": 1,
+    "id": "airwaves:silver_ingot"
+  }
+}

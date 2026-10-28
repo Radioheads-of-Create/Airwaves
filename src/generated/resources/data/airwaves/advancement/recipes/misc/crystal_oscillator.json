@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_copper_wire": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:wire/copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_cut_amethyst": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:cut_amethyst"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_silver_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/silver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "airwaves:crystal_oscillator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_silver_ingot",
+      "has_cut_amethyst",
+      "has_copper_wire"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "airwaves:crystal_oscillator"
+    ]
+  }
+}

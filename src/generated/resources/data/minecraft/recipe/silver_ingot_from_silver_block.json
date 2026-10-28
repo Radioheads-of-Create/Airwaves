@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "airwaves:silver_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "airwaves:silver_ingot"
+  }
+}

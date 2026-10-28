@@ -1,0 +1,15 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "tag": "c:plates/gold"
+    }
+  ],
+  "processing_time": 100,
+  "results": [
+    {
+      "count": 4,
+      "id": "airwaves:gold_wire"
+    }
+  ]
+}

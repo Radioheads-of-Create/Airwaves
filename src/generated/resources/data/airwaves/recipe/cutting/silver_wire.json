@@ -1,0 +1,15 @@
+{
+  "type": "create:cutting",
+  "ingredients": [
+    {
+      "tag": "c:plates/silver"
+    }
+  ],
+  "processing_time": 100,
+  "results": [
+    {
+      "count": 4,
+      "id": "airwaves:silver_wire"
+    }
+  ]
+}

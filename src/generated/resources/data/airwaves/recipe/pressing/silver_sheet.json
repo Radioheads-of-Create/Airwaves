@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "c:plates/silver"
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:silver_sheet"
+    }
+  ]
+}
