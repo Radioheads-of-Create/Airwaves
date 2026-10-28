@@ -1,5 +1,6 @@
 package dev.radioheads.airwaves.registry;
 
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
@@ -24,9 +25,11 @@ public final class AirwaveItems {
             RESISTOR = registerBoardItem("resistor"),
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
-            INCOMPLETE_SPEAKER_CONE = registerBoardItem("incomplete_speaker_cone"),
-            INCOMPLETE_RESISTOR = registerBoardItem("incomplete_resistor"),
             TRANSISTOR = registerBoardItem("transistor");
+
+    public static final ItemEntry<SequencedAssemblyItem>
+            INCOMPLETE_RESISTOR = registerSequencedItem("incomplete_resistor"),
+            INCOMPLETE_SPEAKER_CONE = registerSequencedItem("incomplete_speaker_cone");
 
     public static final ItemEntry<Item>
             RAW_SILVER = Airwaves.REGISTRATE.item("raw_silver", Item::new)
@@ -98,6 +101,10 @@ public final class AirwaveItems {
 
     private static ItemEntry<BoardItem> registerBoardItem(String path) {
         return Airwaves.REGISTRATE.item(path, BoardItem::new).register();
+    }
+
+    private static ItemEntry<SequencedAssemblyItem> registerSequencedItem(String path) {
+        return Airwaves.REGISTRATE.item(path, SequencedAssemblyItem::new).register();
     }
 
     private static <T extends Item> ItemEntry<T> registerSimpleItem(String path, NonNullFunction<Item.Properties, T> item) {
