@@ -17,4 +17,4 @@ jobs:
         uses: wolfieboy09/action-discord-notifier@latest
         with:
           webhook: ${{ secrets.DISCORD_PUSH_WEBHOOK }}
-          message-title: "[${{ github.repository }}:${{ github.ref_name }}] ${{ github.actor }} pushed"
+          message-title: "[${{ github.repository }}:${{ github.ref_name }}] ${{ github.event.size }} new ${{ github.event.size == 1 && 'commit' || 'commits' }}"
