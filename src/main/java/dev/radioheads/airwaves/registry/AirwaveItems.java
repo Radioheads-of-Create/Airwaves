@@ -6,6 +6,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
+import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;

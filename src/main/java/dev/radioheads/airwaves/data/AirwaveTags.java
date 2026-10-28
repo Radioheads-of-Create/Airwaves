@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.registry;
+package dev.radioheads.airwaves.data;
 
 import dev.radioheads.airwaves.AirwaveLang;
 import dev.radioheads.airwaves.Airwaves;
@@ -11,8 +11,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-import static dev.radioheads.airwaves.registry.AirwaveTags.NameSpace.COMMON;
-import static dev.radioheads.airwaves.registry.AirwaveTags.NameSpace.MOD;
+import static dev.radioheads.airwaves.data.AirwaveTags.NameSpace.COMMON;
+import static dev.radioheads.airwaves.data.AirwaveTags.NameSpace.MOD;
 
 public final class AirwaveTags {
     private AirwaveTags() {}

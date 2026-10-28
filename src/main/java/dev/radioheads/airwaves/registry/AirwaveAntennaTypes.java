@@ -6,6 +6,7 @@ import dev.radioheads.airwaves.api.antenna.PowerLawRange;
 import dev.radioheads.airwaves.api.antenna.model.QualityModel;
 import dev.radioheads.airwaves.api.antenna.pattern.CosinePattern;
 import dev.radioheads.airwaves.api.registry.antenna.AntennaTypeEntry;
+import dev.radioheads.airwaves.data.AirwaveTags;
 
 public final class AirwaveAntennaTypes {
     private AirwaveAntennaTypes() {}
