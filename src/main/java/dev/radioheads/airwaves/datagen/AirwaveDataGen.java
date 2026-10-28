@@ -1,7 +1,11 @@
 package dev.radioheads.airwaves.datagen;
 
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.datagen.recipe.create.SandpaperRecipeGen;
+import dev.radioheads.airwaves.datagen.recipe.create.AirwaveCuttingRecipeGen;
+import dev.radioheads.airwaves.datagen.recipe.create.AirwavePolishingRecipeGen;
+import dev.radioheads.airwaves.datagen.recipe.create.AirwavePressingRecipeGen;
+import dev.radioheads.airwaves.datagen.recipe.create.AirwaveSequencedAssemblyRecipeGen;
+import dev.radioheads.airwaves.datagen.recipe.minecraft.MinecraftRecipeGen;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -16,7 +20,12 @@ public class AirwaveDataGen {
         PackOutput output = gen.getPackOutput();
         var registries = event.getLookupProvider();
 
-        event.addProvider(new SandpaperRecipeGen(output, registries));
+        event.addProvider(new AirwavePolishingRecipeGen(output, registries));
         event.addProvider(new AirwaveGeneratedEntriesProvider(output, registries));
+        event.addProvider(new AirwaveCuttingRecipeGen(output, registries));
+        event.addProvider(new AirwavePressingRecipeGen(output, registries));
+        event.addProvider(new AirwaveSequencedAssemblyRecipeGen(output, registries));
+
+        event.addProvider(new MinecraftRecipeGen(output, registries));
     }
 }

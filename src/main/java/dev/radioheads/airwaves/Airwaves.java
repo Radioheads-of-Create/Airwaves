@@ -46,11 +46,16 @@ public class Airwaves {
         IntegrationLoader.init(modEventBus);
     }
 
-    @Contract("_ -> new")
     public static ResourceLocation asResource(String path) {
         return path.contains(":")
                 ? ResourceLocation.tryParse(path)
                 : ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
+
+    public static ResourceLocation asCommon(String path) {
+        return path.contains(":")
+                ? ResourceLocation.tryParse(path)
+                : ResourceLocation.fromNamespaceAndPath("c", path);
     }
 
 }

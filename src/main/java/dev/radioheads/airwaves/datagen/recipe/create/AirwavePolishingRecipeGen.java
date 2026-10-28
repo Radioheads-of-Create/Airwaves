@@ -9,8 +9,8 @@ import net.minecraft.world.item.Items;
 
 import java.util.concurrent.CompletableFuture;
 
-public class SandpaperRecipeGen extends PolishingRecipeGen {
-    public SandpaperRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+public final class AirwavePolishingRecipeGen extends PolishingRecipeGen {
+    public AirwavePolishingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries, Airwaves.MOD_ID);
     }
 
