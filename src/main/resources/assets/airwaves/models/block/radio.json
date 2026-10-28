@@ -13,7 +13,7 @@
     "8": "airwaves:block/radio/antenna",
     "9": "airwaves:block/radio/battery_pack",
     "10": "airwaves:block/radio/ports",
-    "particle": "airwaves:block/radio/casing"
+    "particle": "airwaves:block/radio/particle"
   },
   "elements": [
     {
