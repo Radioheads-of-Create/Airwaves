@@ -6,6 +6,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
+import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -35,27 +36,27 @@ public final class AirwaveItems {
     public static final ItemEntry<Item>
             RAW_SILVER = Airwaves.REGISTRATE.item("raw_silver", Item::new)
                 .tag(Tags.Items.RAW_MATERIALS)
-                .tag(AirwaveTags.Items.RAW_MATERIALS_SILVER.tag)
+                .tag(AirwaveMaterials.SILVER.rawMaterial)
                 .register(),
             SILVER_INGOT = Airwaves.REGISTRATE.item("silver_ingot", Item::new)
                     .tag(Tags.Items.INGOTS)
-                    .tag(AirwaveTags.Items.INGOTS_SILVER.tag)
+                    .tag(AirwaveMaterials.SILVER.ingots)
                     .register(),
             SILVER_NUGGET = Airwaves.REGISTRATE.item("silver_nugget", Item::new)
                     .tag(Tags.Items.NUGGETS)
-                    .tag(AirwaveTags.Items.NUGGETS_SILVER.tag)
+                    .tag(AirwaveMaterials.SILVER.nuggets)
                     .register(),
             SILVER_SHEET = Airwaves.REGISTRATE.item("silver_sheet", Item::new)
-                    .tag(AirwaveTags.Items.SHEETS_SILVER.tag)
+                    .tag(AirwaveMaterials.SILVER.plates)
                     .register()
     ;
 
 
     public static final ItemEntry<SpoolItem>
-        EMPTY_COIL = registerSpool("empty"),
-        COPPER_COIL = registerSpool("copper"),
-        GOLD_COIL = registerSpool("gold"),
-        SILVER_COIL = registerSpool("silver");
+        EMPTY_SPOOL = registerSpool("empty"),
+        COPPER_SPOOL = registerSpool("copper"),
+        GOLD_SPOOL = registerSpool("gold"),
+        SILVER_SPOOL = registerSpool("silver");
 
     public static final ItemEntry<WireItem>
         COPPER_WIRE = registerWire("copper"),
@@ -67,9 +68,9 @@ public final class AirwaveItems {
         LARGE_CAPACITOR = registerCapacitor("large", 50);
 
     public static final ItemEntry<FoilItem>
-        COPPER_FOIL = registerFoil("copper"),
-        GOLD_FOIL = registerFoil("gold"),
-        SILVER_FOIL = registerFoil("silver");
+        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER.foil),
+        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD.foil),
+        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER.foil);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
         return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)
@@ -97,8 +98,11 @@ public final class AirwaveItems {
         return Airwaves.REGISTRATE.item(path, Item::new).tag(tag).register();
     }
 
-    private static ItemEntry<FoilItem> registerFoil(String path) {
-        return Airwaves.REGISTRATE.item(path + "_foil", FoilItem::new).register();
+    private static ItemEntry<FoilItem> registerFoil(String path, TagKey<Item> foilTag) {
+        return Airwaves.REGISTRATE.item(path + "_foil", FoilItem::new)
+                .tag(foilTag)
+                .tag(AirwaveTags.Items.FOIL.tag)
+                .register();
     }
 
     private static ItemEntry<BoardItem> registerBoardItem(String path) {

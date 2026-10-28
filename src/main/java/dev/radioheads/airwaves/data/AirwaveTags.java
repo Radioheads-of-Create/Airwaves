@@ -75,11 +75,8 @@ public final class AirwaveTags {
     }
 
     public enum Items {
-        RAW_MATERIALS_SILVER(COMMON, "raw_materials/silver"),
-
-        INGOTS_SILVER(COMMON, "ingots/silver"),
-        NUGGETS_SILVER(COMMON, "nuggets/silver"),
-        SHEETS_SILVER(COMMON, "sheets/silver"),
+        PLATES_COPPER(COMMON, "plates/copper"),
+        FOIL
         ;
 
         public final TagKey<Item> tag;
