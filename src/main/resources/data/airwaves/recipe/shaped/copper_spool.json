@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "0I0",
+    "ISI",
+    "0I0"
+  ],
+  "key": {
+    "I": {
+      "item": "airwaves:copper_wire"
+    },
+    "S": {
+      "item": "airwaves:empty_spool"
+    }
+  },
+  "result": {
+    "id": "airwaves:copper_spool",
+    "count": 1
+  }
+}

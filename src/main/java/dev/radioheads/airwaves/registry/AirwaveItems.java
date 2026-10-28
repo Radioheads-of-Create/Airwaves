@@ -1,5 +1,6 @@
 package dev.radioheads.airwaves.registry;
 
+import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
@@ -37,8 +38,12 @@ public final class AirwaveItems {
             SILVER_NUGGET = Airwaves.REGISTRATE.item("silver_nugget", Item::new)
                     .tag(Tags.Items.NUGGETS)
                     .tag(AirwaveTags.Items.NUGGETS_SILVER.tag)
+                    .register(),
+            SILVER_SHEET = Airwaves.REGISTRATE.item("silver_sheet", Item::new)
+                    .tag(CommonMetal.SILVER.plates)
                     .register()
     ;
+
 
     public static final ItemEntry<SpoolItem>
         EMPTY_COIL = registerSpool("empty"),
