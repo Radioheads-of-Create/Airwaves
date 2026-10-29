@@ -1,5 +1,13 @@
 package dev.radioheads.airwaves.registry;
 
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
+import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
+import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogCTBehaviour;
+import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedCogwheelBlock;
+import com.simibubi.create.content.kinetics.simpleRelays.encased.EncasedShaftBlock;
+import com.simibubi.create.foundation.data.BuilderTransformers;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.TagGen;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -8,6 +16,7 @@ import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.block.RadioBlock;
 import dev.radioheads.airwaves.content.block.TuningTableBlock;
 import dev.radioheads.airwaves.content.item.RadioItem;
+import net.createmod.catnip.data.Couple;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -27,8 +36,7 @@ import net.neoforged.neoforge.common.Tags;
 import java.util.Map;
 
 import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
-import static com.simibubi.create.foundation.data.TagGen.tagBlockAndItem;
+import static com.simibubi.create.foundation.data.TagGen.*;
 
 public final class AirwaveBlocks {
     private AirwaveBlocks() {}
@@ -98,6 +106,13 @@ public final class AirwaveBlocks {
                 .tag(Tags.Items.STORAGE_BLOCKS)
                 .build()
                 .lang("Block of Silver")
+                .register();
+
+
+    public static final BlockEntry<CasingBlock>
+            SILVER_CASING = Airwaves.REGISTRATE.block("silver_casing", CasingBlock::new)
+                .properties(p -> p.mapColor(MapColor.TERRACOTTA_WHITE))
+                .transform(BuilderTransformers.casing(() -> AirwaveSpriteShifts.SILVER_CASING))
                 .register();
 
     //TODO

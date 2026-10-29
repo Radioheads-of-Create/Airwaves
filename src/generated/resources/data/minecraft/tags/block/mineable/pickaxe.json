@@ -1,6 +1,7 @@
 {
   "values": [
     "airwaves:silver_ore",
-    "airwaves:silver_block"
+    "airwaves:silver_block",
+    "airwaves:silver_casing"
   ]
 }
