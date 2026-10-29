@@ -5,6 +5,8 @@
   "advancement.airwaves.root.description": "Es Isch Luftwälleziit",
   "advancement.airwaves.speaker_cone": "Guete Morge Veitnam!",
   "advancement.airwaves.speaker_cone.description": "Hol Der Es Radio",
+  "advancement.airwaves.pressed_shape": "the shape goes into a shape press that presses the shape into a pressed shape",
+  "advancement.airwaves.pressed_shape.description": "press a shape into a pressed shape",
   "airwaves.compass.east": "Oschte",
   "airwaves.compass.north": "Norde",
   "airwaves.compass.north_east": "Nordoschte",
