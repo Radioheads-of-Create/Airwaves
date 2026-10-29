@@ -1,6 +1,8 @@
 package dev.radioheads.airwaves.registry;
 
 import com.simibubi.create.AllCreativeModeTabs;
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import dev.radioheads.airwaves.Airwaves;
 import net.minecraft.core.registries.Registries;
@@ -27,10 +29,9 @@ public class AirwaveCreativeTabs {
     public static void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTab() == MAIN.get()) {
             for (RegistryEntry<Item, ?> item : Airwaves.REGISTRATE.getAll(Registries.ITEM)) {
-                //TODO: fix this
-//                if (!CreateRegistrate.isInCreativeTab(item, MAIN) || item.get() instanceof SequencedAssemblyItem) {
-//                    continue;
-//                }
+                if (item.get() instanceof SequencedAssemblyItem) {
+                    continue;
+                }
 
                 event.accept(item.get(), CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
             }
