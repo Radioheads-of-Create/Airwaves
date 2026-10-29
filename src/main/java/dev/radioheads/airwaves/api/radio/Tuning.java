@@ -2,9 +2,14 @@ package dev.radioheads.airwaves.api.radio;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
 import dev.radioheads.airwaves.registry.AirwaveRadioBands;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -12,6 +17,7 @@ import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
+@NothingNullByDefault
 public record Tuning(double frequency, Holder<RadioBand> band) {
     public static final Tuning DEFAULT = new Tuning(98.1, AirwaveRadioBands.FM);
 
@@ -40,6 +46,21 @@ public record Tuning(double frequency, Holder<RadioBand> band) {
                 band.value().clamp(frequency),
                 other.band.value().clamp(other.frequency)
         ) == 0;
+    }
+
+    public void writeTo(CompoundTag compound, HolderLookup.Provider registries) {
+        CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), this)
+                .resultOrPartial(err -> Airwaves.LOGGER.error("Failed to encode tuning: {}", err))
+                .ifPresent(tag -> compound.put("Tuning", tag));
+    }
+
+    public static Tuning readFrom(CompoundTag compound, HolderLookup.Provider registries) {
+        if (!compound.contains("Tuning")) {
+            return DEFAULT;
+        }
+        return CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), compound.get("Tuning"))
+                .resultOrPartial(err -> Airwaves.LOGGER.error("Failed to decode tuning: {}", err))
+                .orElse(DEFAULT);
     }
 
     public String display() {
