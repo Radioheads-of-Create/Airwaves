@@ -27,6 +27,7 @@ public final class AirwaveItems {
             RESISTOR = registerBoardItem("resistor"),
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
+            LED = registerBoardItem("led"),
             TRANSISTOR = registerBoardItem("transistor");
 
     public static final ItemEntry<SequencedAssemblyItem>
