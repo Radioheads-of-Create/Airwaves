@@ -15,6 +15,6 @@ public final class AirwavePressingRecipeGen extends PressingRecipeGen {
     }
 
     GeneratedRecipe SILVER_SHEET = create("silver_sheet", b -> b
-            .require(AirwaveMaterials.SILVER.plates)
+            .require(AirwaveMaterials.SILVER.ingots)
             .output(AirwaveItems.SILVER_SHEET));
 }
