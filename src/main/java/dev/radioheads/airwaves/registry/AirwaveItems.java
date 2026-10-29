@@ -27,7 +27,7 @@ public final class AirwaveItems {
             RESISTOR = registerBoardItem("resistor"),
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
-            LED = registerBoardItem("led"),
+            LED = registerBoardItem("led", "LED"),
             TRANSISTOR = registerBoardItem("transistor");
 
     public static final ItemEntry<SequencedAssemblyItem>
@@ -110,6 +110,10 @@ public final class AirwaveItems {
 
     private static ItemEntry<BoardItem> registerBoardItem(String path) {
         return Airwaves.REGISTRATE.item(path, BoardItem::new).register();
+    }
+
+    private static ItemEntry<BoardItem> registerBoardItem(String path, String langOverride) {
+        return Airwaves.REGISTRATE.item(path, BoardItem::new).lang(langOverride).register();
     }
 
     private static ItemEntry<SequencedAssemblyItem> registerSequencedItem(String path) {
