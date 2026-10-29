@@ -79,6 +79,10 @@ public final class AirwaveLang extends Lang {
         List<String> tiers = List.of("low_power", "mid_power", "high_power", "max_power", "creative");
 
         tiers.forEach(tier -> add("tier." + tier, snakeCaseToTitleCase(tier)));
+
+        addAdvancement("root", "Airwaves", "It's Airwave time!");
+        addAdvancement("speaker_cone", "Good Morning Vietnam!", "Obtain a radio");
+        addAdvancement("resistor", "Join the resistance", "Ohmmmmmm...");
     }
 
     private static void add(String key, String value) {
@@ -87,5 +91,10 @@ public final class AirwaveLang extends Lang {
 
     private static void addBasic(String key, String value) {
         lang.add(new Pair<>(key, value));
+    }
+
+    private static void addAdvancement(String key, String title, String description) {
+        addBasic("advancement.airwaves." + key, title);
+        addBasic("advancement.airwaves." + key + ".description", description);
     }
 }

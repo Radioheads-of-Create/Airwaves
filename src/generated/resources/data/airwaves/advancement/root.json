@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "airwaves_root": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "airwaves:textures/gui/advancements/background.png",
+    "description": {
+      "translate": "advancement.airwaves.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "airwaves:radio"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancement.airwaves.root"
+    }
+  },
+  "requirements": [
+    [
+      "airwaves_root"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

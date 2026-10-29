@@ -1,0 +1,33 @@
+{
+  "parent": "airwaves:root",
+  "criteria": {
+    "get_resistor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:resistor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.airwaves.resistor.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "airwaves:resistor"
+    },
+    "title": {
+      "translate": "advancement.airwaves.resistor"
+    }
+  },
+  "requirements": [
+    [
+      "get_resistor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

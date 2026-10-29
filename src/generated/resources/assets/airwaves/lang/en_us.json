@@ -1,4 +1,10 @@
 {
+  "advancement.airwaves.resistor": "Join the resistance",
+  "advancement.airwaves.resistor.description": "Ohmmmmmm...",
+  "advancement.airwaves.root": "Airwaves",
+  "advancement.airwaves.root.description": "It's Airwave time!",
+  "advancement.airwaves.speaker_cone": "Good Morning Vietnam!",
+  "advancement.airwaves.speaker_cone.description": "Obtain a radio",
   "airwaves.compass.east": "East",
   "airwaves.compass.north": "North",
   "airwaves.compass.north_east": "North-East",

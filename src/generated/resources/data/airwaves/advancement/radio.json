@@ -1,0 +1,33 @@
+{
+  "parent": "airwaves:root",
+  "criteria": {
+    "get_speaker_cone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:radio"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.airwaves.speaker_cone.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "airwaves:speaker_cone"
+    },
+    "title": {
+      "translate": "advancement.airwaves.speaker_cone"
+    }
+  },
+  "requirements": [
+    [
+      "get_speaker_cone"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
