@@ -43,5 +43,6 @@
   "item.airwaves.silver_wire": "Silberkabel",
   "item.airwaves.small_capacitor": "Kleiner Kondensator",
   "item.airwaves.speaker_cone": "Lautschprechermembran",
+  "item.airwaves.led": "LED",
   "item.airwaves.transistor": "Transistor"
 }
