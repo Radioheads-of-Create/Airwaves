@@ -55,8 +55,8 @@ public enum AirwaveMaterials {
         this.storageBlocks = new ItemLikeTag("storage_blocks/" + this.name);
         this.nuggets = itemTag("nuggets/" + this.name);
         this.plates = itemTag("plates/" + this.name);
-        this.wire = itemTag("wire/" + this.name);
-        this.foil = selfItemTag("foil/" + this.name);
+        this.wire = itemTag("wires/" + this.name);
+        this.foil = selfItemTag("foils/" + this.name);
     }
 
     @Override

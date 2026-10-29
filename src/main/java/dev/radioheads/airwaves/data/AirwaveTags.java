@@ -76,7 +76,8 @@ public final class AirwaveTags {
 
     public enum Items {
         PLATES_COPPER(COMMON, "plates/copper"),
-        FOIL
+        FOILS,
+        WIRES(COMMON)
         ;
 
         public final TagKey<Item> tag;

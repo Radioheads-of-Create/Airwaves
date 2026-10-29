@@ -27,7 +27,7 @@
       "type": "create:deploying",
       "ingredients": [
         {
-          "tag": "c:wire/copper"
+          "tag": "c:wires/copper"
         }
       ],
       "results": [

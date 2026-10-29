@@ -6,7 +6,7 @@
       "item": "airwaves:cut_amethyst"
     },
     "C": {
-      "tag": "c:wire/copper"
+      "tag": "c:wires/copper"
     },
     "S": {
       "tag": "c:ingots/silver"

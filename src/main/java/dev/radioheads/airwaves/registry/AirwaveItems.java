@@ -59,18 +59,18 @@ public final class AirwaveItems {
         SILVER_SPOOL = registerSpool("silver");
 
     public static final ItemEntry<WireItem>
-        COPPER_WIRE = registerWire("copper"),
-        GOLD_WIRE = registerWire("gold"),
-        SILVER_WIRE = registerWire("silver");
+        COPPER_WIRE = registerWire("copper", AirwaveMaterials.COPPER),
+        GOLD_WIRE = registerWire("gold", AirwaveMaterials.GOLD),
+        SILVER_WIRE = registerWire("silver", AirwaveMaterials.SILVER);
 
     public static final ItemEntry<CapacitorItem>
         SMALL_CAPACITOR = registerCapacitor("small", 25),
         LARGE_CAPACITOR = registerCapacitor("large", 50);
 
     public static final ItemEntry<FoilItem>
-        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER.foil),
-        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD.foil),
-        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER.foil);
+        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER),
+        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD),
+        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
         return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)
@@ -78,8 +78,10 @@ public final class AirwaveItems {
                 .register();
     }
 
-    private static ItemEntry<WireItem> registerWire(String path) {
+    private static ItemEntry<WireItem> registerWire(String path, AirwaveMaterials material) {
         return Airwaves.REGISTRATE.item(path + "_wire", WireItem::new)
+                .tag(material.wire)
+                .tag(AirwaveTags.Items.WIRES.tag)
                 .register();
     }
 
@@ -98,10 +100,10 @@ public final class AirwaveItems {
         return Airwaves.REGISTRATE.item(path, Item::new).tag(tag).register();
     }
 
-    private static ItemEntry<FoilItem> registerFoil(String path, TagKey<Item> foilTag) {
+    private static ItemEntry<FoilItem> registerFoil(String path, AirwaveMaterials material) {
         return Airwaves.REGISTRATE.item(path + "_foil", FoilItem::new)
-                .tag(foilTag)
-                .tag(AirwaveTags.Items.FOIL.tag)
+                .tag(material.foil)
+                .tag(AirwaveTags.Items.FOILS.tag)
                 .register();
     }
 

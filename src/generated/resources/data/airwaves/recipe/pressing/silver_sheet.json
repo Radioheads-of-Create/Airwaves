@@ -2,7 +2,7 @@
   "type": "create:pressing",
   "ingredients": [
     {
-      "tag": "c:plates/silver"
+      "tag": "c:ingots/silver"
     }
   ],
   "results": [
