@@ -23,17 +23,17 @@ public final class AirwaveSequencedAssemblyRecipeGen extends SequencedAssemblyRe
             .loops(1)
             .transitionTo(AirwaveItems.INCOMPLETE_RESISTOR)
             .require(AirwaveMaterials.SILVER.wire)
-            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(ItemTags.COALS)))
-            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(Items.CLAY_BALL)))
+            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_RESISTOR), Ingredient.of(ItemTags.COALS)))
+            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_RESISTOR), Ingredient.of(Items.CLAY_BALL)))
             .addOutput(AirwaveItems.RESISTOR, 0.9f)
     ),
         SPEAKER_CONE = create("speaker_cone", b -> b
                 .loops(1)
                 .transitionTo(AirwaveItems.INCOMPLETE_SPEAKER_CONE)
                 .require(Items.PAPER)
-                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(Tags.Items.NUGGETS)))
-                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveMaterials.COPPER.wire)))
-                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveMaterials.SILVER.plates)))
+                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(Tags.Items.NUGGETS)))
+                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.COPPER.wire)))
+                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.SILVER.plates)))
                 .addOutput(AirwaveItems.SPEAKER_CONE, 0.9f)
         )
     ;
