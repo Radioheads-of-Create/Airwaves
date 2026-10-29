@@ -3,27 +3,40 @@ package dev.radioheads.airwaves.datagen;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.datagen.recipe.create.*;
 import dev.radioheads.airwaves.datagen.recipe.minecraft.MinecraftRecipeGen;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 @EventBusSubscriber(modid = Airwaves.MOD_ID)
 public class AirwaveDataGen {
+    private static final List<ProviderFactory<?>> PROVIDERS = List.of(
+            AirwavePolishingRecipeGen::new,
+            AirwaveGeneratedEntriesProvider::new,
+            AirwaveCuttingRecipeGen::new,
+            AirwavePressingRecipeGen::new,
+            AirwaveSequencedAssemblyRecipeGen::new,
+            AirwaveItemAppliacationRecipeGen::new,
+            MinecraftRecipeGen::new
+    );
+
     @SubscribeEvent
     public static void generate(GatherDataEvent event) {
-        DataGenerator gen = event.getGenerator();
-        PackOutput output = gen.getPackOutput();
-        var registries = event.getLookupProvider();
+        PackOutput output = event.getGenerator().getPackOutput();
+        CompletableFuture<HolderLookup.Provider> registries = event.getLookupProvider();
 
-        event.addProvider(new AirwavePolishingRecipeGen(output, registries));
-        event.addProvider(new AirwaveGeneratedEntriesProvider(output, registries));
-        event.addProvider(new AirwaveCuttingRecipeGen(output, registries));
-        event.addProvider(new AirwavePressingRecipeGen(output, registries));
-        event.addProvider(new AirwaveSequencedAssemblyRecipeGen(output, registries));
-        event.addProvider(new AirwaveItemAppliacationRecipeGen(output, registries));
+        for (ProviderFactory<?> factory : PROVIDERS) {
+            event.addProvider(factory.create(output, registries));
+        }
+    }
 
-        event.addProvider(new MinecraftRecipeGen(output, registries));
+    @FunctionalInterface
+    private interface ProviderFactory<T extends DataProvider> {
+        T create(PackOutput output, CompletableFuture<HolderLookup.Provider> registries);
     }
 }
