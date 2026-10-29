@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "airwaves:radio"
+            "items": "airwaves:speaker_cone"
           }
         ]
       },
