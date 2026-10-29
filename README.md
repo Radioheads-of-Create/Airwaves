@@ -18,9 +18,7 @@ What this aims to change:
 People on the dev team!!
 This mod would not have been made as well as it would have been without these people:
 
-Developers <br>
-- Wolfie
-
-Artists <br>
-- Ball
-- Oshieno
+Developers of Airwaves:
+- @wolfieboy09
+- @Oshieno
+- @BallsLikeCosmicBalls
