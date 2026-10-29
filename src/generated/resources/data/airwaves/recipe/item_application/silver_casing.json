@@ -5,7 +5,7 @@
       "item": "create:brass_casing"
     },
     {
-      "item": "airwaves:silver_ingot"
+      "tag": "c:ingots/silver"
     }
   ],
   "results": [

@@ -3,6 +3,7 @@ package dev.radioheads.airwaves.datagen.recipe.create;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.api.data.recipe.ItemApplicationRecipeGen;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.registry.AirwaveBlocks;
 import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
@@ -18,7 +19,7 @@ public final class AirwaveItemAppliacationRecipeGen extends ItemApplicationRecip
     GeneratedRecipe
         SILVER_CASING = create("silver_casing", b -> b
             .require(AllBlocks.BRASS_CASING)
-            .require(AirwaveItems.SILVER_INGOT)
+            .require(AirwaveMaterials.SILVER.ingots)
             .output(AirwaveBlocks.SILVER_CASING)
     );
 }
