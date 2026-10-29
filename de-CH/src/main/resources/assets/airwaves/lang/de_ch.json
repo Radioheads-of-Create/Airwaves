@@ -16,7 +16,7 @@
   "airwaves.tier.max_power": "Höschtleischtig",
   "airwaves.tier.mid_power": "Mittelleischtig",
   "block.airwaves.radio": "Radio",
-  "block.airwaves.silver_block": "Block of Silver",
+  "block.airwaves.silver_block": "Silberblock",
   "block.airwaves.silver_ore": "Silbererz",
   "block.airwaves.tuning_table": "Kalibrierigstisch",
   "creative_tab.airwave_main": "Luftwälle",
@@ -29,8 +29,8 @@
   "item.airwaves.gold_foil": "Goldfolie",
   "item.airwaves.gold_spool": "Goldschpuele",
   "item.airwaves.gold_wire": "Goldkabel",
-  "item.airwaves.incomplete_resistor": "Incomplete Resistor",
-  "item.airwaves.incomplete_speaker_cone": "Incomplete Speaker Cone",
+  "item.airwaves.incomplete_resistor": "Unfertige Widerschtand",
+  "item.airwaves.incomplete_speaker_cone": "Unferstigs Rednerglace",
   "item.airwaves.large_capacitor": "Grosse Kondensator",
   "item.airwaves.memory_chip": "Speichercharte",
   "item.airwaves.raw_silver": "Rohs Silber",
@@ -43,5 +43,6 @@
   "item.airwaves.silver_wire": "Silberkabel",
   "item.airwaves.small_capacitor": "Chline Kondensator",
   "item.airwaves.speaker_cone": "Rednerglace",
+  "item.airwaves.led": "LED",
   "item.airwaves.transistor": "Transischtor"
 }
