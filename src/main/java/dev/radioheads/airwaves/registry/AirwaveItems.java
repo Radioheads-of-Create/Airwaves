@@ -110,7 +110,9 @@ public final class AirwaveItems {
     }
 
     private static ItemEntry<SequencedAssemblyItem> registerSequencedItem(String path) {
-        return Airwaves.REGISTRATE.item(path, SequencedAssemblyItem::new).register();
+        return Airwaves.REGISTRATE.item(path, SequencedAssemblyItem::new)
+                .tag(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS)
+                .register();
     }
 
     private static <T extends Item> ItemEntry<T> registerSimpleItem(String path, NonNullFunction<Item.Properties, T> item) {
