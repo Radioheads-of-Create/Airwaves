@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = Airwaves.MOD_ID)
-public class AirwaveDataGen {
+public final class AirwaveDataGen {
     private static final List<ProviderFactory<?>> PROVIDERS = List.of(
             AirwavePolishingRecipeGen::new,
             AirwaveGeneratedEntriesProvider::new,
