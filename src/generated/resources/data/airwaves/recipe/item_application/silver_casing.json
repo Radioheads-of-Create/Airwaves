@@ -1,0 +1,16 @@
+{
+  "type": "create:item_application",
+  "ingredients": [
+    {
+      "item": "create:brass_casing"
+    },
+    {
+      "item": "airwaves:silver_ingot"
+    }
+  ],
+  "results": [
+    {
+      "id": "airwaves:silver_casing"
+    }
+  ]
+}
