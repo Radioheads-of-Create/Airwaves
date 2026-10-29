@@ -1,0 +1,33 @@
+{
+  "parent": "airwaves:root",
+  "criteria": {
+    "get_silver_sheet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:silver_sheet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.airwaves.pressed_shape.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "airwaves:silver_sheet"
+    },
+    "title": {
+      "translate": "advancement.airwaves.pressed_shape"
+    }
+  },
+  "requirements": [
+    [
+      "get_silver_sheet"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
