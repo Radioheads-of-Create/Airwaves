@@ -6,7 +6,19 @@ import java.util.Locale;
 
 public enum IntegratedMods {
     SABLE,
-    COMPUTER_CRAFT;
+    COMPUTER_CRAFT("computercraft"),
+    KUBE("kubejs"),
+    ;
+
+    public final String modId;
+
+    IntegratedMods() {
+        modId = name().toLowerCase(Locale.ROOT);
+    }
+
+    IntegratedMods(String modId) {
+        this.modId = modId;
+    }
 
     public boolean isLoaded() {
         // English just in case

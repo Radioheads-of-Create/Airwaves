@@ -75,22 +75,6 @@ public final class AirwaveAdvancementGen extends AdvancementProvider {
                     .addCriterion("get_resistor", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.RESISTOR))
                     .build(Airwaves.asResource("resistance"));
             saver.accept(resistor);
-
-            AdvancementHolder silver_sheet = Advancement.Builder.advancement()
-                    .parent(root)
-                    .display(
-                            AirwaveItems.SILVER_SHEET,
-                            Component.translatable("advancement.airwaves.pressed_shape"),
-                            Component.translatable("advancement.airwaves.pressed_shape.description"),
-                            null,
-                            AdvancementType.TASK,
-                            true,
-                            true,
-                            false
-                    )
-                    .addCriterion("get_silver_sheet", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.SILVER_SHEET))
-                    .build(Airwaves.asResource("pressed_shape"));
-            saver.accept(silver_sheet);
         }
     }
 }
