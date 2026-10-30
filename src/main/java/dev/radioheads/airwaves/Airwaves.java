@@ -12,7 +12,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import org.jetbrains.annotations.Contract;
 import org.slf4j.Logger;
 
 @Mod(Airwaves.MOD_ID)

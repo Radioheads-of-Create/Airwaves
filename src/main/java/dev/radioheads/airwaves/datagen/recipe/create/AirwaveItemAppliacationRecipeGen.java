@@ -5,7 +5,6 @@ import com.simibubi.create.api.data.recipe.ItemApplicationRecipeGen;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.registry.AirwaveBlocks;
-import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 
