@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "airwaves:tuning"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "airwaves:radio"
         }
       ],

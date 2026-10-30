@@ -60,7 +60,8 @@ public record Tuning(double frequency, Holder<RadioBand> band) {
         }
         return CODEC.parse(registries.createSerializationContext(NbtOps.INSTANCE), compound.get("Tuning"))
                 .resultOrPartial(err -> Airwaves.LOGGER.error("Failed to decode tuning: {}", err))
-                .orElse(DEFAULT);
+                .orElse(DEFAULT)
+                .clamped();
     }
 
     public String display() {

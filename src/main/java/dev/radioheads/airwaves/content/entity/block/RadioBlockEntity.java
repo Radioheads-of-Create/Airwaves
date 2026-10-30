@@ -6,8 +6,10 @@ import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.registry.AirwaveDataComponents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -20,11 +22,6 @@ public class RadioBlockEntity extends KineticBlockEntity {
     }
 
     @Override
-    public void saveToItem(ItemStack stack, HolderLookup.Provider registries) {
-        stack.set(AirwaveDataComponents.TUNING, tuning);
-    }
-
-    @Override
     protected void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.write(compound, registries, clientPacket);
         this.tuning.writeTo(compound, registries);
@@ -34,5 +31,20 @@ public class RadioBlockEntity extends KineticBlockEntity {
     protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(compound, registries, clientPacket);
         this.tuning = Tuning.readFrom(compound, registries);
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder builder) {
+        super.collectImplicitComponents(builder);
+        builder.set(AirwaveDataComponents.TUNING, tuning);
+    }
+
+    @Override
+    protected void applyImplicitComponents(BlockEntity.DataComponentInput input) {
+        super.applyImplicitComponents(input);
+        Tuning stored = input.get(AirwaveDataComponents.TUNING);
+        if (stored != null) {
+            this.tuning = stored.clamped();
+        }
     }
 }

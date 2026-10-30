@@ -28,8 +28,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.common.Tags;
 
@@ -115,7 +120,6 @@ public final class AirwaveBlocks {
                 .transform(BuilderTransformers.casing(() -> AirwaveSpriteShifts.SILVER_CASING))
                 .register();
 
-    //TODO
     public static final BlockEntry<RadioBlock>
         RADIO = Airwaves.REGISTRATE.block("radio", RadioBlock::new)
             .properties(BlockBehaviour.Properties::noOcclusion)
@@ -134,6 +138,13 @@ public final class AirwaveBlocks {
             .item(RadioItem::new)
             .properties(p -> p.component(AirwaveDataComponents.TUNING, Tuning.DEFAULT))
             .build()
+            .loot((lt, b) -> lt.add(b, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .when(ExplosionCondition.survivesExplosion())
+                            .add(LootItem.lootTableItem(b.asItem())
+                                    .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                            .include(AirwaveDataComponents.TUNING))))))
             .register();
 
     public static void init() {}
