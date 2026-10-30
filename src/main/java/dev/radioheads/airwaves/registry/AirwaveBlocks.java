@@ -107,7 +107,6 @@ public final class AirwaveBlocks {
                 .lang("Block of Silver")
                 .register();
 
-
     public static final BlockEntry<CasingBlock>
             SILVER_CASING = Airwaves.REGISTRATE.block("silver_casing", CasingBlock::new)
                 .properties(p -> p.mapColor(MapColor.TERRACOTTA_WHITE))
