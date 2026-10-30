@@ -6,11 +6,13 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
+import dev.radioheads.airwaves.content.item.EmptySpoolItem;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 
 public final class AirwaveItems {
@@ -54,10 +56,12 @@ public final class AirwaveItems {
 
 
     public static final ItemEntry<SpoolItem>
-        EMPTY_SPOOL = registerSpool("empty"),
         COPPER_SPOOL = registerSpool("copper"),
         GOLD_SPOOL = registerSpool("gold"),
         SILVER_SPOOL = registerSpool("silver");
+
+    public static final ItemEntry<EmptySpoolItem>
+            EMPTY_SPOOL = registerEmptySpool("empty");
 
     public static final ItemEntry<WireItem>
         COPPER_WIRE = registerWire("copper", AirwaveMaterials.COPPER),
@@ -75,6 +79,12 @@ public final class AirwaveItems {
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
         return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)
+                .properties(p -> p.component(AirwaveDataComponents.SPOOL_AMOUNT, 100))
+                .register();
+    }
+
+    private static ItemEntry<EmptySpoolItem> registerEmptySpool(String path) {
+        return Airwaves.REGISTRATE.item(path + "_spool", EmptySpoolItem::new)
                 .properties(p -> p.component(AirwaveDataComponents.SPOOL_AMOUNT, 100))
                 .register();
     }
