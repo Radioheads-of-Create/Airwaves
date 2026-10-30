@@ -35,11 +35,11 @@ public final class AirwaveDataGen {
 
         event.addProvider(new AirwaveAdvancementGen(output, registries, existingFileHelper));
 
-
         for (ProviderFactory<?> factory : PROVIDERS) {
             event.addProvider(factory.create(output, registries));
         }
     }
+
 
     @FunctionalInterface
     private interface ProviderFactory<T extends DataProvider> {

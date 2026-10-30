@@ -77,3 +77,10 @@ config="${mod_id}.mixins.json"
     versionRange="[${cc_tweaked_version},)"
     ordering="NONE"
     side="BOTH"
+
+#[[dependencies.${mod_id}]]
+#    modId="createoreexcavation"
+#    type="optional"
+#    versionRange="[coe_version,)"
+#    ordering="NONE"
+#    side="BOTH"

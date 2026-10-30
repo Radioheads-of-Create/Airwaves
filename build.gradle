@@ -133,6 +133,10 @@ dependencies {
 
     //localRuntime("dev.metallurgists:rutile:${minecraft_version}-${rutile_version}")
     localRuntime("me.djtheredstoner:DevAuth-neoforge:1.2.1")
+
+    // Create Ore Excavation
+//    compileOnly("maven.modrinth:ResbpANg:${minecraft_version}-${coe_version}")
+//    localRuntime("maven.modrinth:ResbpANg:${minecraft_version}-${coe_version}")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
@@ -149,7 +153,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             sable_version          : sable_version,
             svc_version            : voicechat_api_version,
             jei_version            : jei_version,
-            cc_tweaked_version     : cc_tweaked_version
+            cc_tweaked_version     : cc_tweaked_version,
+            // coe_version            : coe_version
     ]
     inputs.properties replaceProperties
     expand replaceProperties
