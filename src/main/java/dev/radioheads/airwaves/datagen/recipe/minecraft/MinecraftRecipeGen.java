@@ -33,7 +33,18 @@ public class MinecraftRecipeGen extends RecipeProvider {
                 200
         )
                 .unlockedBy("has_raw_silver", has(AirwaveMaterials.SILVER.rawMaterial))
-                .save(out);
+                .save(out, "silver_blasting");
+
+        SimpleCookingRecipeBuilder.smelting(
+                        Ingredient.of(AirwaveMaterials.SILVER.rawMaterial),
+                        RecipeCategory.MISC,
+                        AirwaveItems.SILVER_INGOT.asStack(),
+                        0.1f,
+                        200
+                )
+                .unlockedBy("has_raw_silver", has(AirwaveMaterials.SILVER.rawMaterial))
+                .save(out, "silver_smelting");
+
 
         SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(AirwaveMaterials.SILVER.rawStorageBlocks.items()),
