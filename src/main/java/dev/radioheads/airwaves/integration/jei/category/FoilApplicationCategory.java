@@ -27,7 +27,7 @@ public class FoilApplicationCategory extends CreateRecipeCategory<FoilApplicatio
 
     @Override
     protected void draw(FoilApplicationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
-
+        machine.draw(gui, 50, 50, 0, true);
     }
 
     public static class AssemblyFoilApplication extends SequencedAssemblySubCategory {

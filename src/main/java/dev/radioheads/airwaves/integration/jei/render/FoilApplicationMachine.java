@@ -6,6 +6,7 @@ import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.registry.AirwaveBlocks;
+import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import net.createmod.catnip.gui.element.GuiGameElement;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.Direction;
@@ -32,6 +33,16 @@ public class FoilApplicationMachine extends AnimatedKinetics {
 
         blockElement(AllPartialModels.SHAFT_HALF)
                 .rotateBlock(22.5, 22.5 + 270, 0.0)
+                .scale(scale)
+                .render(graphics);
+
+        blockElement(AllPartialModels.BELT_END)
+                .rotateBlock(22.5, 22.5, 0.0)
+                .scale(scale)
+                .render(graphics);
+
+        blockElement(AirwavePartialModels.FOIL_ROLL)
+                .rotateBlock(22.5, 22.5, 0.0)
                 .scale(scale)
                 .render(graphics);
 
