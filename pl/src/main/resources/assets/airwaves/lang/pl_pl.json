@@ -54,5 +54,6 @@
   "item.airwaves.silver_wire": "Srebrny Kabel",
   "item.airwaves.small_capacitor": "Mały Kondensator",
   "item.airwaves.speaker_cone": "Membrana Głośnika",
-  "item.airwaves.transistor": "Tranzystor"
+  "item.airwaves.transistor": "Tranzystor",
+  "recipe.foil_application": "Foil Application"
 }
