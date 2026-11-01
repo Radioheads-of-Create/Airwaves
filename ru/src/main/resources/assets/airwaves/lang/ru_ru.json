@@ -54,5 +54,6 @@
   "item.airwaves.silver_wire": "",
   "item.airwaves.small_capacitor": "Маленький конденсатор",
   "item.airwaves.speaker_cone": "Динамик",
-  "item.airwaves.transistor": "Транзистор"
+  "item.airwaves.transistor": "Транзистор",
+  "recipe.foil_application": "Foil Application"
 }
