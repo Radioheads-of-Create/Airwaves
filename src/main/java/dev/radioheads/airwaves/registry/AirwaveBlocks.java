@@ -7,6 +7,7 @@ import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
+import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.block.RadioBlock;
 import dev.radioheads.airwaves.content.block.TuningTableBlock;
 import dev.radioheads.airwaves.content.item.RadioItem;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -139,6 +141,25 @@ public final class AirwaveBlocks {
                                     .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
                                             .include(AirwaveDataComponents.TUNING))))))
             .register();
+
+    public static final BlockEntry<FoilApplicatorBlock>
+        FOIL_APPLICATOR =
+            Airwaves.REGISTRATE.block("foil_applicator", FoilApplicatorBlock::new)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
+                        Direction facing = state.getValue(FoilApplicatorBlock.HORIZONTAL_FACING);
+
+                        return new ConfiguredModel[] {
+                                new ConfiguredModel(
+                                        prov.models().getExistingFile(prov.modLoc("foil_applicator")),
+                                        0,
+                                        facing.get2DDataValue() * 90,
+                                        false
+                                )
+                        };
+                    }))
+                    .simpleItem()
+                    .register();
 
     public static void init() {}
 }

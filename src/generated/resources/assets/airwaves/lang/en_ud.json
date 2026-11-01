@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.pressed_shape": "ǝdɐɥs pǝssǝɹd ɐ oʇuı ǝdɐɥs ǝɥʇ sǝssǝɹd ʇɐɥʇ ssǝɹd ǝdɐɥs ɐ oʇuı sǝob ǝdɐɥs ǝɥ⟘",
+  "advancement.airwaves.pressed_shape.description": "ǝdɐɥs pǝssǝɹd ɐ oʇuı ǝdɐɥs ɐ ssǝɹԀ",
   "advancement.airwaves.resistor": "ǝɔuɐʇsısǝɹ ǝɥʇ uıoſ",
   "advancement.airwaves.resistor.description": "˙˙˙ɯɯɯɯɯɯɥO",
   "advancement.airwaves.root": "sǝʌɐʍɹıⱯ",
@@ -21,6 +23,7 @@
   "airwaves.tier.low_power": "ɹǝʍoԀ-ʍoꞀ",
   "airwaves.tier.max_power": "ɹǝʍoԀ-xɐW",
   "airwaves.tier.mid_power": "ɹǝʍoԀ-pıW",
+  "block.airwaves.foil_applicator": "ɹoʇɐɔıןddⱯ ןıoℲ",
   "block.airwaves.radio": "oıpɐᴚ",
   "block.airwaves.silver_block": "ɹǝʌןıS ɟo ʞɔoןᗺ",
   "block.airwaves.silver_casing": "buısɐƆ ɹǝʌןıS",

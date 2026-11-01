@@ -91,6 +91,7 @@ public final class AirwaveLang extends Lang {
         addAdvancement("root", "Airwaves", "It's Airwave time!");
         addAdvancement("speaker_cone", "Good Morning Vietnam!", "Obtain a radio");
         addAdvancement("resistor", "Join the resistance", "Ohmmmmmm...");
+        addAdvancement("pressed_shape", "The shape goes into a shape press that presses the shape into a pressed shape", "Press a shape into a pressed shape");
     }
 
     private static void add(String key, String value) {

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "airwaves:block/foil_applicator",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "airwaves:block/foil_applicator",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "airwaves:block/foil_applicator"
+    },
+    "facing=west": {
+      "model": "airwaves:block/foil_applicator",
+      "y": 90
+    }
+  }
+}
