@@ -18,6 +18,7 @@
   "airwaves.container.tuning_table": "Tavolo di Sintonizzazione",
   "airwaves.direction.display": "%s° %s",
   "airwaves.direction.target": "Destinazione",
+  "airwaves.recipe.foil_application": "Foil Application",
   "airwaves.tier.creative": "Creativa",
   "airwaves.tier.high_power": "Alta Potenza",
   "airwaves.tier.low_power": "Bassa Potenza",
@@ -54,6 +55,5 @@
   "item.airwaves.silver_wire": "Filo d'argento",
   "item.airwaves.small_capacitor": "Condensatore Piccolo",
   "item.airwaves.speaker_cone": "Cono Altoparlante",
-  "item.airwaves.transistor": "Transistor",
-  "recipe.foil_application": "Foil Application"
+  "item.airwaves.transistor": "Transistor"
 }
