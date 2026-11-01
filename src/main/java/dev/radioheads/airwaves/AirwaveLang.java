@@ -124,6 +124,6 @@ public final class AirwaveLang extends Lang {
     }
 
     private static void addRecipe(String key) {
-        addBasic("recipe." + key, snakeCaseToSpacedTitleCase(key));
+        add("recipe." + key, snakeCaseToSpacedTitleCase(key));
     }
 }

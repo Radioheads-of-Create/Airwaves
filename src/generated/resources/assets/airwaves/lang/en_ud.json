@@ -18,6 +18,7 @@
   "airwaves.container.tuning_table": "ǝןqɐ⟘ buıun⟘",
   "airwaves.direction.display": "%s °%s",
   "airwaves.direction.target": "ʇǝbɹɐ⟘",
+  "airwaves.recipe.foil_application": "uoıʇɐɔıןddⱯ ןıoℲ",
   "airwaves.tier.creative": "ǝʌıʇɐǝɹƆ",
   "airwaves.tier.high_power": "ɹǝʍoԀ-ɥbıH",
   "airwaves.tier.low_power": "ɹǝʍoԀ-ʍoꞀ",
@@ -54,6 +55,5 @@
   "item.airwaves.silver_wire": "ǝɹıM ɹǝʌןıS",
   "item.airwaves.small_capacitor": "ɹoʇıɔɐdɐƆ ןןɐɯS",
   "item.airwaves.speaker_cone": "ǝuoƆ ɹǝʞɐǝdS",
-  "item.airwaves.transistor": "ɹoʇsısuɐɹ⟘",
-  "recipe.foil_application": "uoıʇɐɔıןddⱯ ןıoℲ"
+  "item.airwaves.transistor": "ɹoʇsısuɐɹ⟘"
 }
