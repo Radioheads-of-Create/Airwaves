@@ -2,6 +2,7 @@ package dev.radioheads.airwaves.datagen;
 
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.datagen.advancement.AirwaveAdvancementGen;
+import dev.radioheads.airwaves.datagen.recipe.airwaves.AirwaveFoilApplicationGen;
 import dev.radioheads.airwaves.datagen.recipe.create.*;
 import dev.radioheads.airwaves.datagen.recipe.minecraft.MinecraftRecipeGen;
 import net.minecraft.core.HolderLookup;
@@ -24,6 +25,7 @@ public final class AirwaveDataGen {
             AirwavePressingRecipeGen::new,
             AirwaveSequencedAssemblyRecipeGen::new,
             AirwaveItemAppliacationRecipeGen::new,
+            AirwaveFoilApplicationGen::new,
             MinecraftRecipeGen::new
     );
 
