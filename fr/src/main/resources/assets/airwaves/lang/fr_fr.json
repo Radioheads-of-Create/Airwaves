@@ -18,6 +18,7 @@
   "airwaves.container.tuning_table": "Tableau d'ajustement",
   "airwaves.direction.display": "%s° %s",
   "airwaves.direction.target": "Cible",
+  "airwaves.recipe.foil_application": "Foil Application",
   "airwaves.tier.creative": "Créatif",
   "airwaves.tier.high_power": "Haute-Puissance",
   "airwaves.tier.low_power": "Faible-Puissance",
@@ -54,6 +55,5 @@
   "item.airwaves.silver_wire": "Fil d’Argent",
   "item.airwaves.small_capacitor": "Petit Condensateur",
   "item.airwaves.speaker_cone": "Cône de l'hautparleur",
-  "item.airwaves.transistor": "Transistor",
-  "recipe.foil_application": "Foil Application"
+  "item.airwaves.transistor": "Transistor"
 }
