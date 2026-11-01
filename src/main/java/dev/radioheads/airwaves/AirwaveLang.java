@@ -2,6 +2,7 @@ package dev.radioheads.airwaves;
 
 import dev.radioheads.airwaves.api.antenna.CompassPoint;
 import net.createmod.catnip.lang.Lang;
+import net.createmod.catnip.lang.LangBuilder;
 import org.jetbrains.annotations.ApiStatus;
 import oshi.util.tuples.Pair;
 
@@ -52,6 +53,13 @@ public final class AirwaveLang extends Lang {
         return new String(chars);
     }
 
+    public static LangBuilder builder() {
+        return new LangBuilder(Airwaves.MOD_ID);
+    }
+
+    public static LangBuilder translate(String langKey, Object... args) {
+        return builder().translate(langKey, args);
+    }
 
     // Everything below is for generation of lang
     private static List<Pair<String, String>> lang;
