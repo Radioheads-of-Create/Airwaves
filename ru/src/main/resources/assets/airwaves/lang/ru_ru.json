@@ -18,6 +18,7 @@
   "airwaves.container.tuning_table": "Таблица частот",
   "airwaves.direction.display": "%s° %s",
   "airwaves.direction.target": "",
+  "airwaves.recipe.foil_application": "Foil Application",
   "airwaves.tier.creative": "Творческий",
   "airwaves.tier.high_power": "Высокая Мощность",
   "airwaves.tier.low_power": "Низкая мощность",
@@ -54,6 +55,5 @@
   "item.airwaves.silver_wire": "",
   "item.airwaves.small_capacitor": "Маленький конденсатор",
   "item.airwaves.speaker_cone": "Динамик",
-  "item.airwaves.transistor": "Транзистор",
-  "recipe.foil_application": "Foil Application"
+  "item.airwaves.transistor": "Транзистор"
 }
