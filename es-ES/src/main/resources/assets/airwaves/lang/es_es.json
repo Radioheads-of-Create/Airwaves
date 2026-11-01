@@ -54,5 +54,6 @@
   "item.airwaves.silver_wire": "Cable de plata",
   "item.airwaves.small_capacitor": "Capacitor pequeño",
   "item.airwaves.speaker_cone": "Parlante",
-  "item.airwaves.transistor": "Transistor"
+  "item.airwaves.transistor": "Transistor",
+  "recipe.foil_application": "Foil Application"
 }
