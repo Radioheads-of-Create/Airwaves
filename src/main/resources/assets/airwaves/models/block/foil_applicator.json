@@ -1,6 +1,5 @@
 {
 	"format_version": "26.3",
-	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "foil_applicator",
