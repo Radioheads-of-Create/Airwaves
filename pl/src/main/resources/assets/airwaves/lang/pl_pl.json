@@ -18,6 +18,7 @@
   "airwaves.container.tuning_table": "Stół Dostrajający",
   "airwaves.direction.display": "%s° %s",
   "airwaves.direction.target": "Cel",
+  "airwaves.recipe.foil_application": "Foil Application",
   "airwaves.tier.creative": "Kreatywny",
   "airwaves.tier.high_power": "Wysoka-Moc",
   "airwaves.tier.low_power": "Niska-Moc",
@@ -54,6 +55,5 @@
   "item.airwaves.silver_wire": "Srebrny Kabel",
   "item.airwaves.small_capacitor": "Mały Kondensator",
   "item.airwaves.speaker_cone": "Membrana Głośnika",
-  "item.airwaves.transistor": "Tranzystor",
-  "recipe.foil_application": "Foil Application"
+  "item.airwaves.transistor": "Tranzystor"
 }
