@@ -54,5 +54,6 @@
   "item.airwaves.silver_wire": "Fil d’Argent",
   "item.airwaves.small_capacitor": "Petit Condensateur",
   "item.airwaves.speaker_cone": "Cône de l'hautparleur",
-  "item.airwaves.transistor": "Transistor"
+  "item.airwaves.transistor": "Transistor",
+  "recipe.foil_application": "Foil Application"
 }
