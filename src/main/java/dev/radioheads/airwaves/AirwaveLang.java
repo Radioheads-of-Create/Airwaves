@@ -1,6 +1,7 @@
 package dev.radioheads.airwaves;
 
 import dev.radioheads.airwaves.api.antenna.CompassPoint;
+import dev.radioheads.airwaves.registry.AirwaveRecipeTypes;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.lang.LangBuilder;
 import org.jetbrains.annotations.ApiStatus;
@@ -23,6 +24,17 @@ public final class AirwaveLang extends Lang {
             String s = split[i];
             String titleCase = toTitleCase(s, i == 0);
             joiner.add(titleCase);
+        }
+
+        return joiner.toString();
+    }
+
+    public static String snakeCaseToSpacedTitleCase(String string) {
+        StringJoiner joiner = new StringJoiner(" ");
+        String[] split = string.split("_");
+
+        for (int i = 0; i < split.length; i++) {
+            joiner.add(toTitleCase(split[i], i == 0));
         }
 
         return joiner.toString();
@@ -77,6 +89,10 @@ public final class AirwaveLang extends Lang {
             add("compass." + point.name().toLowerCase(Locale.ROOT), snakeCaseToTitleCase(point.name().toLowerCase(Locale.ROOT)));
         }
 
+        for (AirwaveRecipeTypes type : AirwaveRecipeTypes.values()) {
+            addRecipe(type.name().toLowerCase(Locale.ROOT));
+        }
+
         add("direction.display", "%s° %s");
         add("direction.target", "Target");
 
@@ -105,5 +121,9 @@ public final class AirwaveLang extends Lang {
     private static void addAdvancement(String key, String title, String description) {
         addBasic("advancement.airwaves." + key, title);
         addBasic("advancement.airwaves." + key + ".description", description);
+    }
+
+    private static void addRecipe(String key) {
+        addBasic("recipe." + key, snakeCaseToSpacedTitleCase(key));
     }
 }
