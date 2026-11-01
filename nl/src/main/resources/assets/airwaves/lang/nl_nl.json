@@ -18,6 +18,7 @@
   "airwaves.container.tuning_table": "Tuning Tafel",
   "airwaves.direction.display": "%s° %s",
   "airwaves.direction.target": "Doel",
+  "airwaves.recipe.foil_application": "Foil Application",
   "airwaves.tier.creative": "Creatief",
   "airwaves.tier.high_power": "Hoge Kracht",
   "airwaves.tier.low_power": "Lage Kracht",
@@ -54,6 +55,5 @@
   "item.airwaves.silver_wire": "Zilveren Draad",
   "item.airwaves.small_capacitor": "Kleine Condensator",
   "item.airwaves.speaker_cone": "Speaker Cone",
-  "item.airwaves.transistor": "Transistor",
-  "recipe.foil_application": "Foil Application"
+  "item.airwaves.transistor": "Transistor"
 }
