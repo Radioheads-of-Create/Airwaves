@@ -54,5 +54,6 @@
   "item.airwaves.silver_wire": "Silberkabel",
   "item.airwaves.small_capacitor": "Chline Kondensator",
   "item.airwaves.speaker_cone": "Rednerglace",
-  "item.airwaves.transistor": "Transischtor"
+  "item.airwaves.transistor": "Transischtor",
+  "recipe.foil_application": "Foil Application"
 }
