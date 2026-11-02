@@ -1,0 +1,50 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "tag": "c:ingots/silver"
+  },
+  "loops": 3,
+  "results": [
+    {
+      "chance": 0.9,
+      "id": "minecraft:diorite"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_speaker_cone"
+        },
+        {
+          "tag": "c:nuggets"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_speaker_cone"
+        }
+      ]
+    },
+    {
+      "type": "airwaves:foil_application",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_speaker_cone"
+        },
+        {
+          "tag": "airwaves:foils/gold"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_speaker_cone"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "airwaves:incomplete_speaker_cone"
+  }
+}
