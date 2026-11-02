@@ -1,0 +1,6 @@
+{
+  "parent": "airwaves:block/insulator",
+  "textures": {
+    "insulator": "airwaves:block/brass_insulator"
+  }
+}

@@ -1,0 +1,365 @@
+[
+  {
+    "group": "Start here",
+    "title": "Welcome to Airwaves",
+    "short": "Welcome",
+    "text": [
+      "Airwaves adds real radio to your Create world. Your voice leaves through a transmitter, crosses the land as a radio signal and comes out of every receiver tuned to it, with static that grows as the signal weakens.",
+      "Voice runs on the **Simple Voice Chat** mod. If your microphone works there, it works here.",
+      "## Your first station in 6 steps",
+      "1. Place an **FM Transmitter**.",
+      "2. Run a Create **shaft** into its side. Any speed works.",
+      "3. Place a **Copper Rod Base** and stack a few **Copper Antenna Rods** on top of it.",
+      "4. Click the transmitter with a **Copper Cable Spool**, then click the rod base.",
+      "5. Place a **Radio** somewhere else. Both start on 98.1 MHz.",
+      "6. Stand within **2.5 blocks** of the transmitter and talk. Anyone within **24 blocks** of the radio hears you.",
+      "> **Creative only for now:** radio equipment has no survival recipes yet. You will find it all in the Airwaves creative tab."
+    ]
+  },
+  {
+    "group": "Start here",
+    "title": "Frequencies and tuning",
+    "short": "Frequencies",
+    "text": [
+      "Every radio device sits on one frequency, and a receiver hears a transmitter on the same frequency. A strong station on the next channel can bleed in: FM broadcast stations 100 kHz apart overlap, and on HF a station one step away comes through only 2 dB down.",
+      "## The bands",
+      "- **AM:** 530 to 1700 kHz. Radio, AM Transmitter",
+      "- **HF:** 3 to 30 MHz. HF Transceiver",
+      "- **FM:** 87.5 to 108 MHz. Radio, FM Transmitter",
+      "- **VHF:** 136 to 174 MHz. Handheld, base station, repeater",
+      "- **UHF:** 400 to 470 MHz. Handheld, base station, repeater",
+      "!fig bands | The five bands. Higher bands need shorter antennas.",
+      "## Tuning Table",
+      "Right-click the table, put a device in the slot, pick a band and step the frequency. A device can only use the bands it was built for.",
+      "- The **1**, **10** and **100** buttons move that many channels up or down.",
+      "- A band button jumps to that band's default frequency and clears any shift and tones.",
+      "- **SHIFT** and the **TONE** rows only work on VHF and UHF.",
+      "## Changing a placed device",
+      "Placed blocks cannot be retuned. Break the block, tune the item and place it again. It keeps its frequency when broken."
+    ]
+  },
+  {
+    "group": "Start here",
+    "title": "AM, FM and SSB",
+    "short": "AM, FM and SSB",
+    "text": [
+      "Each band uses its own kind of signal, and that decides how a station sounds as it gets weaker.",
+      "- **FM, VHF and UHF** stay clean until they are almost out of range, then drop away fast.",
+      "- **AM and HF** start to hiss early and fade slowly across a wide area.",
+      "## Two stations, one frequency",
+      "On FM, VHF and UHF the stronger signal takes over: a signal **6 dB** weaker is shut out, while closer ones jam each other. On AM and HF, every signal mixes together and adds to the noise.",
+      "## How it sounds",
+      "FM broadcast carries the fullest voice, then AM, then VHF and UHF. HF sideband is the thinnest."
+    ]
+  },
+  {
+    "group": "Start here",
+    "title": "Goggles and commands",
+    "short": "Goggles",
+    "text": [
+      "Wear Create's **Engineer's Goggles** and look at a station to see:",
+      "- Its frequency, shift and tones",
+      "- Its power in watts, including any amplifier",
+      "- Its antenna: whip, dipole, Yagi or none",
+      "- The signal it hears, as a percentage, if it can receive",
+      "A Radio shows its frequency and signal.",
+      "## Commands",
+      "These need operator permission.",
+      "- **/airwaves sky** shows daylight, solar activity, the critical frequency, and any flare, storm or tropo.",
+      "- **/airwaves link <from> <to> <mhz>** works out the link between two positions, both ways. A positive margin means it is heard."
+    ]
+  },
+  {
+    "group": "Start here",
+    "title": "Troubleshooting",
+    "short": "Troubleshooting",
+    "text": [
+      "> Look at the block with **Engineer's Goggles** first.",
+      "## The station stays dark",
+      "- Is a shaft turning it? Any speed works, but it must not be overstressed.",
+      "- A stopped station can neither send nor hear.",
+      "## It runs, but nobody hears me",
+      "- Check the power panel on the back. New stations start at a tenth of full power.",
+      "- Do the goggles say **No antenna**? Without one it barely radiates.",
+      "- Do the frequencies match exactly? A radio with an RX tone only opens for that tone.",
+      "- On AM and HF, check the antenna length. They need long ones.",
+      "- Is the antenna under a roof or underground? Blocks overhead cost signal.",
+      "- Is a dipole or Yagi talking to a whip or a handheld? Flat and upright antennas lose **10 dB** to each other.",
+      "## I hear nothing",
+      "- Radios and base stations play within **24 blocks**.",
+      "- Handhelds only work in your hand, main or off.",
+      "- Silence is normal: you only hear a voice while someone is talking.",
+      "- Check that the talker's microphone works in Simple Voice Chat.",
+      "## A cable will not connect",
+      "The text above your hotbar says why. It is over **64 blocks**, you are short of spools, a block already has 4 cables, or neither end is an Insulator, Rod Base or Amplifier."
+    ]
+  },
+  {
+    "group": "On the air",
+    "title": "Radios and speakers",
+    "short": "Radios",
+    "text": [
+      "The **Radio** listens on AM and FM. Tune it, place it and it plays aloud for anyone within **24 blocks**.",
+      "It has its own short built-in aerial, so it needs no cable. That suits FM well, but makes it a weak AM receiver.",
+      "Base stations and the HF Transceiver play the same way. Each one sounds from where it stands, so several around a hall all carry the voice.",
+      "> Silence is normal. You only hear a station while a voice is going through it."
+    ]
+  },
+  {
+    "group": "On the air",
+    "title": "Handheld Radio",
+    "short": "Handheld",
+    "text": [
+      "The **Handheld Radio** is a 5 W walkie-talkie for VHF and UHF. It only works in your hand, main or off.",
+      "- **Hold right-click** to talk.",
+      "- **Just hold it** to listen. The voice plays in your own ears wherever you walk.",
+      "- The bar above your hotbar shows its frequency and the signal, or **Transmitting**.",
+      "Two handhelds reach about **550 blocks** over flat land, and less with hills in the way. For more, go through a base station or a repeater on high ground.",
+      "On the move, the signal flickers as reflections around you come and go. Stand still for the steadiest sound.",
+      "> Two handhelds on the same frequency talk straight to each other. They only need a shift to use a repeater."
+    ]
+  },
+  {
+    "group": "On the air",
+    "title": "Talking on the air",
+    "short": "Talking",
+    "text": [
+      "Stand within **2.5 blocks** of a running transmitter, base station or HF Transceiver and talk. There is no button: your voice goes out as long as you stay close.",
+      "- With several in reach, the nearest one takes your voice.",
+      "- A handheld with its button held always comes first.",
+      "- You cannot talk straight into a repeater.",
+      "A station's lamp changes while a voice is going through it.",
+      "> People standing near you still hear you the normal way through Simple Voice Chat."
+    ]
+  },
+  {
+    "group": "Stations",
+    "title": "Transmitters and base stations",
+    "short": "Transmitters",
+    "text": [
+      "- **AM and FM Transmitter:** 1000 W, broadcast only. Always on the air, and they cannot receive.",
+      "- **VHF and UHF Base Station:** 50 W, talk and listen.",
+      "- **HF Transceiver:** 100 W, talk and listen on shortwave.",
+      "## Power",
+      "They run on Create rotation through a shaft in either side. Any speed works and speed does not change the range, but they must not be overstressed. A stopped station neither sends nor hears.",
+      "Set the transmit power with the value panel on the **back**. New stations start at a tenth of full power.",
+      "- Stress: 4 to 32 SU per RPM, rising with the power setting.",
+      "> Watts help less than you would expect: ten times the power gives about 25% more reach. Height and a good antenna do far more.",
+      "Every station needs an antenna. Without one, only its connector radiates: about as far as a handheld on UHF, and almost nothing on HF and AM."
+    ]
+  },
+  {
+    "group": "Stations",
+    "title": "Amplifier",
+    "short": "Amplifier",
+    "text": [
+      "The **Amplifier** multiplies transmit power by **10**, which is +10 dB. Put it on the cable run between a station and its antenna.",
+      "- Run it with a shaft, at 32 SU per RPM.",
+      "- Stopped, it just passes the signal through.",
+      "- It also hears for you. Near the antenna it makes up for the cable below it: on 100 blocks of UHF cable it hears about 9 dB better.",
+      "- Only the strongest counts, so a second one in line adds nothing.",
+      "- It also works as a cable junction, taking up to 4 cables."
+    ]
+  },
+  {
+    "group": "Stations",
+    "title": "Repeaters",
+    "short": "Repeaters",
+    "text": [
+      "A **Repeater** hears a station on one frequency and sends it out again on another at 50 W, usually from high ground where it reaches much further. It works on VHF and UHF.",
+      "## Shift",
+      "The two frequencies must be a full shift apart: **0.6 MHz** on VHF, **5 MHz** on UHF. A new VHF repeater listens on 146.5 MHz and sends on 147.1 MHz. A new UHF one listens on 446 MHz and sends on 451 MHz.",
+      "> A repeater always keeps a full shift, so **Off** is greyed out for it. Near the ends of a band the shift turns around to fit.",
+      "## Using one",
+      "1. Tune your handhelds to the repeater's output, 147.1 MHz.",
+      "2. Press **SHIFT -** so they send on its input, 146.5 MHz.",
+      "3. Now everyone talks through the repeater.",
+      "!fig repeater | Handhelds send on 146.5 and hear the repeater on 147.1.",
+      "## Chains",
+      "Up to **4** repeaters can run in a row: tune each one's input to the last one's output. Every hop adds noise, so a chain is only as good as its weakest link.",
+      "A repeater has no speaker, and it keeps working while nobody is near."
+    ]
+  },
+  {
+    "group": "Stations",
+    "title": "Tones",
+    "short": "Tones",
+    "text": [
+      "VHF and UHF radios can send a quiet tone with your voice, and stay shut until they hear one. That lets several groups share a frequency without hearing each other.",
+      "- **TX TONE:** the tone you send.",
+      "- **RX TONE:** the tone you listen for. Set it, and the radio stays silent for anything else.",
+      "- **Off** sends no tone, or hears everything.",
+      "There are 50 tones to choose from in the Tuning Table.",
+      "## Locking a repeater",
+      "Give a repeater an RX tone and only stations sending it can use the repeater. It can send a TX tone of its own, too.",
+      "> Tones are not secret. A radio with its RX tone off hears every group, and a strong FM signal with the wrong tone can still block yours."
+    ]
+  },
+  {
+    "group": "Antennas",
+    "title": "Building an antenna",
+    "short": "Building one",
+    "text": [
+      "An antenna is a shape you build from **Antenna Rods** on top of a **Rod Base**. Cable the rod base to your station. The shape of the rods decides what you get:",
+      "- **Whip:** rods stacked taller than they are wide.",
+      "- **Dipole:** a flat line of rods.",
+      "- **Yagi:** a flat boom crossed by two or more wider rows, with a gap between them.",
+      "Rods only join the top of a Rod Base, so lay a dipole or Yagi flat across it.",
+      "!fig shapes | Three shapes from the same rods. The Yagi is seen from above.",
+      "## Rod materials",
+      "Rods are thick, so their metal barely matters: even gold loses less than a tenth of a dB. Choose by looks.",
+      "Up to 256 rods count. Goggles on the station show what it found.",
+      "The metal of a Rod Base is only for looks too."
+    ]
+  },
+  {
+    "group": "Antennas",
+    "title": "Antenna length",
+    "short": "Length",
+    "text": [
+      "Radio waves have a size, and an antenna works best at certain fractions of a wave. One wave is **300 ÷ MHz** blocks.",
+      "## Whips",
+      "- **A quarter wave**, 75 ÷ MHz: efficient. Shorter loses about 6 dB each time you halve it.",
+      "- **Five eighths**, 188 ÷ MHz: the strongest along the ground, about 3 dB more.",
+      "- **A full wave**, 300 ÷ MHz: sends almost nothing along the ground. Avoid it.",
+      "!fig whip_length | A whip's gain by its height in waves. It peaks at five eighths and dies at a full wave.",
+      "## Whips by band",
+      "- **AM, 1 MHz:** 75 rods works, 188 is best",
+      "- **HF, 7 MHz:** 11 works, 26 is best, never 42",
+      "- **FM, 98 MHz:** 2 rods, never 3",
+      "- **VHF, 146 MHz:** 1 rod, never 2",
+      "- **UHF, 446 MHz:** 1 rod, never 2",
+      "On AM a 10-rod whip gives away about 15 dB, and it still works.",
+      "> On VHF and UHF one rod is all a whip needs. Build the height into the tower under it."
+    ]
+  },
+  {
+    "group": "Antennas",
+    "title": "Dipoles and Yagis",
+    "short": "Dipoles & Yagis",
+    "text": [
+      "A whip sends equally all around. Dipoles and Yagis aim, on sending and on hearing alike.",
+      "!fig patterns | From above: a whip sends all round, a dipole to two sides, a Yagi one way.",
+      "## Lying flat",
+      "Dipoles and Yagis lie flat, so their waves are **horizontal**. Whips and handhelds stand up, so theirs are **vertical**. A flat antenna and an upright one lose about **10 dB** to each other along the ground. Off the sky it does not matter.",
+      "## Dipole",
+      "A flat line of rods works out of both sides and almost nothing off its ends. Lay the line across the way you want to talk.",
+      "- Half a wave, 150 ÷ MHz blocks: efficient, with 2 dB of gain.",
+      "- One and a quarter waves: the most gain, about 5 dB.",
+      "!fig dipole_length | A dipole's gain by its length in waves. Past one and a quarter, its signal splits away from broadside.",
+      "On HF a low dipole sends much of its signal straight up, which falls back over the land around you. A whip sends low, which goes further.",
+      "## Yagi",
+      "Lay a straight **boom** of rods, then cross it with wider rows, leaving a gap between rows. Each row wider than one rod is an **element**.",
+      "- It aims along the boom, from the **longest** element toward the **shortest**.",
+      "- Each element must be close to half a wave long, and within half a wave of the next. The rest do nothing.",
+      "- With enough elements, gain grows with the boom: about 7 dB at a fifth of a wave long, 11 at four fifths, 14 at two waves. The beam narrows as it gains.",
+      "!fig yagi_length | A Yagi's gain by its boom length in waves, with enough elements to fill it.",
+      "At block scale that only works on **HF**. On 14 MHz, elements 9 to 11 rods wide and 4 rods apart give about 9 dB.",
+      "> On VHF and UHF a single rod is already longer than half a wave. Build a whip up high instead."
+    ]
+  },
+  {
+    "group": "Antennas",
+    "title": "Cables and insulators",
+    "short": "Cables",
+    "text": [
+      "Cables carry the signal between a station and its antenna.",
+      "!fig cables | A station cabled to its rod base through an insulator.",
+      "1. Click a station, amplifier, insulator or rod base with a cable spool.",
+      "2. Look at the next one. A trail shows where the cable will run, with its length and the spools it needs above your hotbar.",
+      "3. Click it to connect.",
+      "If it can't reach, your first click is kept, so try somewhere else. To cancel, click the first block again or sneak-click anywhere.",
+      "- A cable spans up to **64 blocks**.",
+      "- Every **8 blocks** take one cable spool, from anywhere in your inventory.",
+      "- One end must be an **Insulator**, **Rod Base** or **Amplifier**.",
+      "- Each block takes up to **4** cables.",
+      "- **Sneak-click** a block with a cable spool to take its cables down. You get the spools back.",
+      "To go further, add more insulators. They only carry cables: rods need a **Rod Base**.",
+      "**Andesite** and **Brass Insulators** work the same, and go on any side of a block.",
+      "## Loss",
+      "Long cables eat signal both ways, and more at higher frequencies. **Silver** loses 3% less than **copper**, and **gold** a fifth more.",
+      "100 blocks of copper cost about 1.4 dB at 7 MHz, 7 dB at 146 MHz and 13 dB at 446 MHz.",
+      "> On VHF and UHF, keep the cable short, or put an Amplifier near the antenna."
+    ]
+  },
+  {
+    "group": "Propagation",
+    "title": "How far will it go?",
+    "short": "Range",
+    "text": [
+      "Range comes from power, antennas, frequency and above all **height**. These are rough guides for flat land, at midday, on full power:",
+      "- Handheld to handheld: **550 blocks**",
+      "- Base station with a 1-rod whip, 8 above the land, to a handheld: **1500** out, **1200** back",
+      "- Between two of those base stations: **2650**",
+      "- Repeater with a 1-rod whip, 40 above the land: **3050** out to a handheld, **2400** back in",
+      "- FM Transmitter with a 2-rod whip, 20 above the land, to a Radio: **2250**",
+      "- AM Transmitter with a 10-rod whip to a Radio: **4450**",
+      "- AM Transmitter with a 75-rod whip: **6150** by day, **14950** at night",
+      "## Height",
+      "Height means how far the antenna stands above the **average ground within 128 blocks**. A hilltop counts. A tall tower in a valley counts for less than it looks. Doubling the height gives roughly a third more reach.",
+      "!fig height | A VHF base station with a 1-rod whip, talking to a handheld.",
+      "> To check a real link, use **/airwaves link**."
+    ]
+  },
+  {
+    "group": "Propagation",
+    "title": "Terrain and weather",
+    "short": "Terrain, weather",
+    "text": [
+      "## Terrain",
+      "VHF and UHF travel in straight lines. Ground or buildings between two antennas cost signal, and the higher the frequency, the more a ridge hurts. Leaves do not count.",
+      "AM and low HF creep along the ground and barely notice hills. Over the **sea** they fade twenty times more slowly than over land.",
+      "## Indoors and underground",
+      "Blocks over an antenna cost signal: about 2 dB each on AM, and 4 on HF, VHF and UHF. A handheld deep in a cave is cut off. Keep antennas under open sky.",
+      "## Weather",
+      "- **Night** brings static from distant storms on AM and low HF. Signals carry further, but the noise rises too.",
+      "- **Thunderstorms** overhead fill AM and HF with static, most of all by day.",
+      "- **Calm dawns and dusks** add a fifth to FM, VHF and UHF reach, unless it is raining.",
+      "## Dimensions",
+      "Radio stays in its own dimension. The Nether and the End have no sky, so nothing bounces off it there."
+    ]
+  },
+  {
+    "group": "Propagation",
+    "title": "Shortwave and the sky",
+    "short": "Shortwave",
+    "text": [
+      "HF and AM can bounce off the sky and land tens of thousands of blocks away. This **sky wave** changes with the time of day. These guides are for 100 W into a dipole, 12 above the land:",
+      "- **Day:** 28 MHz reaches furthest, up to 105000 blocks. 21 MHz reaches about 70000, 14 MHz 35000, 7 MHz 11000 and 3.6 MHz 4250.",
+      "- **Night:** 21 and 28 MHz stop bouncing. 14 MHz reaches about 64000, 7 MHz 30000 and 3.6 MHz 11700.",
+      "## Near and far",
+      "A low dipole fills the land around it, because much of its signal goes straight up and falls back nearby. A whip sends low, so it reaches further: on 3.6 MHz at night a quarter-wave whip reaches 27000 blocks.",
+      "## The skip zone",
+      "The sky wave lands far from the transmitter, which can leave a silent ring around the station. On 21 MHz by day, nearby signals end at about 4400 blocks and return at about 5800. On 28 MHz the ring runs from 4600 to 8200, and on 14 MHz at night from 2300 to 8800.",
+      "!fig sky | HF bounces off the sky and comes down far away, skipping the gap.",
+      "## The sun",
+      "- **Solar activity** rises and falls over a **60 day** cycle. High activity opens 21 and 28 MHz, and low activity closes them.",
+      "- **Solar flares** last a minute and wipe out most of the sky wave by day, the lowest frequencies first. Night is not affected.",
+      "- Sky waves **fade** in and out over half a minute or so.",
+      "> **/airwaves sky** shows the critical frequency: the highest that bounces straight back. Distant stations can use up to 3.5 times that."
+    ]
+  },
+  {
+    "group": "Propagation",
+    "title": "Stations far away",
+    "short": "Far stations",
+    "text": [
+      "**Repeaters** and **AM and FM Transmitters** keep working when nobody is near and their chunk unloads. They survive a server restart too.",
+      "While unloaded they hold the state they were last in. A running repeater stays on, even if its power would have stopped, and one that was off stays off until you visit.",
+      "Base stations, HF Transceivers and radios only work while loaded, which they are whenever someone is using them.",
+      "> Ground in unloaded chunks counts as clear, so a link can weaken once the land between loads."
+    ]
+  },
+  {
+    "group": "Making things",
+    "title": "Materials",
+    "short": "Materials",
+    "text": [
+      "- **Silver Ore:** in stone from y 85 upward, so look high in the mountains.",
+      "- Smelt **Raw Silver** into **Silver Ingots**. Nine make a block.",
+      "- Press ingots into **Silver Sheets** with a Mechanical Press.",
+      "- Cut a copper, gold or silver sheet on a Mechanical Saw to get **4 wires**.",
+      "- **Field Manual:** a Book and one Copper Wire."
+    ]
+  }
+]

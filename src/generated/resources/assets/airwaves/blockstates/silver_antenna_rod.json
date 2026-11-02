@@ -1,0 +1,203 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/link",
+        "x": 180
+      },
+      "when": {
+        "down": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/tip",
+        "x": 180
+      },
+      "when": {
+        "axis": "y",
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/link"
+      },
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/tip"
+      },
+      "when": {
+        "axis": "y",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/link",
+        "x": 90
+      },
+      "when": {
+        "north": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/tip",
+        "x": 90
+      },
+      "when": {
+        "axis": "z",
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/link",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "south": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/tip",
+        "x": 90,
+        "y": 180
+      },
+      "when": {
+        "axis": "z",
+        "down": "false",
+        "east": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/link",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "west": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/tip",
+        "x": 90,
+        "y": 270
+      },
+      "when": {
+        "axis": "x",
+        "down": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false",
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/link",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "east": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/tip",
+        "x": 90,
+        "y": 90
+      },
+      "when": {
+        "axis": "x",
+        "down": "false",
+        "east": "false",
+        "north": "false",
+        "south": "false",
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/antenna_rod/silver/hub"
+      },
+      "when": {
+        "OR": [
+          {
+            "axis": "x",
+            "down": "true"
+          },
+          {
+            "axis": "z",
+            "down": "true"
+          },
+          {
+            "axis": "x",
+            "up": "true"
+          },
+          {
+            "axis": "z",
+            "up": "true"
+          },
+          {
+            "axis": "x",
+            "north": "true"
+          },
+          {
+            "axis": "y",
+            "north": "true"
+          },
+          {
+            "axis": "x",
+            "south": "true"
+          },
+          {
+            "axis": "y",
+            "south": "true"
+          },
+          {
+            "axis": "y",
+            "west": "true"
+          },
+          {
+            "axis": "z",
+            "west": "true"
+          },
+          {
+            "axis": "y",
+            "east": "true"
+          },
+          {
+            "axis": "z",
+            "east": "true"
+          }
+        ]
+      }
+    }
+  ]
+}

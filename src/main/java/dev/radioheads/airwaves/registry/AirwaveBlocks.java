@@ -2,12 +2,19 @@ package dev.radioheads.airwaves.registry;
 
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.foundation.data.BuilderTransformers;
+import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.data.TagGen;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
+import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
+import dev.radioheads.airwaves.content.block.AmplifierBlock;
+import dev.radioheads.airwaves.content.block.AntennaRodBlock;
+import dev.radioheads.airwaves.content.block.InsulatorBlock;
 import dev.radioheads.airwaves.content.block.RadioBlock;
+import dev.radioheads.airwaves.content.block.RodBaseBlock;
+import dev.radioheads.airwaves.content.block.TransmitterBlock;
 import dev.radioheads.airwaves.content.block.TuningTableBlock;
 import dev.radioheads.airwaves.content.item.RadioItem;
 import net.minecraft.core.Direction;
@@ -20,6 +27,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -29,6 +37,8 @@ import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.Map;
@@ -139,6 +149,146 @@ public final class AirwaveBlocks {
                                     .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
                                             .include(AirwaveDataComponents.TUNING))))))
             .register();
+
+    public static final BlockEntry<TransmitterBlock>
+            AM_TRANSMITTER = registerTransmitter("am_transmitter", "AM Transmitter", "transmitter"),
+            FM_TRANSMITTER = registerTransmitter("fm_transmitter", "FM Transmitter", "transmitter"),
+            VHF_BASE_STATION = registerTransmitter("vhf_base_station", "VHF Base Station", "base_station"),
+            UHF_BASE_STATION = registerTransmitter("uhf_base_station", "UHF Base Station", "base_station"),
+            HF_TRANSCEIVER = registerTransmitter("hf_transceiver", "HF Transceiver", "hf_transceiver"),
+            VHF_REPEATER = registerTransmitter("vhf_repeater", "VHF Repeater", "repeater"),
+            UHF_REPEATER = registerTransmitter("uhf_repeater", "UHF Repeater", "repeater");
+
+    public static final BlockEntry<InsulatorBlock>
+            ANDESITE_INSULATOR = registerInsulator("andesite"),
+            BRASS_INSULATOR = registerInsulator("brass");
+
+    private static BlockEntry<InsulatorBlock> registerInsulator(String material) {
+        return Airwaves.REGISTRATE.block(material + "_insulator", InsulatorBlock::new)
+                .initialProperties(() -> Blocks.TERRACOTTA)
+                .properties(BlockBehaviour.Properties::noOcclusion)
+                .transform(pickaxeOnly())
+                .blockstate((ctx, prov) -> prov.directionalBlock(ctx.getEntry(), prov.models().withExistingParent(ctx.getName(), prov.modLoc("block/insulator"))
+                        .texture("insulator", Airwaves.asResource("block/" + ctx.getName()))))
+                .item()
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/insulator"))
+                        .texture("insulator", Airwaves.asResource("block/" + ctx.getName())))
+                .build()
+                .register();
+    }
+
+    public static final BlockEntry<AmplifierBlock> AMPLIFIER = Airwaves.REGISTRATE.block("amplifier", AmplifierBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> new ConfiguredModel[] {
+                    new ConfiguredModel(
+                            prov.models().getExistingFile(prov.modLoc("block/amplifier/on")),
+                            0,
+                            yRotation(state.getValue(AmplifierBlock.FACING)),
+                            false
+                    )
+            }))
+            .item()
+            .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/amplifier/on")))
+            .build()
+            .register();
+
+    public static final BlockEntry<AntennaRodBlock>
+            COPPER_ANTENNA_ROD = registerAntennaRod("copper", 1.0),
+            GOLD_ANTENNA_ROD = registerAntennaRod("gold", 2.44 / 1.68),
+            SILVER_ANTENNA_ROD = registerAntennaRod("silver", 1.59 / 1.68);
+
+    // Resistivity relative to copper
+    private static BlockEntry<AntennaRodBlock> registerAntennaRod(String material, double resistivity) {
+        return Airwaves.REGISTRATE.block(material + "_antenna_rod", properties -> new AntennaRodBlock(properties, resistivity))
+                .initialProperties(SharedProperties::softMetal)
+                .properties(BlockBehaviour.Properties::noOcclusion)
+                .transform(pickaxeOnly())
+                .blockstate((ctx, prov) -> {
+                    ModelFile link = antennaRodPart(prov, material, "link");
+                    ModelFile tip = antennaRodPart(prov, material, "tip");
+                    MultiPartBlockStateBuilder parts = prov.getMultipartBuilder(ctx.getEntry());
+
+                    for (Direction side : Direction.values()) {
+                        int x = side == Direction.UP ? 0 : side == Direction.DOWN ? 180 : 90;
+                        int y = side.getAxis().isHorizontal() ? yRotation(side) : 0;
+                        BooleanProperty linked = AntennaRodBlock.LINKS.get(side);
+
+                        parts.part().modelFile(link).rotationX(x).rotationY(y).addModel()
+                                .condition(linked, true).end();
+
+                        MultiPartBlockStateBuilder.PartBuilder end = parts.part().modelFile(tip).rotationX(x).rotationY(y).addModel()
+                                .condition(linked, false).condition(AntennaRodBlock.AXIS, side.getAxis());
+                        for (Direction other : Direction.values()) {
+                            if (other.getAxis() != side.getAxis()) {
+                                end.condition(AntennaRodBlock.LINKS.get(other), false);
+                            }
+                        }
+                    }
+
+                    MultiPartBlockStateBuilder.PartBuilder hub = parts.part().modelFile(antennaRodPart(prov, material, "hub")).addModel().useOr();
+                    for (Direction side : Direction.values()) {
+                        for (Direction.Axis axis : Direction.Axis.values()) {
+                            if (axis != side.getAxis()) {
+                                hub.nestedGroup().condition(AntennaRodBlock.AXIS, axis).condition(AntennaRodBlock.LINKS.get(side), true).end();
+                            }
+                        }
+                    }
+                })
+                .item()
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/antenna_rod/item"))
+                        .texture("rod", Airwaves.asResource("block/antenna_rod/" + material)))
+                .build()
+                .register();
+    }
+
+    public static final BlockEntry<RodBaseBlock>
+            COPPER_ROD_BASE = registerRodBase("copper"),
+            GOLD_ROD_BASE = registerRodBase("gold"),
+            SILVER_ROD_BASE = registerRodBase("silver");
+
+    private static BlockEntry<RodBaseBlock> registerRodBase(String material) {
+        return Airwaves.REGISTRATE.block(material + "_rod_base", RodBaseBlock::new)
+                .initialProperties(() -> Blocks.TERRACOTTA)
+                .properties(BlockBehaviour.Properties::noOcclusion)
+                .transform(pickaxeOnly())
+                .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), antennaRodPart(prov, material, "base")))
+                .item()
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/antenna_rod/base"))
+                        .texture("rod", Airwaves.asResource("block/antenna_rod/" + material)))
+                .build()
+                .register();
+    }
+
+    private static ModelFile antennaRodPart(RegistrateBlockstateProvider prov, String material, String part) {
+        return prov.models().withExistingParent("block/antenna_rod/" + material + "/" + part, prov.modLoc("block/antenna_rod/" + part))
+                .texture("rod", Airwaves.asResource("block/antenna_rod/" + material));
+    }
+
+    private static BlockEntry<TransmitterBlock> registerTransmitter(String name, String lang, String model) {
+        return Airwaves.REGISTRATE.block(name, TransmitterBlock::new)
+                .initialProperties(SharedProperties::softMetal)
+                .properties(BlockBehaviour.Properties::noOcclusion)
+                .transform(pickaxeOnly())
+                .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> new ConfiguredModel[] {
+                        new ConfiguredModel(
+                                prov.models().getExistingFile(prov.modLoc("block/" + model + "/on")),
+                                0,
+                                yRotation(state.getValue(TransmitterBlock.FACING)),
+                                false
+                        )
+                }))
+                .item()
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/" + model + "/on")))
+                .build()
+                .lang(lang)
+                .register();
+    }
+
+    private static int yRotation(Direction facing) {
+        return ((int) facing.toYRot() + 180) % 360;
+    }
 
     public static void init() {}
 }

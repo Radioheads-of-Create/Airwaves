@@ -1,0 +1,6 @@
+{
+  "parent": "airwaves:block/antenna_rod/hub",
+  "textures": {
+    "rod": "airwaves:block/antenna_rod/gold"
+  }
+}

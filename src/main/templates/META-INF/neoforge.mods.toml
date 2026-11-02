@@ -19,8 +19,8 @@ An entire radio system for Minecraft
 [[mixins]]
 config="${mod_id}.mixins.json"
 
-#[[accessTransformers]]
-#file="META-INF/accesstransformer.cfg"
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"
@@ -67,7 +67,7 @@ config="${mod_id}.mixins.json"
 [[dependencies.${mod_id}]]
     modId="jei"
     type="optional"
-    versionRange="[${jei_version},)"
+    versionRange="[19.0,)"
     ordering="NONE"
     side="BOTH"
 

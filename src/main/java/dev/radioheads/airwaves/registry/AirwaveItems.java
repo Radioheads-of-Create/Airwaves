@@ -2,11 +2,14 @@ package dev.radioheads.airwaves.registry;
 
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
 import dev.radioheads.airwaves.content.item.EmptySpoolItem;
+import dev.radioheads.airwaves.content.item.FieldManualItem;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.tags.TagKey;
@@ -22,6 +25,18 @@ public final class AirwaveItems {
             CUT_AMETHYST = Airwaves.REGISTRATE.item("cut_amethyst", Item::new)
                 .tag(Tags.Items.GEMS)
                 .tag(Tags.Items.GEMS_AMETHYST)
+                .register();
+
+    public static final ItemEntry<FieldManualItem>
+            FIELD_MANUAL = Airwaves.REGISTRATE.item("field_manual", FieldManualItem::new)
+                .properties(p -> p.stacksTo(1))
+                .lang("Airwaves Field Manual")
+                .register();
+
+    public static final ItemEntry<Item>
+            HANDHELD_RADIO = Airwaves.REGISTRATE.item("handheld_radio", Item::new)
+                .properties(p -> p.stacksTo(1))
+                .model(NonNullBiConsumer.noop())
                 .register();
 
     public static final ItemEntry<BoardItem>
@@ -63,10 +78,15 @@ public final class AirwaveItems {
     public static final ItemEntry<EmptySpoolItem>
             EMPTY_SPOOL = registerEmptySpool("empty");
 
-    public static final ItemEntry<WireItem>
+    public static final ItemEntry<Item>
         COPPER_WIRE = registerWire("copper", AirwaveMaterials.COPPER),
         GOLD_WIRE = registerWire("gold", AirwaveMaterials.GOLD),
         SILVER_WIRE = registerWire("silver", AirwaveMaterials.SILVER);
+
+    public static final ItemEntry<CableItem>
+        COPPER_CABLE_SPOOL = registerCable("copper", AirwaveMaterials.COPPER, CableType.COPPER),
+        GOLD_CABLE_SPOOL = registerCable("gold", AirwaveMaterials.GOLD, CableType.GOLD),
+        SILVER_CABLE_SPOOL = registerCable("silver", AirwaveMaterials.SILVER, CableType.SILVER);
 
     public static final ItemEntry<CapacitorItem>
         SMALL_CAPACITOR = registerCapacitor("small", 25),
@@ -89,10 +109,17 @@ public final class AirwaveItems {
                 .register();
     }
 
-    private static ItemEntry<WireItem> registerWire(String path, AirwaveMaterials material) {
-        return Airwaves.REGISTRATE.item(path + "_wire", WireItem::new)
+    private static ItemEntry<Item> registerWire(String path, AirwaveMaterials material) {
+        return Airwaves.REGISTRATE.item(path + "_wire", Item::new)
                 .tag(material.wire)
                 .tag(AirwaveTags.Items.WIRES.tag)
+                .register();
+    }
+
+    private static ItemEntry<CableItem> registerCable(String path, AirwaveMaterials material, CableType type) {
+        return Airwaves.REGISTRATE.item(path + "_cable_spool", properties -> new CableItem(properties, type))
+                .tag(material.cable)
+                .tag(AirwaveTags.Items.CABLES.tag)
                 .register();
     }
 
