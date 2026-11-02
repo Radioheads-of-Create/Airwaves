@@ -36,7 +36,7 @@ public class AirwaveJEIPlugin implements IModPlugin {
                 .addTypedRecipes(AirwaveRecipeTypes.FOIL_APPLICATION)
                 .catalyst(AirwaveBlocks.FOIL_APPLICATOR::get)
                 .itemIcon(AirwaveItems.SILVER_FOIL)
-                .emptyBackground(170, 150)
+                .emptyBackground(150, 75)
                 .build("foil_application", FoilApplicationCategory::new);
     }
 

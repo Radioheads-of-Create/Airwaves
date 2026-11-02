@@ -3,6 +3,7 @@ package dev.radioheads.airwaves.integration.jei.category;
 import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemblySubCategory;
 import com.simibubi.create.content.processing.sequenced.SequencedRecipe;
+import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.content.recipe.FoilApplicationRecipe;
 import dev.radioheads.airwaves.integration.jei.render.FoilApplicationMachine;
@@ -22,12 +23,18 @@ public class FoilApplicationCategory extends CreateRecipeCategory<FoilApplicatio
 
     @Override
     protected void setRecipe(IRecipeLayoutBuilder builder, FoilApplicationRecipe recipe, IFocusGroup focuses) {
-
+        builder.addInputSlot(35, 6).addIngredients(recipe.getIngredients().getFirst());
+        builder.addInputSlot(90, 6).addIngredients(recipe.getIngredients().get(1));
+        builder.addOutputSlot(96, 46).addItemStack(recipe.getResultItem(null));
     }
 
     @Override
     protected void draw(FoilApplicationRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics gui, double mouseX, double mouseY) {
-        machine.draw(gui, 50, 50, 0, true);
+        machine.draw(gui, 65, 26, 0, true);
+        AllGuiTextures.JEI_DOWN_ARROW.render(gui, 90, 28);
+        AllGuiTextures.JEI_SLOT.render(gui, 34, 6);
+        AllGuiTextures.JEI_SLOT.render(gui, 90, 6);
+        AllGuiTextures.JEI_SLOT.render(gui, 95, 46);
     }
 
     public static class AssemblyFoilApplication extends SequencedAssemblySubCategory {
