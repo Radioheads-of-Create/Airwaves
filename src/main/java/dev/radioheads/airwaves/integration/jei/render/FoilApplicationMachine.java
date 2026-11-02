@@ -31,8 +31,8 @@ public class FoilApplicationMachine extends AnimatedKinetics {
                 .scale(scale)
                 .render(graphics);
 
-        blockElement(AllPartialModels.SHAFT_HALF)
-                .rotateBlock(22.5, 22.5 + 270, 0.0)
+        blockElement(shaft(Direction.Axis.Z))
+                .rotateBlock(22.5, 22.5 + 270, getCurrentAngle())
                 .scale(scale)
                 .render(graphics);
 
@@ -42,7 +42,7 @@ public class FoilApplicationMachine extends AnimatedKinetics {
                 .render(graphics);
 
         blockElement(AirwavePartialModels.FOIL_ROLL)
-                .rotateBlock(22.5, 22.5, 0.0)
+                .rotateBlock(22.5, 22.5, getCurrentAngle())
                 .scale(scale)
                 .render(graphics);
 
