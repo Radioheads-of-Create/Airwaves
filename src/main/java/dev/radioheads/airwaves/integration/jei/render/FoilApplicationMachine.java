@@ -1,6 +1,7 @@
 package dev.radioheads.airwaves.integration.jei.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
@@ -31,13 +32,13 @@ public class FoilApplicationMachine extends AnimatedKinetics {
                 .scale(scale)
                 .render(graphics);
 
-        blockElement(shaft(Direction.Axis.Z))
-                .rotateBlock(22.5, 22.5 + 270, getCurrentAngle())
+        blockElement(AllPartialModels.BELT_END)
+                .rotateBlock(22.5, 22.5, 0.0)
                 .scale(scale)
                 .render(graphics);
 
-        blockElement(AllPartialModels.BELT_END)
-                .rotateBlock(22.5, 22.5, 0.0)
+        blockElement(shaft(Direction.Axis.X))
+                .rotateBlock(22.5, 22.5, getCurrentAngle())
                 .scale(scale)
                 .render(graphics);
 

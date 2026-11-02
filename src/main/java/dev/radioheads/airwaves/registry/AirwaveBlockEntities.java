@@ -2,6 +2,8 @@ package dev.radioheads.airwaves.registry;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationRenderer;
+import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationVisual;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
 import dev.radioheads.airwaves.content.entity.block.RadioBlockEntity;
 
@@ -15,7 +17,9 @@ public final class AirwaveBlockEntities {
 
     public static final BlockEntityEntry<FoilApplicatorBlockEntity> FOIL_APPLICATOR =
             Airwaves.REGISTRATE.blockEntity("foil_applicator", FoilApplicatorBlockEntity::new)
+                    .visual(() -> FoilApplicationVisual::new)
                     .validBlock(AirwaveBlocks.FOIL_APPLICATOR::get)
+                    .renderer(() -> FoilApplicationRenderer::new)
                     .register();
 
     public static void init() {}
