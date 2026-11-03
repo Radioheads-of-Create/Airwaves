@@ -12,6 +12,8 @@ out/
 
 .run/
 
+scripts/
+
 .apt_generated
 .classpath
 .eclipse/

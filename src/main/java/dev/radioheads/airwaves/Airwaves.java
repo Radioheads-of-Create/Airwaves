@@ -42,9 +42,12 @@ public class Airwaves {
         AirwavePlacementModifiers.REGISTER.register(modEventBus);
         AirwaveRecipeTypes.register(modEventBus);
         AirwavePartialModels.init();
+        AirwaveSoundEvents.prepare();
 
         AirwaveConfig.register(modContainer);
         IntegrationLoader.init(modEventBus);
+
+        modEventBus.addListener(AirwaveSoundEvents::register);
     }
 
     public static ResourceLocation asResource(String path) {

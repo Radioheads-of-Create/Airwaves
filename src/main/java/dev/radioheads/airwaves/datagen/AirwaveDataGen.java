@@ -5,6 +5,7 @@ import dev.radioheads.airwaves.datagen.advancement.AirwaveAdvancementGen;
 import dev.radioheads.airwaves.datagen.recipe.airwaves.AirwaveFoilApplicationGen;
 import dev.radioheads.airwaves.datagen.recipe.create.*;
 import dev.radioheads.airwaves.datagen.recipe.minecraft.MinecraftRecipeGen;
+import dev.radioheads.airwaves.registry.AirwaveSoundEvents;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -36,6 +37,8 @@ public final class AirwaveDataGen {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         event.addProvider(new AirwaveAdvancementGen(output, registries, existingFileHelper));
+
+        event.addProvider(AirwaveSoundEvents.provider(event.getGenerator()));
 
         for (ProviderFactory<?> factory : PROVIDERS) {
             event.addProvider(factory.create(output, registries));
