@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.radioheads.airwaves.api.link.LinkEnd;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Locale;
@@ -35,11 +36,16 @@ public record AntennaProfile(Shape shape, double lengthBlocks, double resistivit
     private static final double REAL_GROUND_DB = 3.0;
     private static final double MIN_GAIN = 0.01;
 
-    public enum Shape {
+    public enum Shape implements StringRepresentable {
         NONE,
         WHIP;
 
-        public static final Codec<Shape> CODEC = Codec.STRING.xmap(name -> "none".equals(name) ? NONE : WHIP, shape -> shape.name().toLowerCase(Locale.ROOT));
+        public static final Codec<Shape> CODEC = StringRepresentable.fromEnum(Shape::values);
+
+        @Override
+        public String getSerializedName() {
+            return name().toLowerCase(Locale.ROOT);
+        }
     }
 
     public static AntennaProfile bare(Vec3 position) {
