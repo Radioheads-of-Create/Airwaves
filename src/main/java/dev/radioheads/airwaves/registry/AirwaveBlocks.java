@@ -11,6 +11,7 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.block.AmplifierBlock;
 import dev.radioheads.airwaves.content.block.AntennaRodBlock;
+import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.block.InsulatorBlock;
 import dev.radioheads.airwaves.content.block.RadioBlock;
 import dev.radioheads.airwaves.content.block.RodBaseBlock;
@@ -289,6 +290,25 @@ public final class AirwaveBlocks {
     private static int yRotation(Direction facing) {
         return ((int) facing.toYRot() + 180) % 360;
     }
+
+    public static final BlockEntry<FoilApplicatorBlock>
+        FOIL_APPLICATOR =
+            Airwaves.REGISTRATE.block("foil_applicator", FoilApplicatorBlock::new)
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
+                        Direction facing = state.getValue(FoilApplicatorBlock.HORIZONTAL_FACING);
+
+                        return new ConfiguredModel[] {
+                                new ConfiguredModel(
+                                        prov.models().getExistingFile(prov.modLoc("foil_applicator")),
+                                        0,
+                                        facing.get2DDataValue() * 90,
+                                        false
+                                )
+                        };
+                    }))
+                    .simpleItem()
+                    .register();
 
     public static void init() {}
 }

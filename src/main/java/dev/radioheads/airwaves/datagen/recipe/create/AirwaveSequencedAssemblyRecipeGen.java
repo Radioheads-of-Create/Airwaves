@@ -3,6 +3,7 @@ package dev.radioheads.airwaves.datagen.recipe.create;
 import com.simibubi.create.api.data.recipe.SequencedAssemblyRecipeGen;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.content.recipe.FoilApplicationRecipe;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
@@ -35,6 +36,15 @@ public final class AirwaveSequencedAssemblyRecipeGen extends SequencedAssemblyRe
                 .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.COPPER.wire)))
                 .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.SILVER.plates)))
                 .addOutput(AirwaveItems.SPEAKER_CONE, 0.9f)
-        )
+        ),
+
+    TEST = create("test", b -> b
+            .loops(3)
+            .transitionTo(AirwaveItems.INCOMPLETE_SPEAKER_CONE)
+            .require(AirwaveMaterials.SILVER.ingots)
+            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(Tags.Items.NUGGETS)))
+            .addStep(FoilApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.GOLD.foil)))
+            .addOutput(Items.DIORITE, 0.9f)
+    )
     ;
 }

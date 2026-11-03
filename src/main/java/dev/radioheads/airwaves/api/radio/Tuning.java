@@ -18,12 +18,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 @NothingNullByDefault
-public record Tuning(double frequency, Holder<RadioBand> band) {
-    public static final Tuning DEFAULT = new Tuning(98.1, AirwaveRadioBands.FM);
+public record Tuning(Frequency frequency, Holder<RadioBand> band) {
+    public static final Tuning DEFAULT = new Tuning(
+            new Frequency(98.1, HertzUnit.MHz),
+            AirwaveRadioBands.FM
+    );
 
     public static final Codec<Tuning> CODEC =
             RecordCodecBuilder.create(inst -> inst.group(
-                    Codec.DOUBLE.fieldOf("frequency").forGetter(Tuning::frequency),
+                    Frequency.CODEC.fieldOf("frequency").forGetter(Tuning::frequency),
                     RegistryFixedCodec.create(AirwaveRegistries.RADIO_BAND)
                             .optionalFieldOf("band", AirwaveRadioBands.FM)
                             .forGetter(Tuning::band)
@@ -31,7 +34,7 @@ public record Tuning(double frequency, Holder<RadioBand> band) {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Tuning> STREAM_CODEC =
             StreamCodec.composite(
-                    ByteBufCodecs.DOUBLE, Tuning::frequency,
+                    Frequency.STREAM_CODEC, Tuning::frequency,
                     ByteBufCodecs.holderRegistry(AirwaveRegistries.RADIO_BAND), Tuning::band,
                     Tuning::new
             );
@@ -42,10 +45,8 @@ public record Tuning(double frequency, Holder<RadioBand> band) {
 
     public boolean matches(Tuning other) {
         return band.value().equals(other.band.value())
-                && Double.compare(
-                band.value().clamp(frequency),
-                other.band.value().clamp(other.frequency)
-        ) == 0;
+                && band.value().clamp(frequency).compareTo(
+                other.band.value().clamp(other.frequency)) == 0;
     }
 
     public void writeTo(CompoundTag compound, HolderLookup.Provider registries) {

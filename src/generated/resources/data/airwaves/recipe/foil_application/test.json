@@ -1,0 +1,17 @@
+{
+  "type": "airwaves:foil_application",
+  "ingredients": [
+    {
+      "item": "minecraft:dirt"
+    },
+    {
+      "item": "airwaves:copper_foil"
+    }
+  ],
+  "processing_time": 100,
+  "results": [
+    {
+      "id": "minecraft:grass_block"
+    }
+  ]
+}

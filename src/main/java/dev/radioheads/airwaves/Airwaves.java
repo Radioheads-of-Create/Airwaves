@@ -40,6 +40,8 @@ public class Airwaves {
         AirwaveDataComponents.DATA_COMPONENTS.register(modEventBus);
         AirwaveCreativeTabs.CREATIVE_TABS.register(modEventBus);
         AirwavePlacementModifiers.REGISTER.register(modEventBus);
+        AirwaveRecipeTypes.register(modEventBus);
+        AirwavePartialModels.init();
 
         AirwaveConfig.register(modContainer);
         IntegrationLoader.init(modEventBus);

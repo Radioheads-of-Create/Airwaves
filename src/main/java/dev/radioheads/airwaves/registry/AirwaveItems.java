@@ -15,7 +15,6 @@ import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.registries.DeferredItem;
 
 
 public final class AirwaveItems {

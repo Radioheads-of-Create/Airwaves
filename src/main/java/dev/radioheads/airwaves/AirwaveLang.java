@@ -1,7 +1,9 @@
 package dev.radioheads.airwaves;
 
 import dev.radioheads.airwaves.api.antenna.CompassPoint;
+import dev.radioheads.airwaves.registry.AirwaveRecipeTypes;
 import net.createmod.catnip.lang.Lang;
+import net.createmod.catnip.lang.LangBuilder;
 import org.jetbrains.annotations.ApiStatus;
 import oshi.util.tuples.Pair;
 
@@ -22,6 +24,17 @@ public final class AirwaveLang extends Lang {
             String s = split[i];
             String titleCase = toTitleCase(s, i == 0);
             joiner.add(titleCase);
+        }
+
+        return joiner.toString();
+    }
+
+    public static String snakeCaseToSpacedTitleCase(String string) {
+        StringJoiner joiner = new StringJoiner(" ");
+        String[] split = string.split("_");
+
+        for (int i = 0; i < split.length; i++) {
+            joiner.add(toTitleCase(split[i], i == 0));
         }
 
         return joiner.toString();
@@ -52,6 +65,13 @@ public final class AirwaveLang extends Lang {
         return new String(chars);
     }
 
+    public static LangBuilder builder() {
+        return new LangBuilder(Airwaves.MOD_ID);
+    }
+
+    public static LangBuilder translate(String langKey, Object... args) {
+        return builder().translate(langKey, args);
+    }
 
     // Everything below is for generation of lang
     private static List<Pair<String, String>> lang;
@@ -67,6 +87,10 @@ public final class AirwaveLang extends Lang {
     private static void collect() {
         for (CompassPoint point : CompassPoint.values()) {
             add("compass." + point.name().toLowerCase(Locale.ROOT), snakeCaseToTitleCase(point.name().toLowerCase(Locale.ROOT)));
+        }
+
+        for (AirwaveRecipeTypes type : AirwaveRecipeTypes.values()) {
+            addRecipe(type.name().toLowerCase(Locale.ROOT));
         }
 
         add("direction.display", "%s° %s");
@@ -97,7 +121,7 @@ public final class AirwaveLang extends Lang {
         addAdvancement("root", "Airwaves", "It's Airwave time!");
         addAdvancement("speaker_cone", "Good Morning Vietnam!", "Obtain a radio");
         addAdvancement("resistor", "Join the resistance", "Ohmmmmmm...");
-        addAdvancement("pressed_shape", "the shape goes into a shape press that presses the shape into a pressed shape", "press a shape into a pressed shape");
+        addAdvancement("pressed_shape", "The shape goes into a shape press that presses the shape into a pressed shape", "Press a shape into a pressed shape");
     }
 
     private static void add(String key, String value) {
@@ -111,5 +135,9 @@ public final class AirwaveLang extends Lang {
     private static void addAdvancement(String key, String title, String description) {
         addBasic("advancement.airwaves." + key, title);
         addBasic("advancement.airwaves." + key + ".description", description);
+    }
+
+    private static void addRecipe(String key) {
+        add("recipe." + key, snakeCaseToSpacedTitleCase(key));
     }
 }
