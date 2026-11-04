@@ -20,13 +20,14 @@ import net.minecraft.world.level.Level;
 
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public class CableItem extends Item {
     public static final int HINT_COLOR = 0xFFC53D;
 
-    private final CableType type;
+    private final Supplier<CableType> type;
 
-    public CableItem(Properties properties, CableType type) {
+    public CableItem(Properties properties, Supplier<CableType> type) {
         super(properties);
         this.type = type;
     }
@@ -114,7 +115,7 @@ public class CableItem extends Item {
         }
 
         stack.remove(AirwaveDataComponents.CABLE_START);
-        Cables.link(level, start, end, this.type);
+        Cables.link(level, start, end, this.type.get());
         takeSpools(player, stack, Cables.spools(Cables.length(start, end)));
         player.containerMenu.broadcastChanges();
         player.displayClientMessage(hint("connected"), true);

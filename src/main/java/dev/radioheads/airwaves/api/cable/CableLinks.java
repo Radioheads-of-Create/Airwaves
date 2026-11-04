@@ -1,13 +1,15 @@
 package dev.radioheads.airwaves.api.cable;
 
+import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public final class CableLinks {
     private final List<CableLink> links = new ArrayList<>();
@@ -39,9 +41,14 @@ public final class CableLinks {
     public void save(CompoundTag compound) {
         ListTag list = new ListTag();
         for (CableLink link : this.links) {
+            ResourceLocation key = AirwaveRegistries.CABLE_TYPE_REGISTRY.getKey(link.type());
+            if (key == null) {
+                throw new IllegalStateException("Unknown cable type: " + link.type());
+            }
+
             CompoundTag tag = new CompoundTag();
             tag.putLong("Other", link.other().asLong());
-            tag.putString("Type", link.type().name().toLowerCase(Locale.ROOT));
+            tag.putString("Type", key.toString());
             list.add(tag);
         }
         compound.put("Links", list);
@@ -51,7 +58,19 @@ public final class CableLinks {
         this.links.clear();
         for (Tag entry : compound.getList("Links", Tag.TAG_COMPOUND)) {
             CompoundTag tag = (CompoundTag) entry;
-            this.links.add(new CableLink(BlockPos.of(tag.getLong("Other")), CableType.valueOf(tag.getString("Type").toUpperCase(Locale.ROOT))));
+
+            String raw = tag.getString("Type");
+            ResourceLocation key = Airwaves.asResource(raw);
+            if (key == null) {
+                throw new IllegalStateException("Malformed cable type id: " + raw);
+            }
+
+            CableType type = AirwaveRegistries.CABLE_TYPE_REGISTRY.get(key);
+            if (type == null) {
+                throw new IllegalStateException("Unknown cable type in save data: " + key);
+            }
+
+            this.links.add(new CableLink(BlockPos.of(tag.getLong("Other")), type));
         }
     }
 }

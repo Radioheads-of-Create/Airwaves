@@ -16,6 +16,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.function.Supplier;
+
 
 public final class AirwaveItems {
     private AirwaveItems() {}
@@ -83,9 +85,9 @@ public final class AirwaveItems {
         SILVER_WIRE = registerWire("silver", AirwaveMaterials.SILVER);
 
     public static final ItemEntry<CableItem>
-        COPPER_CABLE_SPOOL = registerCable("copper", AirwaveMaterials.COPPER, CableType.COPPER),
-        GOLD_CABLE_SPOOL = registerCable("gold", AirwaveMaterials.GOLD, CableType.GOLD),
-        SILVER_CABLE_SPOOL = registerCable("silver", AirwaveMaterials.SILVER, CableType.SILVER);
+        COPPER_CABLE_SPOOL = registerCable("copper", AirwaveMaterials.COPPER, AirwaveCableTypes.COPPER),
+        GOLD_CABLE_SPOOL = registerCable("gold", AirwaveMaterials.GOLD, AirwaveCableTypes.GOLD),
+        SILVER_CABLE_SPOOL = registerCable("silver", AirwaveMaterials.SILVER, AirwaveCableTypes.SILVER);
 
     public static final ItemEntry<CapacitorItem>
         SMALL_CAPACITOR = registerCapacitor("small", 25),
@@ -115,7 +117,7 @@ public final class AirwaveItems {
                 .register();
     }
 
-    private static ItemEntry<CableItem> registerCable(String path, AirwaveMaterials material, CableType type) {
+    private static ItemEntry<CableItem> registerCable(String path, AirwaveMaterials material, Supplier<CableType> type) {
         return Airwaves.REGISTRATE.item(path + "_cable_spool", properties -> new CableItem(properties, type))
                 .tag(material.cable)
                 .tag(AirwaveTags.Items.CABLES.tag)

@@ -5,13 +5,11 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.radioheads.airwaves.api.antenna.AntennaType;
 import dev.radioheads.airwaves.api.antenna.Tier;
+import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.radio.Modulation;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
-import dev.radioheads.airwaves.api.registry.builders.AntennaTypeBuilder;
-import dev.radioheads.airwaves.api.registry.builders.ModulationBuilder;
-import dev.radioheads.airwaves.api.registry.builders.RadioBandBuilder;
-import dev.radioheads.airwaves.api.registry.builders.TierBuilder;
+import dev.radioheads.airwaves.api.registry.builders.*;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 
@@ -109,5 +107,21 @@ public class AirwaveRegistrate extends CreateRegistrate {
 
     public <P> AntennaTypeBuilder<P> antennaType(P parent, String name, NonNullSupplier<AntennaType> factory) {
         return entry(name, callback -> new AntennaTypeBuilder<>(this, parent, name, callback, AirwaveRegistries.ANTENNA_TYPE, factory));
+    }
+
+    public CableTypeBuilder<AirwaveRegistrate> cableType(NonNullSupplier<CableType> factory) {
+        return cableType((AirwaveRegistrate) self(), factory);
+    }
+
+    public CableTypeBuilder<AirwaveRegistrate> cableType(String name, NonNullSupplier<CableType> factory) {
+        return cableType((AirwaveRegistrate) self(), name, factory);
+    }
+
+    public <P> CableTypeBuilder<P> cableType(P parent, NonNullSupplier<CableType> factory) {
+        return cableType(parent, currentName(), factory);
+    }
+
+    public <P> CableTypeBuilder<P> cableType(P parent, String name, NonNullSupplier<CableType> factory) {
+        return entry(name, callback -> new CableTypeBuilder<>(this, parent, name, callback, AirwaveRegistries.CABLE_TYPE, factory));
     }
 }
