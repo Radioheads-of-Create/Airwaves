@@ -10,18 +10,22 @@ public class AirwaveRadioBands {
     public static final RadioBandEntry
             FM = Airwaves.REGISTRATE.radioBand("fm",
             () -> new RadioBand(
-                    Frequency.of(87.5, HertzUnit.MHz),
-                    Frequency.of(108.0, HertzUnit.MHz),
-                    Frequency.of(98.1, HertzUnit.MHz)
-            ).withModulation(AirwaveModulations.FM)).register(),
+                    87.5,
+                    108.0,
+                    HertzUnit.MHz,
+                    AirwaveModulations.FM,
+                    98.1
+            )).register(),
 
     AM = Airwaves.REGISTRATE.radioBand("am",
             () -> new RadioBand(
-                    Frequency.of(530.0, HertzUnit.kHz),
-                    Frequency.of(1700.0, HertzUnit.kHz),
-                    Frequency.of(1000.0, HertzUnit.kHz)
-            ).withModulation(AirwaveModulations.AM)).register()
-    ;
+                    530.0,
+                    1700.0,
+                    HertzUnit.kHz,
+                    AirwaveModulations.AM,
+                    1000.0
+            )).register()
+            ;
 
     public static void init() {}
 }

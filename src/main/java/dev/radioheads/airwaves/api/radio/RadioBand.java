@@ -14,68 +14,63 @@ import java.util.Optional;
 
 @NothingNullByDefault
 public record RadioBand(
-        Frequency min,
-        Frequency max,
-        Optional<Frequency> defaultFrequency,
-        Optional<String> pathTypeOverride,
-        Holder<Modulation> modulation
+        double min,
+        double max,
+        HertzUnit unit,
+        Holder<Modulation> modulation,
+        Optional<Double> defaultFrequency
 ) {
     public static final Codec<RadioBand> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-            Frequency.CODEC.fieldOf("min").forGetter(RadioBand::min),
-            Frequency.CODEC.fieldOf("max").forGetter(RadioBand::max),
-            Frequency.CODEC.optionalFieldOf("defaultFrequency").forGetter(RadioBand::defaultFrequency),
-            Codec.STRING.optionalFieldOf("path_type").forGetter(RadioBand::pathTypeOverride),
+            Codec.DOUBLE.fieldOf("min").forGetter(RadioBand::min),
+            Codec.DOUBLE.fieldOf("max").forGetter(RadioBand::max),
+            HertzUnit.CODEC.optionalFieldOf("unit", HertzUnit.MHz).forGetter(RadioBand::unit),
             RegistryFixedCodec.create(AirwaveRegistries.MODULATION)
                     .optionalFieldOf("modulation", AirwaveModulations.FM)
-                    .forGetter(RadioBand::modulation)
+                    .forGetter(RadioBand::modulation),
+            Codec.DOUBLE.optionalFieldOf("default_frequency").forGetter(RadioBand::defaultFrequency)
     ).apply(inst, RadioBand::new));
 
-    public RadioBand {
-        if (!min.isFinite() || !max.isFinite() || min.compareTo(max) > 0) {
-            throw new IllegalArgumentException("Invalid radio band range: " + min + " – " + max);
-        }
+    public RadioBand(double min, double max, HertzUnit unit, Holder<Modulation> modulation, double defaultFrequency) {
+        this(min, max, unit, modulation, Optional.of(defaultFrequency));
+    }
 
-        defaultFrequency.ifPresent(frequency -> {
-            if (!frequency.isFinite() || frequency.compareTo(min) < 0 || frequency.compareTo(max) > 0) {
+    public RadioBand {
+        if (!Double.isFinite(min) || !Double.isFinite(max) || min > max) {
+            throw new IllegalArgumentException("Invalid radio band range: " + min + " – " + max + " " + unit.getSymbol());
+        }
+        defaultFrequency.ifPresent(d -> {
+            if (!Double.isFinite(d) || d < min || d > max) {
                 throw new IllegalArgumentException("Default frequency must be finite and within the band range");
             }
         });
     }
 
-    public RadioBand(Frequency min, Frequency max) {
-        this(min, max, Optional.empty(), Optional.empty(), AirwaveModulations.FM);
+    public static RadioBand mhz(double min, double max, double defaultFrequency) {
+        return new RadioBand(min, max, HertzUnit.MHz, AirwaveModulations.FM, Optional.of(defaultFrequency));
     }
 
-    public RadioBand(Frequency min, Frequency max, Frequency defaultFrequency) {
-        this(min, max, Optional.of(defaultFrequency), Optional.empty(), AirwaveModulations.FM);
+    public static RadioBand mhz(double min, double max) {
+        return new RadioBand(min, max, HertzUnit.MHz, AirwaveModulations.FM, Optional.empty());
     }
 
-    public RadioBand withPathType(String pathType) {
-        return new RadioBand(min, max, defaultFrequency, Optional.of(pathType), modulation);
-    }
+    public Frequency minFrequency() { return Frequency.of(min, unit); }
+    public Frequency maxFrequency() { return Frequency.of(max, unit); }
+    public Frequency defaultOrMin() { return Frequency.of(defaultFrequency.orElse(min), unit); }
 
     public RadioBand withModulation(Holder<Modulation> modulation) {
-        return new RadioBand(min, max, defaultFrequency, pathTypeOverride, modulation);
-    }
-
-    public String pathType(ResourceLocation id) {
-        return pathTypeOverride.orElseGet(() -> id.getPath().toUpperCase(Locale.ROOT));
+        return new RadioBand(min, max, unit, modulation, defaultFrequency);
     }
 
     public Frequency clamp(Frequency frequency) {
-        Frequency f = frequency.isFinite() ? frequency : defaultFrequency.orElse(min);
-
-        if (f.compareTo(min) < 0) {
-            f = min;
-        } else if (f.compareTo(max) > 0) {
-            f = max;
-        }
-
-        return f.rounded();
+        double value = frequency.isFinite()
+                ? frequency.convertTo(unit).frequency()
+                : defaultFrequency.orElse(min);
+        value = Math.clamp(value, min, max);
+        return Frequency.of(Math.round(value * 100.0) / 100.0, unit);
     }
 
     public String display(Frequency frequency, ResourceLocation id) {
-        return String.format(Locale.ROOT, "%.2f %s %s",
-                frequency.frequency(), frequency.unit().getSymbol(), pathType(id));
+        Frequency f = frequency.convertTo(unit);
+        return String.format(Locale.ROOT, "%.2f %s %s", f.frequency(), unit.getSymbol(), id.getPath().toUpperCase(Locale.ROOT));
     }
 }
