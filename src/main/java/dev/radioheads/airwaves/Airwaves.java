@@ -62,5 +62,4 @@ public class Airwaves {
                 ? ResourceLocation.tryParse(path)
                 : ResourceLocation.fromNamespaceAndPath("c", path);
     }
-
 }
