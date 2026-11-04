@@ -143,6 +143,7 @@ public final class AirwaveItems {
         return Airwaves.REGISTRATE.item(path + "_foil", FoilItem::new)
                 .tag(material.foil)
                 .tag(AirwaveTags.Items.FOILS.tag)
+                .properties(p -> p.component(AirwaveDataComponents.FOIL_AMOUNT, 250))
                 .register();
     }
 
