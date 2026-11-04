@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "airwaves:block/repeater/on",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "airwaves:block/repeater/on"
+    },
+    "facing=south": {
+      "model": "airwaves:block/repeater/on",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "airwaves:block/repeater/on",
+      "y": 270
+    }
+  }
+}

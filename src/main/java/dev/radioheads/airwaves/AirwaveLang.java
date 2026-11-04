@@ -98,6 +98,20 @@ public final class AirwaveLang extends Lang {
 
         add("container.tuning_table", "Tuning Table");
 
+        add("section.hardware", "Hardware");
+        add("section.materials", "Materials");
+        add("section.circuitry", "Circuitry");
+
+        add("cable.select", "Click on a valid device to connect.");
+        add("cable.length", "Length: %s blocks");
+        add("cable.connected", "Connected!");
+        add("cable.cleared", "Selection cleared.");
+        add("cable.too_far", "Too far away! Cables reach up to %s blocks.");
+        add("cable.not_enough", "You don't have enough cable to reach this far!");
+        add("cable.no_junction", "One end must be an Insulator or Rod Base!");
+        add("cable.already_linked", "These are already connected!");
+        add("cable.no_socket", "That block has no room for another cable!");
+
         addBasic("creative_tab.airwave_main", "Airwaves");
 
         List<String> tiers = List.of("low_power", "mid_power", "high_power", "max_power", "creative");

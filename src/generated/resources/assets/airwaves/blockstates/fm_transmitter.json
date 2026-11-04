@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "airwaves:block/transmitter/on",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "airwaves:block/transmitter/on"
+    },
+    "facing=south": {
+      "model": "airwaves:block/transmitter/on",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "airwaves:block/transmitter/on",
+      "y": 270
+    }
+  }
+}

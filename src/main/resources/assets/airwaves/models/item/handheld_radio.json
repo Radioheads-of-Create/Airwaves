@@ -1,0 +1,14 @@
+{
+ "loader": "neoforge:separate_transforms",
+ "base": {
+  "parent": "airwaves:item/handheld_radio/held"
+ },
+ "perspectives": {
+  "gui": {
+   "parent": "minecraft:item/generated",
+   "textures": {
+    "layer0": "airwaves:item/handheld_radio"
+   }
+  }
+ }
+}

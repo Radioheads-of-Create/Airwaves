@@ -43,6 +43,7 @@ public class Airwaves {
         AirwaveRecipeTypes.register(modEventBus);
         AirwavePartialModels.init();
         AirwaveSoundEvents.prepare();
+        AirwaveCableTypes.init();
 
         AirwaveConfig.register(modContainer);
         IntegrationLoader.init(modEventBus);
@@ -61,5 +62,4 @@ public class Airwaves {
                 ? ResourceLocation.tryParse(path)
                 : ResourceLocation.fromNamespaceAndPath("c", path);
     }
-
 }

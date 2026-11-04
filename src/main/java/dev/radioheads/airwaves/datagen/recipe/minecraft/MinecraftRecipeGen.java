@@ -7,6 +7,7 @@ import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
@@ -83,5 +84,11 @@ public class MinecraftRecipeGen extends RecipeProvider {
                 .requires(AirwaveBlocks.SILVER_BLOCK)
                 .unlockedBy("has_silver_block", has(AirwaveBlocks.SILVER_BLOCK))
                 .save(out, "silver_ingot_from_silver_block");
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AirwaveItems.FIELD_MANUAL)
+                .requires(Items.BOOK)
+                .requires(AirwaveMaterials.COPPER.wire)
+                .unlockedBy("has_copper_wire", has(AirwaveMaterials.COPPER.wire))
+                .save(out);
     }
 }

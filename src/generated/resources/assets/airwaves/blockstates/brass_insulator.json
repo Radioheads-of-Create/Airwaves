@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "airwaves:block/brass_insulator",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "airwaves:block/brass_insulator",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "airwaves:block/brass_insulator",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "airwaves:block/brass_insulator",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "airwaves:block/brass_insulator"
+    },
+    "facing=west": {
+      "model": "airwaves:block/brass_insulator",
+      "x": 90,
+      "y": 270
+    }
+  }
+}
