@@ -13,8 +13,7 @@ public class AirwaveRadioBands {
                     87.5,
                     108.0,
                     HertzUnit.MHz,
-                    AirwaveModulations.FM,
-                    98.1
+                    AirwaveModulations.FM
             )).register(),
 
     AM = Airwaves.REGISTRATE.radioBand("am",
@@ -22,8 +21,7 @@ public class AirwaveRadioBands {
                     530.0,
                     1700.0,
                     HertzUnit.kHz,
-                    AirwaveModulations.AM,
-                    1000.0
+                    AirwaveModulations.AM
             )).register()
             ;
 
