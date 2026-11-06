@@ -88,7 +88,7 @@ jobs:
 
       - name: Update Discord build message
         if: always() && env.DISCORD_WEBHOOK != '' && steps.discord.outputs.message-id != ''
-        uses: wolfieboy09/action-discord-notifier@v1
+        uses: wolfieboy09/action-discord-notifier@v1.3.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           edit-message-id: ${{ steps.discord.outputs.message-id }}
