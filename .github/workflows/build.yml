@@ -27,6 +27,15 @@ jobs:
         id: get_branch
         run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
 
+      - name: Get short SHAs
+        id: shas
+        run: |
+          echo "before=${GITHUB_EVENT_BEFORE:0:6}" >> "$GITHUB_OUTPUT"
+          echo "after=${GITHUB_EVENT_AFTER:0:6}" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          GITHUB_EVENT_AFTER: ${{ github.event.after }}
+
       - name: Get MC version and mod version
         uses: christian-draeger/read-properties@908f99d3334be3802ec7cb528395a69d19914e7b
         id: read_properties
@@ -69,7 +78,7 @@ jobs:
         uses: your-name/action-discord-notifier@v1.3.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          header: "<a:thonknado:1568047673066651749> building ${{ substring(github.event.before, 0, 6) }} to ${{ substring(github.event.after, 0, 6) }}"
+          header: "<a:thonknado:1568047673066651749> building ${{ steps.shas.outputs.before }} to ${{ steps.shas.outputs.after }}"
 
       - name: Build jar
         id: build
@@ -83,7 +92,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           edit-message-id: ${{ steps.discord.outputs.message-id }}
-          header: "${{ steps.build.outcome == 'success' && '<:yeah:1561722530161500190> built' || '<:nah:1568052270489272380> build failed for' }} ${{ substring(github.event.before, 0, 6) }} to ${{ substring(github.event.after, 0, 6) }}"
+          header: "${{ steps.build.outcome == 'success' && '<:yeah:1561722530161500190> built' || '<:nah:1568052270489272380> build failed for' }} ${{ steps.shas.outputs.before }} to ${{ steps.shas.outputs.after }}"
 
       - name: Find jars
         id: find_jars
