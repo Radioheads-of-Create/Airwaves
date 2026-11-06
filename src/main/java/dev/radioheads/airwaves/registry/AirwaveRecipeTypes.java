@@ -24,8 +24,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public enum AirwaveRecipeTypes implements IRecipeTypeInfo, StringRepresentable {
-    FOIL_APPLICATION(FoilApplicationRecipe::new)
-    ;
+    FOIL_APPLICATION(FoilApplicationRecipe::new);
 
     public static final Predicate<RecipeHolder<?>> CAN_BE_AUTOMATED = r -> !r.id()
             .getPath()

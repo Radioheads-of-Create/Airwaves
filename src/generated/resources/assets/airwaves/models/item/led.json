@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "airwaves:item/led"
+    "layer0": "airwaves:item/led",
+    "layer1": "airwaves:item/led_overlay"
   }
 }

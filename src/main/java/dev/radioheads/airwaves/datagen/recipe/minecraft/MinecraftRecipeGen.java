@@ -8,6 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.ArmorDyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.concurrent.CompletableFuture;
@@ -23,6 +24,7 @@ public class MinecraftRecipeGen extends RecipeProvider {
         generateCookingRecipes(out);
         generateShapedCrafting(out);
         generateShapelessCrafting(out);
+        generateSpecialCrafting(out);
     }
 
     private void generateCookingRecipes(RecipeOutput out) {
@@ -90,5 +92,10 @@ public class MinecraftRecipeGen extends RecipeProvider {
                 .requires(AirwaveMaterials.COPPER.wire)
                 .unlockedBy("has_copper_wire", has(AirwaveMaterials.COPPER.wire))
                 .save(out);
+    }
+
+    private void generateSpecialCrafting(RecipeOutput out) {
+        SpecialRecipeBuilder.special(ArmorDyeRecipe::new)
+                .save(out, "led_dyeing");
     }
 }

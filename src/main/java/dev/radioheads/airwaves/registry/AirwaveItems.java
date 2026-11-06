@@ -12,8 +12,11 @@ import dev.radioheads.airwaves.content.item.EmptySpoolItem;
 import dev.radioheads.airwaves.content.item.FieldManualItem;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.Supplier;
@@ -45,8 +48,14 @@ public final class AirwaveItems {
             RESISTOR = registerBoardItem("resistor"),
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
-            LED = registerBoardItem("led", "LED"),
-            TRANSISTOR = registerBoardItem("transistor");
+            TRANSISTOR = registerBoardItem("transistor"),
+            LED = Airwaves.REGISTRATE.item("led", BoardItem::new)
+                    .tag(ItemTags.DYEABLE)
+                    .lang("LED")
+                    .properties(properties -> properties
+                            .component(DataComponents.DYED_COLOR,
+                                    new DyedItemColor(0xFFFFFFFF, true)))
+                    .register();
 
     public static final ItemEntry<SequencedAssemblyItem>
             INCOMPLETE_RESISTOR = registerSequencedItem("incomplete_resistor"),
