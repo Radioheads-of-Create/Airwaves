@@ -16,6 +16,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -61,10 +63,27 @@ jobs:
           gh variable set BUILD_NUMBER --repo ${{ github.repository }} --body "$next"
           echo "build_number=$next" >> "$GITHUB_OUTPUT"
 
+      - name: Announce build start
+        id: discord
+        if: github.event_name == 'push' && env.DISCORD_WEBHOOK != ''
+        uses: your-name/action-discord-notifier@v1.3.3
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          header: "<a:thonknado:1568047673066651749> building ${{ substring(github.event.before, 0, 6) }} to ${{ substring(github.event.after, 0, 6) }}"
+
       - name: Build jar
+        id: build
         env:
           MOD_BUILD_NUMBER: ${{ steps.buildnum.outputs.build_number }}
         run: ./gradlew build
+
+      - name: Update Discord build message
+        if: always() && env.DISCORD_WEBHOOK != '' && steps.discord.outputs.message-id != ''
+        uses: your-name/action-discord-notifier@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          edit-message-id: ${{ steps.discord.outputs.message-id }}
+          header: "${{ steps.build.outcome == 'success' && '<:yeah:1561722530161500190> built' || '<:nah:1568052270489272380> build failed for' }} ${{ substring(github.event.before, 0, 6) }} to ${{ substring(github.event.after, 0, 6) }}"
 
       - name: Find jars
         id: find_jars
@@ -74,16 +93,7 @@ jobs:
           find ./build/libs/ -type f -name "*.jar" ! -name "*-sources.jar" ! -name "*-javadoc.jar" >> $GITHUB_OUTPUT
           echo "$EOF" >> $GITHUB_OUTPUT
 
-      - name: Send building message to discord
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        if: github.event_name == 'push' && env.DISCORD_WEBHOOK != ''
-        uses: wolfieboy09/action-discord-notifier@latest
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message-title: New commit on branch ${{ steps.get_branch.outputs.branch }}
-
-      - name: Send built file to discord
+      - name: Send built file to Discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         if: env.DISCORD_WEBHOOK != ''
