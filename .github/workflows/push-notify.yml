@@ -17,4 +17,4 @@ jobs:
         uses: wolfieboy09/action-discord-notifier@v1.3.2
         with:
           webhook: ${{ secrets.DISCORD_PUSH_WEBHOOK }}
-          message-title: "[${{ github.repository }}:${{ github.ref_name }}] {count} new {commits}"
+          message-title: "[[${{ github.repository }}:${{ github.ref_name }}] {count} new {commits}](https://github.com/${{ github.repository }})"
