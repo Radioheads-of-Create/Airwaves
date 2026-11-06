@@ -1,6 +1,5 @@
 package dev.radioheads.airwaves.api.util;
 
-import dev.radioheads.airwaves.api.radio.Frequency;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.radio.Tuning;
 

@@ -1,7 +1,6 @@
 package dev.radioheads.airwaves.registry;
 
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.api.radio.Frequency;
 import dev.radioheads.airwaves.api.radio.HertzUnit;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.registry.radio.RadioBandEntry;
