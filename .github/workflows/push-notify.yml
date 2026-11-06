@@ -17,4 +17,5 @@ jobs:
         uses: OP-Hero/action-discord-notifier@latest
         with:
           webhook: ${{ secrets.DISCORD_PUSH_WEBHOOK }}
-          message-title: "[[${{ github.repository }}:${{ github.ref_name }}] {count} new {commits}](https://github.com/${{ github.repository }})"
+          message-title: "[${{ github.repository }}:${{ github.ref_name }}] {count} new {commits}"
+          title-url: "https://github.com/${{ github.repository }}"
