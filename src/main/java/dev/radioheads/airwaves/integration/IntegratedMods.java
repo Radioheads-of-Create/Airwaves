@@ -15,8 +15,7 @@ public enum IntegratedMods {
     public final String modId;
 
     IntegratedMods() {
-        // English just in case
-        modId = name().toLowerCase(Locale.ENGLISH);
+        modId = name().toLowerCase(Locale.ROOT);
     }
 
     IntegratedMods(String modId) {
