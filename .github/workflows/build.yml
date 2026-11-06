@@ -75,7 +75,7 @@ jobs:
       - name: Announce build start
         id: discord
         if: github.event_name == 'push' && env.DISCORD_WEBHOOK != ''
-        uses: your-name/action-discord-notifier@v1.3.3
+        uses: wolfieboy09/action-discord-notifier@v1.3.3
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           header: "<a:thonknado:1568047673066651749> building ${{ steps.shas.outputs.before }} to ${{ steps.shas.outputs.after }}"
@@ -88,7 +88,7 @@ jobs:
 
       - name: Update Discord build message
         if: always() && env.DISCORD_WEBHOOK != '' && steps.discord.outputs.message-id != ''
-        uses: your-name/action-discord-notifier@v1
+        uses: wolfieboy09/action-discord-notifier@v1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           edit-message-id: ${{ steps.discord.outputs.message-id }}
