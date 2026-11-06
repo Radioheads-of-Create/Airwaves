@@ -16,8 +16,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    env:
-      DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -26,15 +24,6 @@ jobs:
       - name: Get branch name
         id: get_branch
         run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
-
-      - name: Get short SHAs
-        id: shas
-        run: |
-          echo "before=${GITHUB_EVENT_BEFORE:0:6}" >> "$GITHUB_OUTPUT"
-          echo "after=${GITHUB_EVENT_AFTER:0:6}" >> "$GITHUB_OUTPUT"
-        env:
-          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
-          GITHUB_EVENT_AFTER: ${{ github.event.after }}
 
       - name: Get MC version and mod version
         uses: christian-draeger/read-properties@908f99d3334be3802ec7cb528395a69d19914e7b
@@ -72,27 +61,10 @@ jobs:
           gh variable set BUILD_NUMBER --repo ${{ github.repository }} --body "$next"
           echo "build_number=$next" >> "$GITHUB_OUTPUT"
 
-      - name: Announce build start
-        id: discord
-        if: github.event_name == 'push' && env.DISCORD_WEBHOOK != ''
-        uses: wolfieboy09/action-discord-notifier@v1.3.3
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          header: "<a:thonknado:1568047673066651749> building ${{ steps.shas.outputs.before }} to ${{ steps.shas.outputs.after }}"
-
       - name: Build jar
-        id: build
         env:
           MOD_BUILD_NUMBER: ${{ steps.buildnum.outputs.build_number }}
         run: ./gradlew build
-
-      - name: Update Discord build message
-        if: always() && env.DISCORD_WEBHOOK != '' && steps.discord.outputs.message-id != ''
-        uses: wolfieboy09/action-discord-notifier@v1.3.3
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          edit-message-id: ${{ steps.discord.outputs.message-id }}
-          header: "${{ steps.build.outcome == 'success' && '<:yeah:1561722530161500190> built' || '<:nah:1568052270489272380> build failed for' }} ${{ steps.shas.outputs.before }} to ${{ steps.shas.outputs.after }}"
 
       - name: Find jars
         id: find_jars
@@ -102,7 +74,16 @@ jobs:
           find ./build/libs/ -type f -name "*.jar" ! -name "*-sources.jar" ! -name "*-javadoc.jar" >> $GITHUB_OUTPUT
           echo "$EOF" >> $GITHUB_OUTPUT
 
-      - name: Send built file to Discord
+      - name: Send building message to discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        if: github.event_name == 'push' && env.DISCORD_WEBHOOK != ''
+        uses: wolfieboy09/action-discord-notifier@latest
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message-title: New commit on branch ${{ steps.get_branch.outputs.branch }}
+
+      - name: Send built file to discord
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         if: env.DISCORD_WEBHOOK != ''
