@@ -98,6 +98,47 @@ public final class AirwaveLang extends Lang {
 
         add("container.tuning_table", "Tuning Table");
 
+        add("radio.signal", "Signal: %s%%");
+        add("radio.no_signal", "No signal");
+
+        add("transmitter.power", "Transmit Power");
+        add("microphone.output", "Output: %s%%");
+
+        add("antenna.none", "No antenna");
+        add("antenna.whip", "Whip antenna, %s blocks");
+        add("antenna.dipole", "Dipole antenna, %s blocks");
+        add("antenna.yagi", "Yagi antenna, %s elements");
+
+        add("hf_transceiver.power", "Radio POWER");
+        add("hf_transceiver.power.on", "Radio ON");
+        add("hf_transceiver.power.off", "Radio OFF");
+        add("hf_transceiver.f_lock", "Frequency LOCK");
+        add("hf_transceiver.f_lock.on", "Frequency LOCKED");
+        add("hf_transceiver.f_lock.off", "Frequency UNLOCKED");
+        add("hf_transceiver.mhz", "MHz STEP");
+        add("hf_transceiver.mhz.on", "MHz STEP ON");
+        add("hf_transceiver.mhz.off", "MHz STEP OFF");
+        add("hf_transceiver.down", "Band DOWN");
+        add("hf_transceiver.up", "Band UP");
+        add("hf_transceiver.band", "%sm BAND, %s");
+        add("hf_transceiver.frequency", "%s MHz");
+        add("hf_transceiver.a_b", "VFO A/B");
+        add("hf_transceiver.a_b.a", "VFO A, %s");
+        add("hf_transceiver.a_b.b", "VFO B, %s");
+        add("hf_transceiver.ant", "Antenna CHECK");
+        add("hf_transceiver.ant.readout", "%s, %s dB loss");
+        add("hf_transceiver.pwr_down", "TX Power DOWN");
+        add("hf_transceiver.pwr_up", "TX Power UP");
+        add("hf_transceiver.watts", "TX Power %s W");
+        add("hf_transceiver.vfo", "Tuning DIAL");
+        add("hf_transceiver.vfo.fast", "Tuning FAST");
+        add("hf_transceiver.vfo.fine", "Tuning FINE");
+        add("hf_transceiver.sql", "Squelch");
+        add("hf_transceiver.sql.level", "Squelch %s%%");
+        add("hf_transceiver.sql.open", "Squelch OPEN");
+        add("hf_transceiver.af", "AF Volume");
+        add("hf_transceiver.af.level", "AF Volume %s%%");
+
         add("section.hardware", "Hardware");
         add("section.materials", "Materials");
         add("section.circuitry", "Circuitry");
@@ -108,15 +149,10 @@ public final class AirwaveLang extends Lang {
         add("cable.cleared", "Selection cleared.");
         add("cable.too_far", "Too far away! Cables reach up to %s blocks.");
         add("cable.not_enough", "You don't have enough cable to reach this far!");
-        add("cable.no_junction", "One end must be an Insulator or Rod Base!");
         add("cable.already_linked", "These are already connected!");
         add("cable.no_socket", "That block has no room for another cable!");
 
         addBasic("creative_tab.airwave_main", "Airwaves");
-
-        List<String> tiers = List.of("low_power", "mid_power", "high_power", "max_power", "creative");
-
-        tiers.forEach(tier -> add("tier." + tier, snakeCaseToTitleCase(tier)));
 
         addAdvancement("root", "Airwaves", "It's Airwave time!");
         addAdvancement("speaker_cone", "Good Morning Vietnam!", "Obtain a radio");

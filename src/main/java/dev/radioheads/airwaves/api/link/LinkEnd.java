@@ -1,12 +1,14 @@
 package dev.radioheads.airwaves.api.link;
 
+import dev.radioheads.airwaves.api.antenna.Polarization;
+
 import java.util.function.DoubleUnaryOperator;
 
 // One end of a link
 public record LinkEnd(double watts, double heightBlocks, double gainDb, double efficiencyDb, double noiseFigureDb,
-                      double feedLossDb, DoubleUnaryOperator skyGainDb) {
+                      double feedLossDb, Polarization polarization, DoubleUnaryOperator skyGainDb) {
     public LinkEnd(double watts, double heightBlocks, double gainDb, double efficiencyDb, double noiseFigureDb) {
-        this(watts, heightBlocks, gainDb, efficiencyDb, noiseFigureDb, 0.0, elevation -> gainDb);
+        this(watts, heightBlocks, gainDb, efficiencyDb, noiseFigureDb, 0.0, Polarization.VERTICAL, elevation -> gainDb);
     }
 
     public static LinkEnd handheld(double heightBlocks) {
@@ -16,6 +18,6 @@ public record LinkEnd(double watts, double heightBlocks, double gainDb, double e
     // Extra antenna loss
     public LinkEnd withLossDb(double db) {
         return new LinkEnd(this.watts, this.heightBlocks, this.gainDb - db, this.efficiencyDb - db, this.noiseFigureDb,
-                this.feedLossDb, elevation -> this.skyGainDb.applyAsDouble(elevation) - db);
+                this.feedLossDb, this.polarization, elevation -> this.skyGainDb.applyAsDouble(elevation) - db);
     }
 }

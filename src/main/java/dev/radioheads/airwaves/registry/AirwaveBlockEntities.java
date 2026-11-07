@@ -3,10 +3,14 @@ package dev.radioheads.airwaves.registry;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.client.CableRenderer;
+import dev.radioheads.airwaves.client.HfTransceiverRenderer;
+import dev.radioheads.airwaves.client.MicrophoneRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationVisual;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
+import dev.radioheads.airwaves.content.entity.block.HfTransceiverBlockEntity;
 import dev.radioheads.airwaves.content.entity.block.InsulatorBlockEntity;
+import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
 import dev.radioheads.airwaves.content.entity.block.RadioBlockEntity;
 import dev.radioheads.airwaves.content.entity.block.RodBaseBlockEntity;
 
@@ -33,6 +37,16 @@ public final class AirwaveBlockEntities {
     public static final BlockEntityEntry<RodBaseBlockEntity> ROD_BASE = Airwaves.REGISTRATE.blockEntity("rod_base", RodBaseBlockEntity::new)
             .validBlocks(AirwaveBlocks.COPPER_ROD_BASE, AirwaveBlocks.GOLD_ROD_BASE, AirwaveBlocks.SILVER_ROD_BASE)
             .renderer(() -> CableRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<HfTransceiverBlockEntity> HF_TRANSCEIVER = Airwaves.REGISTRATE.blockEntity("hf_transceiver", HfTransceiverBlockEntity::new)
+            .validBlock(AirwaveBlocks.HF_TRANSCEIVER::get)
+            .renderer(() -> HfTransceiverRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<MicrophoneBlockEntity> MICROPHONE = Airwaves.REGISTRATE.blockEntity("microphone", MicrophoneBlockEntity::new)
+            .validBlock(AirwaveBlocks.MICROPHONE::get)
+            .renderer(() -> MicrophoneRenderer::new)
             .register();
 
     public static void init() {}

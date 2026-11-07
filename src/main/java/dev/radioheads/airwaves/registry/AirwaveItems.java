@@ -52,6 +52,8 @@ public final class AirwaveItems {
             LED = Airwaves.REGISTRATE.item("led", BoardItem::new)
                     .tag(ItemTags.DYEABLE)
                     .lang("LED")
+                    // Dyed base with a plain overlay
+                    .model((ctx, prov) -> prov.generated(ctx, prov.modLoc("item/led"), prov.modLoc("item/led_overlay")))
                     .properties(properties -> properties
                             .component(DataComponents.DYED_COLOR,
                                     new DyedItemColor(0xFFFFFFFF, true)))

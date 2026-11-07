@@ -1,0 +1,152 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "airwaves:block/microphone",
+    "particle": "airwaves:block/microphone"
+  },
+  "elements": [
+    {
+      "name": "knob",
+      "from": [
+        7.5,
+        2.5,
+        6.5
+      ],
+      "to": [
+        8.5,
+        3.5,
+        7
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            11,
+            12,
+            12
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            11.5,
+            10,
+            12,
+            11
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            11,
+            10,
+            11.5,
+            10.5
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            11,
+            10,
+            11.5,
+            11
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            12.5,
+            10,
+            13,
+            11
+          ],
+          "texture": "#0",
+          "rotation": 90
+        },
+        "down": {
+          "uv": [
+            12,
+            10,
+            12.5,
+            11
+          ],
+          "texture": "#0",
+          "rotation": 270
+        }
+      }
+    },
+    {
+      "name": "indi",
+      "from": [
+        7.97656,
+        3.13281,
+        6.49
+      ],
+      "to": [
+        8.02344,
+        3.41797,
+        6.74
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            8.5,
+            12.5,
+            9.5
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            12,
+            8.5,
+            12.5,
+            9.5
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            12,
+            8.5,
+            12.5,
+            9.5
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            12,
+            8.5,
+            12.5,
+            9.5
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            12,
+            8.5,
+            12.5,
+            9.5
+          ],
+          "texture": "#0",
+          "rotation": 90
+        },
+        "down": {
+          "uv": [
+            12,
+            8.5,
+            12.5,
+            9.5
+          ],
+          "texture": "#0",
+          "rotation": 270
+        }
+      }
+    }
+  ]
+}

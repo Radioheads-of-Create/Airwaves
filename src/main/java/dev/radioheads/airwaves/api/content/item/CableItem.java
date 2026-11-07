@@ -46,7 +46,7 @@ public class CableItem extends Item {
 
     public Optional<Component> refusal(Player player, Level level, BlockPos start, BlockPos end) {
         Optional<Component> refusal = Cables.refusal(Cables.node(level, start), start, Cables.node(level, end), end)
-                .map(reason -> refused(reason.name().toLowerCase(Locale.ROOT), Cables.MAX_LENGTH));
+                .map(reason -> reason == Cables.Refusal.NO_JUNCTION ? Component.empty() : refused(reason.name().toLowerCase(Locale.ROOT), Cables.MAX_LENGTH));
         if (refusal.isEmpty() && !hasSpools(player, Cables.spools(Cables.length(start, end)))) {
             return Optional.of(refused("not_enough"));
         }

@@ -36,7 +36,7 @@ public record TunePayload(Tuning tuning) implements CustomPacketPayload {
                     return;
                 }
 
-                stack.set(AirwaveDataComponents.TUNING, payload.tuning.copy());
+                stack.set(AirwaveDataComponents.TUNING, payload.tuning.clamped());
                 menu.broadcastChanges();
             }
         }

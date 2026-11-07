@@ -122,6 +122,34 @@ public final class Cables {
         }
     }
 
+    // Devices past the junctions nearest first
+    public static List<BlockPos> devices(Function<BlockPos, CableNode> nodes, BlockPos start) {
+        Set<BlockPos> seen = new HashSet<>(Set.of(start));
+        Deque<BlockPos> queue = new ArrayDeque<>(List.of(start));
+        List<BlockPos> devices = new ArrayList<>();
+
+        while (!queue.isEmpty() && seen.size() < MAX_NODES) {
+            CableNode node = nodes.apply(queue.poll());
+            if (node == null) {
+                continue;
+            }
+
+            for (CableLink link : node.links().all()) {
+                CableNode next = seen.add(link.other()) ? nodes.apply(link.other()) : null;
+                if (next == null) {
+                    continue;
+                }
+                if (next.junction()) {
+                    queue.add(link.other());
+                } else {
+                    devices.add(link.other());
+                }
+            }
+        }
+
+        return devices;
+    }
+
     public static Survey survey(Function<BlockPos, CableNode> nodes, Predicate<BlockPos> loaded, BlockPos start) {
         Set<BlockPos> seen = new HashSet<>(Set.of(start));
         Deque<Hop> queue = new ArrayDeque<>();

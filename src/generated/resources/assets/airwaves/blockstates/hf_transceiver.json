@@ -1,18 +1,123 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "airwaves:block/hf_transceiver/on",
+    "active=false,facing=east,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body",
       "y": 90
     },
-    "facing=north": {
-      "model": "airwaves:block/hf_transceiver/on"
+    "active=false,facing=east,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 90
     },
-    "facing=south": {
-      "model": "airwaves:block/hf_transceiver/on",
+    "active=false,facing=east,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 90
+    },
+    "active=false,facing=east,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 90
+    },
+    "active=false,facing=north,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body"
+    },
+    "active=false,facing=north,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body"
+    },
+    "active=false,facing=north,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body"
+    },
+    "active=false,facing=north,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body"
+    },
+    "active=false,facing=south,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body",
       "y": 180
     },
-    "facing=west": {
-      "model": "airwaves:block/hf_transceiver/on",
+    "active=false,facing=south,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 180
+    },
+    "active=false,facing=south,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 180
+    },
+    "active=false,facing=south,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 180
+    },
+    "active=false,facing=west,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 270
+    },
+    "active=false,facing=west,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 270
+    },
+    "active=false,facing=west,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 270
+    },
+    "active=false,facing=west,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 270
+    },
+    "active=true,facing=east,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 90
+    },
+    "active=true,facing=east,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 90
+    },
+    "active=true,facing=east,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 90
+    },
+    "active=true,facing=east,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 90
+    },
+    "active=true,facing=north,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body"
+    },
+    "active=true,facing=north,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body"
+    },
+    "active=true,facing=north,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body"
+    },
+    "active=true,facing=north,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body"
+    },
+    "active=true,facing=south,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 180
+    },
+    "active=true,facing=south,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 180
+    },
+    "active=true,facing=south,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 180
+    },
+    "active=true,facing=south,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 180
+    },
+    "active=true,facing=west,finish=black,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 270
+    },
+    "active=true,facing=west,finish=black,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/black/body",
+      "y": 270
+    },
+    "active=true,facing=west,finish=brass,on_air=false": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
+      "y": 270
+    },
+    "active=true,facing=west,finish=brass,on_air=true": {
+      "model": "airwaves:block/hf_transceiver/brass/body",
       "y": 270
     }
   }

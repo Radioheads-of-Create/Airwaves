@@ -2,48 +2,58 @@ package dev.radioheads.airwaves.api.radio;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
-import dev.radioheads.airwaves.registry.AirwaveModulations;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.RegistryFixedCodec;
-import net.minecraft.resources.ResourceLocation;
 
-import java.util.Locale;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
-@NothingNullByDefault
 public record RadioBand(
-        double min,
-        double max,
-        HertzUnit unit,
+        long minHertz,
+        long maxHertz,
+        long stepHertz,
+        long defaultHertz,
+        String label,
         Holder<Modulation> modulation
 ) {
     public static final Codec<RadioBand> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-            Codec.DOUBLE.fieldOf("min").forGetter(RadioBand::min),
-            Codec.DOUBLE.fieldOf("max").forGetter(RadioBand::max),
-            HertzUnit.CODEC.optionalFieldOf("unit", HertzUnit.MHz).forGetter(RadioBand::unit),
-            RegistryFixedCodec.create(AirwaveRegistries.MODULATION)
-                    .optionalFieldOf("modulation", AirwaveModulations.FM)
-                    .forGetter(RadioBand::modulation)
+            Codec.LONG.fieldOf("min_hertz").forGetter(RadioBand::minHertz),
+            Codec.LONG.fieldOf("max_hertz").forGetter(RadioBand::maxHertz),
+            Codec.LONG.fieldOf("step_hertz").forGetter(RadioBand::stepHertz),
+            Codec.LONG.fieldOf("default_hertz").forGetter(RadioBand::defaultHertz),
+            Codec.STRING.fieldOf("label").forGetter(RadioBand::label),
+            RegistryFixedCodec.create(AirwaveRegistries.MODULATION).fieldOf("modulation").forGetter(RadioBand::modulation)
     ).apply(inst, RadioBand::new));
 
     public RadioBand {
-        if (!Double.isFinite(min) || !Double.isFinite(max) || min > max) {
-            throw new IllegalArgumentException("Invalid radio band range: " + min + " – " + max + " " + unit.getSymbol());
+        if (minHertz <= 0 || minHertz >= maxHertz) {
+            throw new IllegalArgumentException("Invalid radio band range: " + minHertz + "–" + maxHertz);
+        }
+
+        if (stepHertz <= 0 || (maxHertz - minHertz) % stepHertz != 0) {
+            throw new IllegalArgumentException("Step must divide the band range: " + stepHertz);
+        }
+
+        if (defaultHertz < minHertz || defaultHertz > maxHertz || (defaultHertz - minHertz) % stepHertz != 0) {
+            throw new IllegalArgumentException("Default frequency must sit on a step within the band range");
         }
     }
 
-    public Frequency minFrequency() { return Frequency.of(min, unit); }
-    public Frequency maxFrequency() { return Frequency.of(max, unit); }
-
-    public Frequency clamp(Frequency frequency) {
-        double value = frequency.convertTo(unit).frequency();
-        value = Math.clamp(value, min, max);
-        return Frequency.of(Math.round(value * 100.0) / 100.0, unit);
+    public boolean contains(long hertz) {
+        return hertz >= minHertz && hertz <= maxHertz;
     }
 
-    public String display(Frequency frequency, ResourceLocation id) {
-        Frequency f = frequency.convertTo(unit);
-        return String.format(Locale.ROOT, "%.2f %s %s", f.frequency(), unit.getSymbol(), id.getPath().toUpperCase(Locale.ROOT));
+    public long clamp(long hertz) {
+        long clamped = Math.clamp(hertz, minHertz, maxHertz);
+        return minHertz + Math.round((clamped - minHertz) / (double) stepHertz) * stepHertz;
+    }
+
+    public String display(long hertz) {
+        boolean kilohertz = minHertz < 1_000_000L;
+        int scale = kilohertz ? 3 : 6;
+        int decimals = Math.max(0, BigDecimal.valueOf(stepHertz, scale).stripTrailingZeros().scale());
+        String value = BigDecimal.valueOf(hertz, scale).setScale(decimals, RoundingMode.HALF_UP).toPlainString();
+        return value + (kilohertz ? " kHz " : " MHz ") + label;
     }
 }

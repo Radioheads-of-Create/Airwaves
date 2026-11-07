@@ -10,12 +10,7 @@ public final class ColorUtil {
 
     public static int colorFromTune(Tuning tuning) {
         RadioBand b = tuning.band().value();
-        double value = b.clamp(tuning.frequency()).frequency();
-
-        double span = b.max() - b.min();
-        double t = span > 0.0 ? (value - b.min()) / span : 0.0;
-
-        float hue = (float) Math.clamp(t, 0.0, 1.0) * 0.75f;
-        return Color.HSBtoRGB(hue, 1f, 1f) & 0xFFFFFF;
+        float t = (float) (b.clamp(tuning.hertz()) - b.minHertz()) / (b.maxHertz() - b.minHertz());
+        return Color.HSBtoRGB(Math.clamp(t, 0f, 1f) * 0.75f, 1f, 1f) & 0xFFFFFF;
     }
 }

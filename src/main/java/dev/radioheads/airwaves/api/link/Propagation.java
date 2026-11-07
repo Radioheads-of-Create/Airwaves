@@ -17,6 +17,8 @@ public final class Propagation {
     private static final double GROUND_BOUNCE_DB = 3.0;
     // Ground wave attenuation ratio of land to sea
     private static final double SEA_ADVANTAGE = 20.0;
+    // Cross-polarization loss in dB
+    public static final double CROSS_POLARIZATION_DB = 10.0;
     // Cover loss per block at 1 MHz and its cap in dB
     private static final double COVER_DB_PER_BLOCK_AT_1_MHZ = 1.7;
     private static final double MAX_COVER_DB_PER_BLOCK = 4.0;
@@ -29,9 +31,9 @@ public final class Propagation {
 
     // Surface path loss
     public static double surfaceLossDb(double mhz, double blocks, double heightA, double heightB, double obstructionDb,
-                                       double seaFraction, SkyState sky) {
+                                       double seaFraction, double polarizationDb, SkyState sky) {
         double km = blocks / sky.reachFactor(mhz) / SURFACE_BLOCKS_PER_KM;
-        double lineOfSight = lineOfSightDb(mhz, km, heightA, heightB, obstructionDb);
+        double lineOfSight = lineOfSightDb(mhz, km, heightA, heightB, obstructionDb) + polarizationDb;
         return Math.min(lineOfSight, groundWaveDb(mhz, km, seaFraction));
     }
 

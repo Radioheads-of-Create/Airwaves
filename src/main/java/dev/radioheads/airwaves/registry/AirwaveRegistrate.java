@@ -3,13 +3,13 @@ package dev.radioheads.airwaves.registry;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-import dev.radioheads.airwaves.api.antenna.AntennaType;
-import dev.radioheads.airwaves.api.antenna.Tier;
 import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.radio.Modulation;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
-import dev.radioheads.airwaves.api.registry.builders.*;
+import dev.radioheads.airwaves.api.registry.builders.CableTypeBuilder;
+import dev.radioheads.airwaves.api.registry.builders.ModulationBuilder;
+import dev.radioheads.airwaves.api.registry.builders.RadioBandBuilder;
 import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,38 +75,6 @@ public class AirwaveRegistrate extends CreateRegistrate {
 
     public <P> ModulationBuilder<P> modulation(P parent, String name, NonNullSupplier<Modulation> factory) {
         return entry(name, callback -> new ModulationBuilder<>(this, parent, name, callback, AirwaveRegistries.MODULATION, factory));
-    }
-
-    public TierBuilder<AirwaveRegistrate> tier(NonNullSupplier<Tier> factory) {
-        return tier((AirwaveRegistrate) self(), factory);
-    }
-
-    public TierBuilder<AirwaveRegistrate> tier(String name, NonNullSupplier<Tier> factory) {
-        return tier((AirwaveRegistrate) self(), name, factory);
-    }
-
-    public <P> TierBuilder<P> tier(P parent, NonNullSupplier<Tier> factory) {
-        return tier(parent, currentName(), factory);
-    }
-
-    public <P> TierBuilder<P> tier(P parent, String name, NonNullSupplier<Tier> factory) {
-        return entry(name, callback -> new TierBuilder<>(this, parent, name, callback, AirwaveRegistries.TIER, factory));
-    }
-
-    public AntennaTypeBuilder<AirwaveRegistrate> antennaType(NonNullSupplier<AntennaType> factory) {
-        return antennaType((AirwaveRegistrate) self(), factory);
-    }
-
-    public AntennaTypeBuilder<AirwaveRegistrate> antennaType(String name, NonNullSupplier<AntennaType> factory) {
-        return antennaType((AirwaveRegistrate) self(), name, factory);
-    }
-
-    public <P> AntennaTypeBuilder<P> antennaType(P parent, NonNullSupplier<AntennaType> factory) {
-        return antennaType(parent, currentName(), factory);
-    }
-
-    public <P> AntennaTypeBuilder<P> antennaType(P parent, String name, NonNullSupplier<AntennaType> factory) {
-        return entry(name, callback -> new AntennaTypeBuilder<>(this, parent, name, callback, AirwaveRegistries.ANTENNA_TYPE, factory));
     }
 
     public CableTypeBuilder<AirwaveRegistrate> cableType(NonNullSupplier<CableType> factory) {

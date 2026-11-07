@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,on_air=false": {
+      "model": "airwaves:block/microphone/off",
+      "y": 90
+    },
+    "facing=east,on_air=true": {
+      "model": "airwaves:block/microphone/on",
+      "y": 90
+    },
+    "facing=north,on_air=false": {
+      "model": "airwaves:block/microphone/off"
+    },
+    "facing=north,on_air=true": {
+      "model": "airwaves:block/microphone/on"
+    },
+    "facing=south,on_air=false": {
+      "model": "airwaves:block/microphone/off",
+      "y": 180
+    },
+    "facing=south,on_air=true": {
+      "model": "airwaves:block/microphone/on",
+      "y": 180
+    },
+    "facing=west,on_air=false": {
+      "model": "airwaves:block/microphone/off",
+      "y": 270
+    },
+    "facing=west,on_air=true": {
+      "model": "airwaves:block/microphone/on",
+      "y": 270
+    }
+  }
+}

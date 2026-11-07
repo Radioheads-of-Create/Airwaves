@@ -2,8 +2,6 @@ package dev.radioheads.airwaves.content.item;
 
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.item.Tunable;
-import dev.radioheads.airwaves.api.radio.RadioBand;
-import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
 import dev.radioheads.airwaves.api.util.ColorUtil;
 import dev.radioheads.airwaves.registry.AirwaveDataComponents;
 import net.minecraft.network.chat.Component;
@@ -25,7 +23,6 @@ public class RadioItem extends BlockItem implements Tunable {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         var data = stack.get(AirwaveDataComponents.TUNING);
         if (data == null) return;
-        RadioBand band = data.band().value();
-        tooltipComponents.add(Component.literal(band.display(data.frequency(), AirwaveRegistries.RADIO_BAND_REGISTRY.getKey(band))).withColor(ColorUtil.colorFromTune(data)));
+        tooltipComponents.add(Component.literal(data.display()).withColor(ColorUtil.colorFromTune(data)));
     }
 }

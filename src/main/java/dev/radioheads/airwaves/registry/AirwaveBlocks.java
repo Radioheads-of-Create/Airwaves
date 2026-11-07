@@ -1,5 +1,6 @@
 package dev.radioheads.airwaves.registry;
 
+import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.SharedProperties;
@@ -10,6 +11,7 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.block.*;
+import dev.radioheads.airwaves.content.entity.block.TransmitterBlockEntity;
 import dev.radioheads.airwaves.content.item.RadioItem;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.CopyBlockState;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -127,7 +130,7 @@ public final class AirwaveBlocks {
                         new ConfiguredModel(
                                 prov.models().getExistingFile(prov.modLoc("block/radio")),
                                 0,
-                                facing.get2DDataValue() * 90,
+                                yRotation(facing),
                                 false
                         )
                 };
@@ -149,9 +152,41 @@ public final class AirwaveBlocks {
             FM_TRANSMITTER = registerTransmitter("fm_transmitter", "FM Transmitter", "transmitter"),
             VHF_BASE_STATION = registerTransmitter("vhf_base_station", "VHF Base Station", "base_station"),
             UHF_BASE_STATION = registerTransmitter("uhf_base_station", "UHF Base Station", "base_station"),
-            HF_TRANSCEIVER = registerTransmitter("hf_transceiver", "HF Transceiver", "hf_transceiver"),
             VHF_REPEATER = registerTransmitter("vhf_repeater", "VHF Repeater", "repeater"),
             UHF_REPEATER = registerTransmitter("uhf_repeater", "UHF Repeater", "repeater");
+
+    public static final BlockEntry<HfTransceiverBlock> HF_TRANSCEIVER = Airwaves.REGISTRATE
+            .block("hf_transceiver", properties -> new HfTransceiverBlock(properties, 100, AirwaveRadioBands.HF))
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> new ConfiguredModel[] {
+                    new ConfiguredModel(
+                            prov.models().getExistingFile(prov.modLoc("block/hf_transceiver/" + state.getValue(HfTransceiverBlock.FINISH).getSerializedName() + "/body")),
+                            0,
+                            yRotation(state.getValue(HfTransceiverBlock.HORIZONTAL_FACING)),
+                            false
+                    )
+            }))
+            .onRegister(block -> BlockStressValues.IMPACTS.register(block, () -> TransmitterBlockEntity.BASE_STRESS))
+            .item(RadioItem::new)
+            .properties(p -> p.component(AirwaveDataComponents.TUNING, new Tuning(7_100_000L, AirwaveRadioBands.HF)))
+            .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/hf_transceiver/brass/item"))
+                    .override()
+                    .predicate(Airwaves.asResource("finish"), 1.0F)
+                    .model(prov.getExistingFile(prov.modLoc("block/hf_transceiver/black/item")))
+                    .end())
+            .build()
+            .loot((tables, block) -> tables.add(block, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .when(ExplosionCondition.survivesExplosion())
+                            .add(LootItem.lootTableItem(block.asItem())
+                                    .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                            .include(AirwaveDataComponents.TUNING))
+                                    .apply(CopyBlockState.copyState(block).copy(HfTransceiverBlock.FINISH))))))
+            .lang("HF Transceiver")
+            .register();
 
     public static final BlockEntry<InsulatorBlock>
             ANDESITE_INSULATOR = registerInsulator("andesite"),
@@ -185,6 +220,23 @@ public final class AirwaveBlocks {
             }))
             .item()
             .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/amplifier/on")))
+            .build()
+            .register();
+
+    public static final BlockEntry<MicrophoneBlock> MICROPHONE = Airwaves.REGISTRATE.block("microphone", MicrophoneBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> new ConfiguredModel[] {
+                    new ConfiguredModel(
+                            prov.models().getExistingFile(prov.modLoc("block/microphone/" + (state.getValue(MicrophoneBlock.ON_AIR) ? "on" : "off"))),
+                            0,
+                            yRotation(state.getValue(MicrophoneBlock.FACING)),
+                            false
+                    )
+            }))
+            .item()
+            .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/microphone/item")))
             .build()
             .register();
 

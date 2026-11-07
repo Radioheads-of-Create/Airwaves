@@ -33,8 +33,6 @@ public class Airwaves {
         AirwaveBlockEntities.init();
         AirwaveRadioBands.init();
         AirwaveModulations.init();
-        AirwaveTiers.init();
-        AirwaveAntennaTypes.init();
         AirwaveLang.init();
         AirwaveMenuTypes.MENU.register(modEventBus);
         AirwaveDataComponents.DATA_COMPONENTS.register(modEventBus);

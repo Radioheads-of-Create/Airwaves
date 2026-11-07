@@ -4,6 +4,7 @@ import com.simibubi.create.AllCreativeModeTabs;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.content.block.HfTransceiverBlock;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -37,7 +38,8 @@ public class AirwaveCreativeTabs {
                 new Section("hardware", List.of(
                         List.of(AirwaveItems.FIELD_MANUAL, AirwaveBlocks.TUNING_TABLE, AirwaveBlocks.RADIO, AirwaveItems.HANDHELD_RADIO),
                         List.of(AirwaveBlocks.AM_TRANSMITTER, AirwaveBlocks.FM_TRANSMITTER, AirwaveBlocks.HF_TRANSCEIVER, AirwaveBlocks.VHF_BASE_STATION,
-                                AirwaveBlocks.UHF_BASE_STATION, AirwaveBlocks.VHF_REPEATER, AirwaveBlocks.UHF_REPEATER, AirwaveBlocks.AMPLIFIER),
+                                AirwaveBlocks.UHF_BASE_STATION, AirwaveBlocks.VHF_REPEATER, AirwaveBlocks.UHF_REPEATER, AirwaveBlocks.AMPLIFIER,
+                                AirwaveBlocks.MICROPHONE),
                         List.of(AirwaveBlocks.COPPER_ANTENNA_ROD, AirwaveBlocks.GOLD_ANTENNA_ROD, AirwaveBlocks.SILVER_ANTENNA_ROD,
                                 AirwaveBlocks.COPPER_ROD_BASE, AirwaveBlocks.GOLD_ROD_BASE, AirwaveBlocks.SILVER_ROD_BASE,
                                 AirwaveBlocks.ANDESITE_INSULATOR, AirwaveBlocks.BRASS_INSULATOR))),
@@ -62,6 +64,10 @@ public class AirwaveCreativeTabs {
                 for (List<ItemLike> block : section.blocks()) {
                     for (ItemLike item : block) {
                         event.accept(item, CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+                        if (item == AirwaveBlocks.HF_TRANSCEIVER) {
+                            event.accept(HfTransceiverBlock.withFinish(AirwaveBlocks.HF_TRANSCEIVER.asStack(), HfTransceiverBlock.Finish.BLACK),
+                                    CreativeModeTab.TabVisibility.PARENT_TAB_ONLY);
+                        }
                         sorted.add(item.asItem());
                     }
                 }

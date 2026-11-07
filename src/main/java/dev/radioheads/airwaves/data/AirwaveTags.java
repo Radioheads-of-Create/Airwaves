@@ -2,8 +2,6 @@ package dev.radioheads.airwaves.data;
 
 import dev.radioheads.airwaves.AirwaveLang;
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.api.antenna.Tier;
-import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
@@ -47,30 +45,6 @@ public final class AirwaveTags {
 
         Blocks(String namespace, String path) {
             this.tag = BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, path));
-        }
-    }
-
-    public enum Tiers {
-        STANDARD;
-
-        public final TagKey<Tier> tag;
-
-        Tiers() {
-            this(MOD);
-        }
-
-        Tiers(NameSpace namespace) {
-            this(namespace, null);
-        }
-
-        Tiers(NameSpace namespace, String path) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace.id, path == null ? AirwaveLang.asId(name()) : path);
-            this.tag = TagKey.create(AirwaveRegistries.TIER, id);
-        }
-
-        Tiers(String namespace, String path) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace, path == null ? AirwaveLang.asId(name()) : path);
-            this.tag = TagKey.create(AirwaveRegistries.TIER, id);
         }
     }
 

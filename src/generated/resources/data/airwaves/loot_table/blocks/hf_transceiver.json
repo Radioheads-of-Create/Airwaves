@@ -11,6 +11,22 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "airwaves:tuning"
+              ],
+              "source": "block_entity"
+            },
+            {
+              "block": "airwaves:hf_transceiver",
+              "function": "minecraft:copy_state",
+              "properties": [
+                "finish"
+              ]
+            }
+          ],
           "name": "airwaves:hf_transceiver"
         }
       ],

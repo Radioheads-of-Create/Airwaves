@@ -1,0 +1,78 @@
+{
+ "parent": "minecraft:block/block",
+ "render_type": "minecraft:cutout",
+ "textures": {
+  "0": "airwaves:block/hf_transceiver/black",
+  "particle": "airwaves:block/hf_transceiver/black"
+ },
+ "elements": [
+  {
+   "from": [
+    12,
+    5,
+    1.5
+   ],
+   "to": [
+    13,
+    8,
+    4.5
+   ],
+   "faces": {
+    "north": {
+     "uv": [
+      1.25,
+      5.25,
+      1.5,
+      6
+     ],
+     "texture": "#0"
+    },
+    "east": {
+     "uv": [
+      0,
+      5.25,
+      0.75,
+      6
+     ],
+     "texture": "#0"
+    },
+    "south": {
+     "uv": [
+      1.25,
+      5.25,
+      1.5,
+      6
+     ],
+     "texture": "#0"
+    },
+    "west": {
+     "uv": [
+      0,
+      5.25,
+      0.75,
+      6
+     ],
+     "texture": "#0"
+    },
+    "up": {
+     "uv": [
+      1.25,
+      5.25,
+      1.5,
+      6
+     ],
+     "texture": "#0"
+    },
+    "down": {
+     "uv": [
+      1.25,
+      5.25,
+      1.5,
+      6
+     ],
+     "texture": "#0"
+    }
+   }
+  }
+ ]
+}

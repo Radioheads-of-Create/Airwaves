@@ -14,39 +14,38 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 
 @NothingNullByDefault
-public record Tuning(Frequency frequency, Holder<RadioBand> band) {
-    public static final Tuning DEFAULT = new Tuning(
-            new Frequency(98.1, HertzUnit.MHz),
-            AirwaveRadioBands.FM
-    );
+public record Tuning(long hertz, Holder<RadioBand> band) {
+    public static final Tuning DEFAULT = new Tuning(98_100_000L, AirwaveRadioBands.FM_BROADCAST);
 
     public static final Codec<Tuning> CODEC =
             RecordCodecBuilder.create(inst -> inst.group(
-                    Frequency.CODEC.fieldOf("frequency").forGetter(Tuning::frequency),
+                    Codec.LONG.fieldOf("hertz").forGetter(Tuning::hertz),
+                    // Removed bands fall back to FM
                     RegistryFixedCodec.create(AirwaveRegistries.RADIO_BAND)
-                            .optionalFieldOf("band", AirwaveRadioBands.FM)
+                            .lenientOptionalFieldOf("band", AirwaveRadioBands.FM_BROADCAST)
                             .forGetter(Tuning::band)
             ).apply(inst, Tuning::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Tuning> STREAM_CODEC =
             StreamCodec.composite(
-                    Frequency.STREAM_CODEC, Tuning::frequency,
+                    ByteBufCodecs.VAR_LONG, Tuning::hertz,
                     ByteBufCodecs.holderRegistry(AirwaveRegistries.RADIO_BAND), Tuning::band,
                     Tuning::new
             );
 
+    public Tuning withHertz(long hertz) {
+        return new Tuning(hertz, this.band);
+    }
+
     public Tuning clamped() {
-        return new Tuning(band.value().clamp(frequency), band);
+        return new Tuning(this.band.value().clamp(this.hertz), this.band);
     }
 
     public boolean matches(Tuning other) {
         return band.value().equals(other.band.value())
-                && band.value().clamp(frequency).compareTo(
-                other.band.value().clamp(other.frequency)) == 0;
+                && band.value().clamp(hertz) == other.band.value().clamp(other.hertz);
     }
 
     public void writeTo(CompoundTag compound, HolderLookup.Provider registries) {
@@ -66,13 +65,6 @@ public record Tuning(Frequency frequency, Holder<RadioBand> band) {
     }
 
     public String display() {
-        ResourceLocation id = band.unwrapKey()
-                .map(ResourceKey::location)
-                .orElseThrow(() -> new IllegalStateException("Radio band is not registered"));
-        return band.value().display(frequency, id);
-    }
-
-    public Tuning copy() {
-        return new Tuning(frequency, band);
+        return this.band.value().display(this.hertz);
     }
 }

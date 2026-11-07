@@ -1,10 +1,12 @@
 package dev.radioheads.airwaves.api.antenna;
 
+import com.mojang.serialization.Codec;
 import net.minecraft.network.chat.Component;
 
 public record AntennaDirection(int degrees) {
     public static final int STEPS = 360;
     public static final AntennaDirection DEFAULT = new AntennaDirection(0);
+    public static final Codec<AntennaDirection> CODEC = Codec.INT.xmap(AntennaDirection::of, AntennaDirection::degrees);
 
     public AntennaDirection {
         if (degrees < 0 || degrees >= STEPS)

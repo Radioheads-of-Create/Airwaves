@@ -1,3 +1,11 @@
 {
-  "parent": "airwaves:block/hf_transceiver/on"
+  "parent": "airwaves:block/hf_transceiver/brass/item",
+  "overrides": [
+    {
+      "model": "airwaves:block/hf_transceiver/black/item",
+      "predicate": {
+        "airwaves:finish": 1.0
+      }
+    }
+  ]
 }
