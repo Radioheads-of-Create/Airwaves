@@ -27,7 +27,7 @@ public class AirwaveCreativeTabs {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN = CREATIVE_TABS.register("main", () -> CreativeModeTab.builder()
             .withTabsBefore(AllCreativeModeTabs.BASE_CREATIVE_TAB.getId())
             .title(Component.translatable("creative_tab.airwave_main"))
-            .icon(AirwaveBlocks.TUNING_TABLE::asStack)
+            .icon(AirwaveBlocks.RADIO::asStack)
             .build());
 
     // Section with item rows
