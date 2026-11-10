@@ -3,17 +3,12 @@ package dev.radioheads.airwaves.registry;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.client.cable.CableRenderer;
-import dev.radioheads.airwaves.client.render.hf.HfTransceiverRenderer;
-import dev.radioheads.airwaves.client.render.microphone.MicrophoneRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationVisual;
+import dev.radioheads.airwaves.client.render.hf.HfTransceiverRenderer;
+import dev.radioheads.airwaves.client.render.microphone.MicrophoneRenderer;
 import dev.radioheads.airwaves.client.render.transmitter.TransmitterVisual;
-import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
-import dev.radioheads.airwaves.content.entity.block.HfTransceiverBlockEntity;
-import dev.radioheads.airwaves.content.entity.block.InsulatorBlockEntity;
-import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
-import dev.radioheads.airwaves.content.entity.block.RadioBlockEntity;
-import dev.radioheads.airwaves.content.entity.block.RodBaseBlockEntity;
+import dev.radioheads.airwaves.content.entity.block.*;
 
 public final class AirwaveBlockEntities {
     private AirwaveBlockEntities() {}

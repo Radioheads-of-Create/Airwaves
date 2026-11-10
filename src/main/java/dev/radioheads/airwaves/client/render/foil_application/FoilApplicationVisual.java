@@ -10,12 +10,9 @@ import dev.engine_room.flywheel.lib.model.Models;
 import dev.engine_room.flywheel.lib.visual.SimpleTickableVisual;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
-import dev.radioheads.airwaves.content.entity.block.TransmitterBlockEntity;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
@@ -39,7 +36,6 @@ public class FoilApplicationVisual extends KineticBlockEntityVisual<FoilApplicat
                 .rotateToFace(Direction.WEST, facing)
                 .setup(blockEntity)
                 .setPosition(getVisualPosition());
-        ;
     }
 
     @Override

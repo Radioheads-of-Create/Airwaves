@@ -1,13 +1,13 @@
 package dev.radioheads.airwaves.client.render.microphone;
 
-import dev.radioheads.airwaves.client.cable.CableRenderer;
-import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
+import dev.radioheads.airwaves.client.cable.CableRenderer;
 import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.MicrophoneBlock;
 import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
+import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import net.createmod.catnip.render.CachedBuffers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;

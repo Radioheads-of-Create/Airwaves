@@ -9,13 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.ToDoubleFunction;
 
 public record AntennaProfile(Shape shape, double lengthBlocks, List<Integer> elementWidths, List<Integer> elementPositions,
