@@ -7,31 +7,29 @@ import com.simibubi.create.foundation.render.AllInstanceTypes;
 import dev.engine_room.flywheel.api.instance.Instance;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.lib.model.Models;
+import dev.engine_room.flywheel.lib.visual.SimpleTickableVisual;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
-public class FoilApplicationVisual extends KineticBlockEntityVisual<FoilApplicatorBlockEntity> {
+public class FoilApplicationVisual extends KineticBlockEntityVisual<FoilApplicatorBlockEntity> implements SimpleTickableVisual {
     protected final RotatingInstance shaft;
 
     public FoilApplicationVisual(VisualizationContext context, FoilApplicatorBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
 
-        Direction shaftDir = blockEntity.getBlockState()
-                .getValue(FoilApplicatorBlock.HORIZONTAL_FACING)
-                .getCounterClockWise();
+        Direction facing = blockEntity.getBlockState().getValue(FoilApplicatorBlock.HORIZONTAL_FACING).getCounterClockWise();
 
         shaft = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AllPartialModels.SHAFT))
-                .createInstance();
-
-        shaft.setup(blockEntity)
-                .setPosition(getVisualPosition())
-                .rotateToFace(shaftDir)
-                .setChanged();
+                .createInstance()
+                .rotateToFace(Direction.SOUTH, facing)
+                .setup(blockEntity)
+                .setPosition(getVisualPosition());
     }
 
     @Override
@@ -41,11 +39,7 @@ public class FoilApplicationVisual extends KineticBlockEntityVisual<FoilApplicat
 
     @Override
     public void updateLight(float partialTick) {
-        Direction shaftDir = blockEntity.getBlockState()
-                .getValue(FoilApplicatorBlock.HORIZONTAL_FACING)
-                .getCounterClockWise();
-        BlockPos behind = pos.relative(shaftDir);
-        relight(behind, shaft);
+        relight(shaft);
     }
 
     @Override
@@ -56,5 +50,10 @@ public class FoilApplicationVisual extends KineticBlockEntityVisual<FoilApplicat
     @Override
     public void update(float partialTick) {
         shaft.setup(blockEntity).setChanged();
+    }
+
+    @Override
+    public void tick(Context context) {
+        applyOverstressEffect(blockEntity, shaft);
     }
 }
