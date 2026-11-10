@@ -37,6 +37,20 @@ including but not limited to artificial intelligence, natural language processin
 4. Any person or organisation found to violate these restrictions will be subject to legal action and may be held liable
 for any damages resulting from such use.
 
+5. Permitted distribution. The Software, in whole or in part and in original or modified form,
+may be distributed only:
+(a) through the official Maven repository of The Radioheads Team;
+(b) through CurseForge (curseforge.com) and Modrinth (modrinth.com); and
+(c) as part of modpacks, provided the Software is included without removing its copyright notice or this license.
+No person or organisation may upload, host, mirror, or otherwise distribute the Software or any
+derivative through any other website, service, repository, or medium without prior written permission
+from the copyright holders.
+
+6. Attribution. Every distribution, including of modified versions, must keep the copyright notice and this
+license intact. No person may present the Software, or a modified version of it, as their own original work
+or as the work of anyone other than the copyright holders and contributors. Modified versions must be clearly
+identified as modified and must not use the Radiohead's name or branding to imply endorsement.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
