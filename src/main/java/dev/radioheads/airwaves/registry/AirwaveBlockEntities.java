@@ -7,6 +7,7 @@ import dev.radioheads.airwaves.client.render.hf.HfTransceiverRenderer;
 import dev.radioheads.airwaves.client.render.microphone.MicrophoneRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationVisual;
+import dev.radioheads.airwaves.client.render.transmitter.TransmitterVisual;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
 import dev.radioheads.airwaves.content.entity.block.HfTransceiverBlockEntity;
 import dev.radioheads.airwaves.content.entity.block.InsulatorBlockEntity;
@@ -40,6 +41,7 @@ public final class AirwaveBlockEntities {
             .register();
 
     public static final BlockEntityEntry<HfTransceiverBlockEntity> HF_TRANSCEIVER = Airwaves.REGISTRATE.blockEntity("hf_transceiver", HfTransceiverBlockEntity::new)
+            .visual(() -> TransmitterVisual::new)
             .validBlock(AirwaveBlocks.HF_TRANSCEIVER::get)
             .renderer(() -> HfTransceiverRenderer::new)
             .register();
