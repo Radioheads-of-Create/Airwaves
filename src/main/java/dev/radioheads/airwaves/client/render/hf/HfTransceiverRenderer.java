@@ -1,5 +1,8 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.render.hf;
 
+import dev.radioheads.airwaves.client.hf.HfTransceiverScreens;
+import dev.radioheads.airwaves.client.cable.CableRenderer;
+import dev.radioheads.airwaves.client.hf.HfTransceiverDisplay;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

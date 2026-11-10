@@ -1,5 +1,6 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.render.microphone;
 
+import dev.radioheads.airwaves.client.cable.CableRenderer;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

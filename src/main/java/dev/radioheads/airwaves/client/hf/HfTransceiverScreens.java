@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.hf;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import dev.radioheads.airwaves.Airwaves;

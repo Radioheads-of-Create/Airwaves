@@ -1,6 +1,7 @@
 package dev.radioheads.airwaves.client;
 
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.client.hf.HfTransceiverHud;
 import dev.radioheads.airwaves.content.block.HfTransceiverBlock;
 import dev.radioheads.airwaves.content.screen.TuningTableScreen;
 import dev.radioheads.airwaves.registry.AirwaveBlocks;

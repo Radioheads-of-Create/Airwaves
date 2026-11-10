@@ -9,7 +9,7 @@ import de.maxhenkel.voicechat.api.events.EventRegistration;
 import de.maxhenkel.voicechat.api.events.MicrophonePacketEvent;
 import de.maxhenkel.voicechat.api.packets.MicrophonePacket;
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.client.RadioAudioFilter;
+import dev.radioheads.airwaves.client.radio.RadioAudioFilter;
 import dev.radioheads.airwaves.network.RadioLinkStore;
 import dev.radioheads.airwaves.network.RadioVoice;
 import dev.radioheads.airwaves.network.payload.RadioLinkPayload;

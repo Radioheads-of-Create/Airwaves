@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.cable;
 
 import com.simibubi.create.content.equipment.blueprint.BlueprintOverlayRenderer;
 import dev.radioheads.airwaves.Airwaves;

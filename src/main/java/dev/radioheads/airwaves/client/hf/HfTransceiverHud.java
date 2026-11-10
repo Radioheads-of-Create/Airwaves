@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.hf;
 
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.content.item.CableItem;

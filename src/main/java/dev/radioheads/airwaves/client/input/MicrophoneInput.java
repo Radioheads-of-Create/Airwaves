@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.input;
 
 import com.simibubi.create.AllItems;
 import dev.radioheads.airwaves.Airwaves;

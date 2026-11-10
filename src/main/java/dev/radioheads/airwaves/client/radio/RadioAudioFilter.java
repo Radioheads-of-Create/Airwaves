@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.radio;
 
 import dev.radioheads.airwaves.api.radio.Modulation;
 

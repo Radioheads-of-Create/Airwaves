@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.radio;
 
 import dev.radioheads.airwaves.network.RadioVoice;
 import dev.radioheads.airwaves.network.payload.RadioSongPayload;
