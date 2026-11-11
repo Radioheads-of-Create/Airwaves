@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Supplier;
 
 // Skin-effect metal loss per block per root MHz
-public record CableType(Supplier<? extends CableItem> spool, double lossPerBlock) {
+public record CableType(Supplier<? extends CableItem> spool, double lossPerBlock, int color) {
     @Contract("_ -> new")
     public @NotNull ItemStack cable(int count) {
         return new ItemStack(spool.get(), count);

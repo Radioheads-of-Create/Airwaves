@@ -7,7 +7,7 @@ import com.simibubi.create.content.processing.sequenced.SequencedRecipe;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.content.recipe.FoilApplicationRecipe;
-import dev.radioheads.airwaves.integration.jei.render.FoilApplicationMachine;
+import dev.radioheads.airwaves.integration.jei.render.AnimatedFoilApplication;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
@@ -16,7 +16,7 @@ import net.minecraft.client.gui.GuiGraphics;
 @NothingNullByDefault
 //TODO
 public class FoilApplicationCategory extends CreateRecipeCategory<FoilApplicationRecipe> {
-    private final FoilApplicationMachine machine = new FoilApplicationMachine();
+    private final AnimatedFoilApplication machine = new AnimatedFoilApplication();
 
     public FoilApplicationCategory(Info<FoilApplicationRecipe> info) {
         super(info);
@@ -36,7 +36,7 @@ public class FoilApplicationCategory extends CreateRecipeCategory<FoilApplicatio
     }
 
     public static class AssemblyFoilApplication extends SequencedAssemblySubCategory {
-        private final FoilApplicationMachine machine = new FoilApplicationMachine();
+        private final AnimatedFoilApplication machine = new AnimatedFoilApplication();
 
         public AssemblyFoilApplication() {
             super(25);

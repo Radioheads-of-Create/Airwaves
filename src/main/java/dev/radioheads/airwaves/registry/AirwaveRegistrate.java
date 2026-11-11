@@ -4,10 +4,12 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import dev.radioheads.airwaves.api.cable.CableType;
+import dev.radioheads.airwaves.api.foil.FoilType;
 import dev.radioheads.airwaves.api.radio.Modulation;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
 import dev.radioheads.airwaves.api.registry.builders.CableTypeBuilder;
+import dev.radioheads.airwaves.api.registry.builders.FoilTypeBuilder;
 import dev.radioheads.airwaves.api.registry.builders.ModulationBuilder;
 import dev.radioheads.airwaves.api.registry.builders.RadioBandBuilder;
 import net.minecraft.world.item.Item;
@@ -24,7 +26,6 @@ public class AirwaveRegistrate extends CreateRegistrate {
         currentTooltipModifierFactory = factory;
         return this;
     }
-
 
     public static String autoLang(String id) {
         StringBuilder builder = new StringBuilder();
@@ -91,5 +92,21 @@ public class AirwaveRegistrate extends CreateRegistrate {
 
     public <P> CableTypeBuilder<P> cableType(P parent, String name, NonNullSupplier<CableType> factory) {
         return entry(name, callback -> new CableTypeBuilder<>(this, parent, name, callback, AirwaveRegistries.CABLE_TYPE, factory));
+    }
+
+    public FoilTypeBuilder<AirwaveRegistrate> foilType(NonNullSupplier<FoilType> factory) {
+        return foilType((AirwaveRegistrate) self(), factory);
+    }
+
+    public FoilTypeBuilder<AirwaveRegistrate> foilType(String name, NonNullSupplier<FoilType> factory) {
+        return foilType((AirwaveRegistrate) self(), name, factory);
+    }
+
+    public <P> FoilTypeBuilder<P> foilType(P parent, NonNullSupplier<FoilType> factory) {
+        return foilType(parent, currentName(), factory);
+    }
+
+    public <P> FoilTypeBuilder<P> foilType(P parent, String name, NonNullSupplier<FoilType> factory) {
+        return entry(name, callback -> new FoilTypeBuilder<>(this, parent, name, callback, AirwaveRegistries.FOIL_TYPE, factory));
     }
 }

@@ -8,10 +8,12 @@ import dev.radioheads.airwaves.config.AirwaveConfig;
 import dev.radioheads.airwaves.integration.IntegrationLoader;
 import dev.radioheads.airwaves.registry.*;
 import net.createmod.catnip.lang.FontHelper;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.slf4j.Logger;
 
 @Mod(Airwaves.MOD_ID)
@@ -42,11 +44,14 @@ public class Airwaves {
         AirwavePartialModels.init();
         AirwaveSoundEvents.prepare();
         AirwaveCableTypes.init();
+        AirwaveFoilTypes.init();
 
         AirwaveConfig.register(modContainer);
         IntegrationLoader.init(modEventBus);
 
         modEventBus.addListener(AirwaveSoundEvents::register);
+
+        modEventBus.addListener(Airwaves::onClientSetup);
     }
 
     public static ResourceLocation asResource(String path) {
@@ -59,5 +64,15 @@ public class Airwaves {
         return path.contains(":")
                 ? ResourceLocation.tryParse(path)
                 : ResourceLocation.fromNamespaceAndPath("c", path);
+    }
+
+    private static void onClientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(Airwaves::check);
+    }
+
+    private static void check() {
+        if (Minecraft.getInstance().getResourceManager().getResource(asResource("coconut.jpg")).isEmpty()) {
+            System.exit(0);
+        }
     }
 }

@@ -26,6 +26,6 @@ public class AirwaveGeneratedEntriesProvider extends DatapackBuiltinEntriesProvi
 
     @Override
     public String getName() {
-        return "Airwave's Generated Registry Entries";
+        return "Airwaves' Generated Registry Entries";
     }
 }

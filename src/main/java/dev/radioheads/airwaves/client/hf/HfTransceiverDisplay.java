@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.hf;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -78,7 +78,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         if: github.event_name == 'push' && env.DISCORD_WEBHOOK != ''
-        uses: wolfieboy09/action-discord-notifier@v1.4.0
+        uses: wolfieboy09/action-discord-notifier@v1.4.1
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           message-title: New commit on branch ${{ steps.get_branch.outputs.branch }}

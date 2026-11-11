@@ -1,7 +1,7 @@
 package dev.radioheads.airwaves.network.payload;
 
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.client.RadioSoundPlayer;
+import dev.radioheads.airwaves.client.radio.RadioSoundPlayer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.RegistryFriendlyByteBuf;

@@ -1,12 +1,7 @@
 package dev.radioheads.airwaves.network;
 
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.network.payload.HfPanelPayload;
-import dev.radioheads.airwaves.network.payload.MicrophonePayload;
-import dev.radioheads.airwaves.network.payload.RadioLinkPayload;
-import dev.radioheads.airwaves.network.payload.RadioSongPayload;
-import dev.radioheads.airwaves.network.payload.RadioSoundPayload;
-import dev.radioheads.airwaves.network.payload.TunePayload;
+import dev.radioheads.airwaves.network.payload.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;

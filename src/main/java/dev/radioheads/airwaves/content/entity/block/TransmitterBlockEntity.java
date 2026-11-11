@@ -96,7 +96,7 @@ public abstract class TransmitterBlockEntity extends KineticBlockEntity implemen
     @Override
     public void initialize() {
         super.initialize();
-        if (!this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide) {
             RadioNetwork.add(this.level, this);
         }
     }
@@ -112,12 +112,13 @@ public abstract class TransmitterBlockEntity extends KineticBlockEntity implemen
     @Override
     public void lazyTick() {
         super.lazyTick();
-        if (!this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide) {
             scanAntenna();
         }
     }
 
     private boolean scanAntenna() {
+        if (this.level == null) return false;
         Cables.Survey survey = Cables.survey(pos -> Cables.node(this.level, pos), this.level::isLoaded, this.worldPosition);
         if (!survey.complete()) {
             return false;
@@ -156,7 +157,7 @@ public abstract class TransmitterBlockEntity extends KineticBlockEntity implemen
     @Override
     public void tick() {
         super.tick();
-        if (!this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide) {
             boolean speaking = transmits() && RadioVoice.speaking(id());
             BlockState state = getBlockState().setValue(HfTransceiverBlock.ACTIVE, transmits()).setValue(HfTransceiverBlock.ON_AIR, speaking);
             if (state != getBlockState()) {

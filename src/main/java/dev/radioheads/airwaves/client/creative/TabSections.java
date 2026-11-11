@@ -1,4 +1,4 @@
-package dev.radioheads.airwaves.client;
+package dev.radioheads.airwaves.client.creative;
 
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.registry.AirwaveCreativeTabs;

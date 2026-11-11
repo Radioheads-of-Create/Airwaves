@@ -2,6 +2,7 @@ package dev.radioheads.airwaves.api.registry;
 
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.cable.CableType;
+import dev.radioheads.airwaves.api.foil.FoilType;
 import dev.radioheads.airwaves.api.radio.Modulation;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.registry.board.*;
@@ -31,11 +32,13 @@ public class AirwaveRegistries {
     public static final ResourceKey<Registry<RadioBand>> RADIO_BAND = createRegistryKey("radio_band");
     public static final ResourceKey<Registry<Modulation>> MODULATION = createRegistryKey("modulation");
     public static final ResourceKey<Registry<CableType>> CABLE_TYPE = createRegistryKey("cable_type");
+    public static final ResourceKey<Registry<FoilType>> FOIL_TYPE = createRegistryKey("foil_type");
 
     public static final Registry<BoardDesign> BOARD_DESIGN_REGISTRY = makeSyncedRegistry(BOARD);
     public static final Registry<BoardPart> BOARD_PART_REGISTRY = makeSyncedRegistry(BOARD_PART);
     public static final Registry<RadioBand> RADIO_BAND_REGISTRY = makeSyncedRegistry(RADIO_BAND);
     public static final Registry<Modulation> MODULATION_REGISTRY = makeSyncedRegistry(MODULATION);
+    public static final Registry<FoilType> FOIL_TYPE_REGISTRY = makeSyncedRegistry(FOIL_TYPE);
 
     public static final Registry<BoardStage> BOARD_STAGE_REGISTRY = makeRegistry(BOARD_STAGE);
     public static final Registry<BoardRule> BOARD_RULE_REGISTRY = makeRegistry(BOARD_RULE);

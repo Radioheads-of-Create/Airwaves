@@ -89,9 +89,8 @@ public class AntennaRodBlock extends RotatedPillarBlock {
             BlockPos next = pos.relative(direction);
             BlockState neighbor = level.getBlockState(next);
             boolean base = direction == Direction.DOWN && neighbor.getBlock() instanceof RodBaseBlock;
-            boolean mounted = direction.getAxis() == state.getValue(AXIS) && neighbor.isFaceSturdy(level, next, direction.getOpposite());
 
-            state = state.setValue(LINKS.get(direction), base || mounted || neighbor.getBlock() instanceof AntennaRodBlock);
+            state = state.setValue(LINKS.get(direction), base || neighbor.getBlock() instanceof AntennaRodBlock);
         }
         return state;
     }
