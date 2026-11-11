@@ -14,8 +14,7 @@ import net.minecraft.core.Direction;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-//TODO
-public class FoilApplicationMachine extends AnimatedKinetics {
+public class AnimatedFoilApplication extends AnimatedKinetics {
     public void draw(GuiGraphics graphics, int xOffset, int yOffset, int foilColor, boolean shadow) {
         PoseStack matrixStack = graphics.pose();
 
@@ -37,12 +36,13 @@ public class FoilApplicationMachine extends AnimatedKinetics {
                 .render(graphics);
 
         blockElement(shaft(Direction.Axis.X))
-                .rotateBlock(22.5, 22.5, getCurrentAngle())
+                .rotateBlock(22.5, 22.5, 0.0)
                 .scale(scale)
                 .render(graphics);
 
         blockElement(AirwavePartialModels.FOIL_ROLL)
-                .rotateBlock(22.5, 22.5, getCurrentAngle())
+                .atLocal(-0.5, -0.7, 0)
+                .rotateBlock(22.5, 22.5, 0.0)
                 .scale(scale)
                 .render(graphics);
 
@@ -50,6 +50,7 @@ public class FoilApplicationMachine extends AnimatedKinetics {
     }
 
     @Override
+    @Deprecated
     public void draw(GuiGraphics guiGraphics, int xOffset, int yOffset) {
 
     }

@@ -43,10 +43,10 @@ public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilAppl
 
         Vector3f offset = switch (blockState.getValue(FoilApplicatorBlock.HORIZONTAL_FACING)) {
             case DOWN, UP -> new Vector3f();
-            case NORTH -> new Vector3f(0, 10/16f, -7/16f);
-            case SOUTH -> new Vector3f(0, 10/16f, 7/16f);
-            case WEST -> new Vector3f(-7/16f, 10/16f, 0);
-            case EAST -> new Vector3f(7/16f, 10/16f, 0);
+            case NORTH -> new Vector3f(0, 10/16f + 0.1f, -7/16f);
+            case SOUTH -> new Vector3f(0, 10/16f + 0.1f, 7/16f);
+            case WEST -> new Vector3f(-7/16f, 10/16f + 0.1f, 0);
+            case EAST -> new Vector3f(7/16f, 10/16f + 0.1f, 0);
         };
 
         float time = AnimationTickHolder.getRenderTime(be.getLevel());
