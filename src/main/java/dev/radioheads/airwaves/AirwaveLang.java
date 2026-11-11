@@ -153,6 +153,7 @@ public final class AirwaveLang extends Lang {
         add("cable.no_socket", "That block has no room for another cable!");
 
         add("tooltip.cable.loss_per_block", "%s dB loss per block");
+        add("tooltip.old_content_no_functionallity", "This has no functionality currently.");
 
         addBasic("creative_tab.airwave_main", "Airwaves");
 

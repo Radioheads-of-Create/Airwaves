@@ -67,6 +67,7 @@
   "airwaves.section.hardware": "Hardware",
   "airwaves.section.materials": "Materials",
   "airwaves.tooltip.cable.loss_per_block": "%s dB loss per block",
+  "airwaves.tooltip.old_content_no_functionallity": "This has no functionality currently.",
   "airwaves.transmitter.power": "Transmit Power",
   "block.airwaves.am_transmitter": "AM Transmitter",
   "block.airwaves.amplifier": "Amplifier",

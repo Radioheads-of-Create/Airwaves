@@ -12,6 +12,7 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.block.*;
 import dev.radioheads.airwaves.content.entity.block.TransmitterBlockEntity;
+import dev.radioheads.airwaves.content.item.OldModelNotCompleteYetBlockItem;
 import dev.radioheads.airwaves.content.item.RadioItem;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -68,7 +69,7 @@ public final class AirwaveBlocks {
                                 )
                         };
                     }))
-                    .item()
+                    .item(OldModelNotCompleteYetBlockItem::new)
                     .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/tuning_table/center")))
                     .build()
                     .register();
@@ -148,12 +149,12 @@ public final class AirwaveBlocks {
             .register();
 
     public static final BlockEntry<TransmitterBlock>
-            AM_TRANSMITTER = registerTransmitter("am_transmitter", "AM Transmitter", "transmitter"),
-            FM_TRANSMITTER = registerTransmitter("fm_transmitter", "FM Transmitter", "transmitter"),
-            VHF_BASE_STATION = registerTransmitter("vhf_base_station", "VHF Base Station", "base_station"),
-            UHF_BASE_STATION = registerTransmitter("uhf_base_station", "UHF Base Station", "base_station"),
-            VHF_REPEATER = registerTransmitter("vhf_repeater", "VHF Repeater", "repeater"),
-            UHF_REPEATER = registerTransmitter("uhf_repeater", "UHF Repeater", "repeater");
+            AM_TRANSMITTER = registerIncompleteTransmitter("am_transmitter", "AM Transmitter", "transmitter"),
+            FM_TRANSMITTER = registerIncompleteTransmitter("fm_transmitter", "FM Transmitter", "transmitter"),
+            VHF_BASE_STATION = registerIncompleteTransmitter("vhf_base_station", "VHF Base Station", "base_station"),
+            UHF_BASE_STATION = registerIncompleteTransmitter("uhf_base_station", "UHF Base Station", "base_station"),
+            VHF_REPEATER = registerIncompleteTransmitter("vhf_repeater", "VHF Repeater", "repeater"),
+            UHF_REPEATER = registerIncompleteTransmitter("uhf_repeater", "UHF Repeater", "repeater");
 
     public static final BlockEntry<HfTransceiverBlock> HF_TRANSCEIVER = Airwaves.REGISTRATE
             .block("hf_transceiver", properties -> new HfTransceiverBlock(properties, 100, AirwaveRadioBands.HF))
@@ -218,7 +219,8 @@ public final class AirwaveBlocks {
                             false
                     )
             }))
-            .item()
+            //TODO CHANGE
+            .item(OldModelNotCompleteYetBlockItem::new)
             .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/amplifier/on")))
             .build()
             .register();
@@ -310,6 +312,26 @@ public final class AirwaveBlocks {
     private static ModelFile antennaRodPart(RegistrateBlockstateProvider prov, String material, String part) {
         return prov.models().withExistingParent("block/antenna_rod/" + material + "/" + part, prov.modLoc("block/antenna_rod/" + part))
                 .texture("rod", Airwaves.asResource("block/antenna_rod/" + material));
+    }
+
+    private static BlockEntry<TransmitterBlock> registerIncompleteTransmitter(String name, String lang, String model) {
+        return Airwaves.REGISTRATE.block(name, TransmitterBlock::new)
+                .initialProperties(SharedProperties::softMetal)
+                .properties(BlockBehaviour.Properties::noOcclusion)
+                .transform(pickaxeOnly())
+                .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> new ConfiguredModel[] {
+                        new ConfiguredModel(
+                                prov.models().getExistingFile(prov.modLoc("block/" + model + "/on")),
+                                0,
+                                yRotation(state.getValue(TransmitterBlock.FACING)),
+                                false
+                        )
+                }))
+                .item(OldModelNotCompleteYetBlockItem::new)
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/" + model + "/on")))
+                .build()
+                .lang(lang)
+                .register();
     }
 
     private static BlockEntry<TransmitterBlock> registerTransmitter(String name, String lang, String model) {
