@@ -66,6 +66,8 @@
   "airwaves.section.circuitry": "Схемотехника",
   "airwaves.section.hardware": "Оборудование",
   "airwaves.section.materials": "Материалы",
+  "airwaves.tooltip.cable.loss_per_block": "%s dB loss per block",
+  "airwaves.tooltip.old_content_no_functionallity": "This has no functionality currently.",
   "airwaves.transmitter.power": "Transmit Power",
   "block.airwaves.am_transmitter": "AM Передатчик",
   "block.airwaves.amplifier": "Усилитель",
