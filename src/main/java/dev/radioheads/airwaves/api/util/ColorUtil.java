@@ -13,4 +13,12 @@ public final class ColorUtil {
         float t = (float) (b.clamp(tuning.hertz()) - b.minHertz()) / (b.maxHertz() - b.minHertz());
         return Color.HSBtoRGB(Math.clamp(t, 0f, 1f) * 0.75f, 1f, 1f) & 0xFFFFFF;
     }
+
+    public static int rgb(int r, int g, int b) {
+        return argb(0xFF, r, g, b);
+    }
+
+    public static int argb(int a, int r, int g, int b) {
+        return (a << 24) | (r << 16) | (g << 8) | b;
+    }
 }

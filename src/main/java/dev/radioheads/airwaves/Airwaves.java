@@ -44,6 +44,7 @@ public class Airwaves {
         AirwavePartialModels.init();
         AirwaveSoundEvents.prepare();
         AirwaveCableTypes.init();
+        AirwaveFoilTypes.init();
 
         AirwaveConfig.register(modContainer);
         IntegrationLoader.init(modEventBus);
