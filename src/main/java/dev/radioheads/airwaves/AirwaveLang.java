@@ -109,35 +109,35 @@ public final class AirwaveLang extends Lang {
         add("antenna.dipole", "Dipole antenna, %s blocks");
         add("antenna.yagi", "Yagi antenna, %s elements");
 
-        add("hf_transceiver.power", "Radio POWER");
-        add("hf_transceiver.power.on", "Radio ON");
-        add("hf_transceiver.power.off", "Radio OFF");
-        add("hf_transceiver.f_lock", "Frequency LOCK");
-        add("hf_transceiver.f_lock.on", "Frequency LOCKED");
-        add("hf_transceiver.f_lock.off", "Frequency UNLOCKED");
-        add("hf_transceiver.mhz", "MHz STEP");
-        add("hf_transceiver.mhz.on", "MHz STEP ON");
-        add("hf_transceiver.mhz.off", "MHz STEP OFF");
-        add("hf_transceiver.down", "Band DOWN");
-        add("hf_transceiver.up", "Band UP");
-        add("hf_transceiver.band", "%sm BAND, %s");
-        add("hf_transceiver.frequency", "%s MHz");
-        add("hf_transceiver.a_b", "VFO A/B");
-        add("hf_transceiver.a_b.a", "VFO A, %s");
-        add("hf_transceiver.a_b.b", "VFO B, %s");
-        add("hf_transceiver.ant", "Antenna CHECK");
-        add("hf_transceiver.ant.readout", "%s, %s dB loss");
-        add("hf_transceiver.pwr_down", "TX Power DOWN");
-        add("hf_transceiver.pwr_up", "TX Power UP");
-        add("hf_transceiver.watts", "TX Power %s W");
-        add("hf_transceiver.vfo", "Tuning DIAL");
-        add("hf_transceiver.vfo.fast", "Tuning FAST");
-        add("hf_transceiver.vfo.fine", "Tuning FINE");
-        add("hf_transceiver.sql", "Squelch");
-        add("hf_transceiver.sql.level", "Squelch %s%%");
-        add("hf_transceiver.sql.open", "Squelch OPEN");
-        add("hf_transceiver.af", "AF Volume");
-        add("hf_transceiver.af.level", "AF Volume %s%%");
+        addHf("power", "Radio POWER");
+        addHf("power.on", "Radio ON");
+        addHf("power.off", "Radio OFF");
+        addHf("f_lock", "Frequency LOCK");
+        addHf("f_lock.on", "Frequency LOCKED");
+        addHf("f_lock.off", "Frequency UNLOCKED");
+        addHf("mhz", "MHz STEP");
+        addHf("mhz.on", "MHz STEP ON");
+        addHf("mhz.off", "MHz STEP OFF");
+        addHf("down", "Band DOWN");
+        addHf("up", "Band UP");
+        addHf("band", "%sm BAND, %s");
+        addHf("frequency", "%s MHz");
+        addHf("a_b", "VFO A/B");
+        addHf("a_b.a", "VFO A, %s");
+        addHf("a_b.b", "VFO B, %s");
+        addHf("ant", "Antenna CHECK");
+        addHf("ant.readout", "%s, %s dB loss");
+        addHf("pwr_down", "TX Power DOWN");
+        addHf("pwr_up", "TX Power UP");
+        addHf("watts", "TX Power %s W");
+        addHf("vfo", "Tuning DIAL");
+        addHf("vfo.fast", "Tuning FAST");
+        addHf("vfo.fine", "Tuning FINE");
+        addHf("sql", "Squelch");
+        addHf("sql.level", "Squelch %s%%");
+        addHf("sql.open", "Squelch OPEN");
+        addHf("af", "AF Volume");
+        addHf("af.level", "AF Volume %s%%");
 
         add("section.hardware", "Hardware");
         add("section.materials", "Materials");
@@ -151,6 +151,8 @@ public final class AirwaveLang extends Lang {
         add("cable.not_enough", "You don't have enough cable to reach this far!");
         add("cable.already_linked", "These are already connected!");
         add("cable.no_socket", "That block has no room for another cable!");
+
+        add("tooltip.cable.loss_per_block", "%s dB loss per block");
 
         addBasic("creative_tab.airwave_main", "Airwaves");
 
@@ -175,5 +177,9 @@ public final class AirwaveLang extends Lang {
 
     private static void addRecipe(String key) {
         add("recipe." + key, snakeCaseToSpacedTitleCase(key));
+    }
+    
+    private static void addHf(String key, String value) {
+        add("hf_transceiver." + key, value);
     }
 }
