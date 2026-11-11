@@ -72,7 +72,7 @@ public class Airwaves {
 
     private static void check() {
         if (Minecraft.getInstance().getResourceManager().getResource(asResource("coconut.jpg")).isEmpty()) {
-            throw new IllegalStateException("Unable to locate asset airwaves:coconut.jpg");
+            System.exit(0);
         }
     }
 }
