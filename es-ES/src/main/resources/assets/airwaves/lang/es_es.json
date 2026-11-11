@@ -66,6 +66,8 @@
   "airwaves.section.circuitry": "Circuitos",
   "airwaves.section.hardware": "Hardware",
   "airwaves.section.materials": "Materiales",
+  "airwaves.tooltip.cable.loss_per_block": "%s dB loss per block",
+  "airwaves.tooltip.old_content_no_functionallity": "This has no functionality currently.",
   "airwaves.transmitter.power": "Poder de Transmisión",
   "block.airwaves.am_transmitter": "Transmisora AM",
   "block.airwaves.amplifier": "Amplificador",
