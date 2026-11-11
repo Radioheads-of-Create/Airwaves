@@ -66,6 +66,8 @@
   "airwaves.section.circuitry": "Schatlchreis",
   "airwaves.section.hardware": "Harti Ware",
   "airwaves.section.materials": "Meterialie",
+  "airwaves.tooltip.cable.loss_per_block": "%s dB loss per block",
+  "airwaves.tooltip.old_content_no_functionallity": "This has no functionality currently.",
   "airwaves.transmitter.power": "Schtrom übermittle",
   "block.airwaves.am_transmitter": "AM Überträger",
   "block.airwaves.amplifier": "Verschtärcher",
