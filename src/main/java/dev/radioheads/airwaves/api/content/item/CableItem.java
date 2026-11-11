@@ -1,5 +1,7 @@
 package dev.radioheads.airwaves.api.content.item;
 
+import dev.radioheads.airwaves.AirwaveLang;
+import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.cable.Cables;
@@ -15,13 +17,16 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+@NothingNullByDefault
 public class CableItem extends Item {
     public static final int HINT_COLOR = 0xFFC53D;
 
@@ -51,6 +56,11 @@ public class CableItem extends Item {
             return Optional.of(refused("not_enough"));
         }
         return refusal;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        tooltipComponents.add(AirwaveLang.translate("tooltip.cable.loss_per_block", type.get().lossPerBlock()).component().withStyle(ChatFormatting.GOLD));
     }
 
     @Override
