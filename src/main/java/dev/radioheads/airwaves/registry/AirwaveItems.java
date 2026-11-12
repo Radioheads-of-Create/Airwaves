@@ -85,7 +85,8 @@ public final class AirwaveItems {
     public static final ItemEntry<SpoolItem>
         COPPER_SPOOL = registerSpool("copper"),
         GOLD_SPOOL = registerSpool("gold"),
-        SILVER_SPOOL = registerSpool("silver");
+        SILVER_SPOOL = registerSpool("silver"),
+        CREATIVE_SPOOL = registerSpool("creative");
 
     public static final ItemEntry<EmptySpoolItem>
             EMPTY_SPOOL = registerEmptySpool("empty");
@@ -93,12 +94,14 @@ public final class AirwaveItems {
     public static final ItemEntry<Item>
         COPPER_WIRE = registerWire("copper", AirwaveMaterials.COPPER),
         GOLD_WIRE = registerWire("gold", AirwaveMaterials.GOLD),
-        SILVER_WIRE = registerWire("silver", AirwaveMaterials.SILVER);
+        SILVER_WIRE = registerWire("silver", AirwaveMaterials.SILVER),
+        CREATIVE_WIRE = registerWire("creative", AirwaveMaterials.CREATIVE);
 
     public static final ItemEntry<CableItem>
         COPPER_CABLE_SPOOL = registerCable("copper", AirwaveMaterials.COPPER, AirwaveCableTypes.COPPER),
         GOLD_CABLE_SPOOL = registerCable("gold", AirwaveMaterials.GOLD, AirwaveCableTypes.GOLD),
-        SILVER_CABLE_SPOOL = registerCable("silver", AirwaveMaterials.SILVER, AirwaveCableTypes.SILVER);
+        SILVER_CABLE_SPOOL = registerCable("silver", AirwaveMaterials.SILVER, AirwaveCableTypes.SILVER),
+        CREATIVE_CABLE_SPOOL = registerCable("creative", AirwaveMaterials.CREATIVE, AirwaveCableTypes.CREATIVE);
 
     public static final ItemEntry<CapacitorItem>
         SMALL_CAPACITOR = registerCapacitor("small", 25),
@@ -107,7 +110,8 @@ public final class AirwaveItems {
     public static final ItemEntry<FoilItem>
         COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER),
         GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD),
-        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER);
+        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER),
+        CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
         return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)

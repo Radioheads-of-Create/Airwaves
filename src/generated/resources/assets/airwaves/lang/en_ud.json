@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.cheater": "˙˙˙ɥʇnoɯ ɹnoʎ uı ǝʇsɐʇ ɹǝʇʇıq ɐ ןǝǝɟ noʎ",
+  "advancement.airwaves.cheater.description": "ʇsɐן ʇɐ ǝǝɹℲ ˙ǝǝɹɟ ǝɹ,noʎ",
   "advancement.airwaves.pressed_shape": "ǝdɐɥs pǝssǝɹd ɐ oʇuı ǝdɐɥs ǝɥʇ sǝssǝɹd ʇɐɥʇ ssǝɹd ǝdɐɥs ɐ oʇuı sǝob ǝdɐɥs ǝɥ⟘",
   "advancement.airwaves.pressed_shape.description": "ǝdɐɥs pǝssǝɹd ɐ oʇuı ǝdɐɥs ɐ ssǝɹԀ",
   "advancement.airwaves.resistor": "ǝɔuɐʇsısǝɹ ǝɥʇ uıoſ",
@@ -97,6 +99,10 @@
   "item.airwaves.copper_foil": "ןıoℲ ɹǝddoƆ",
   "item.airwaves.copper_spool": "ןoodS ɹǝddoƆ",
   "item.airwaves.copper_wire": "ǝɹıM ɹǝddoƆ",
+  "item.airwaves.creative_cable_spool": "ןoodS ǝןqɐƆ ǝʌıʇɐǝɹƆ",
+  "item.airwaves.creative_foil": "ןıoℲ ǝʌıʇɐǝɹƆ",
+  "item.airwaves.creative_spool": "ןoodS ǝʌıʇɐǝɹƆ",
+  "item.airwaves.creative_wire": "ǝɹıM ǝʌıʇɐǝɹƆ",
   "item.airwaves.crystal_oscillator": "ɹoʇɐןןıɔsO ןɐʇsʎɹƆ",
   "item.airwaves.cut_amethyst": "ʇsʎɥʇǝɯⱯ ʇnƆ",
   "item.airwaves.empty_spool": "ןoodS ʎʇdɯƎ",

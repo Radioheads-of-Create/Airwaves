@@ -2,6 +2,7 @@
   "values": [
     "airwaves:copper_wire",
     "airwaves:gold_wire",
-    "airwaves:silver_wire"
+    "airwaves:silver_wire",
+    "airwaves:creative_wire"
   ]
 }

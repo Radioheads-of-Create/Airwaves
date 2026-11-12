@@ -15,7 +15,8 @@ public enum AirwaveMaterials {
     GOLD,
 
     // Airwaves
-    SILVER;
+    SILVER,
+    CREATIVE;
 
     public final String name;
 
