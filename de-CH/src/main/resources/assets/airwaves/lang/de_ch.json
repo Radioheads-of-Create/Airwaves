@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.cheater": "You feel a bitter taste in your mouth...",
+  "advancement.airwaves.cheater.description": "You're free. Free at last",
   "advancement.airwaves.pressed_shape": "D Form goht in e Formprässi wo'd Form i e prässti Form prässt",
   "advancement.airwaves.pressed_shape.description": "Präss e Form i e prässti Form",
   "advancement.airwaves.resistor": "Tritt de Resischtenz bi",
@@ -97,6 +99,10 @@
   "item.airwaves.copper_foil": "Kupferfolie",
   "item.airwaves.copper_spool": "Kupferspuele",
   "item.airwaves.copper_wire": "Kupferkabel",
+  "item.airwaves.creative_cable_spool": "Creative Cable Spool",
+  "item.airwaves.creative_foil": "Creative Foil",
+  "item.airwaves.creative_spool": "Creative Spool",
+  "item.airwaves.creative_wire": "Creative Wire",
   "item.airwaves.crystal_oscillator": "Krischtall Oszillator",
   "item.airwaves.cut_amethyst": "Gschnittene Amethischt",
   "item.airwaves.empty_spool": "Läri Schpuele",
