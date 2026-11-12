@@ -16,7 +16,7 @@ public enum AirwaveMaterials {
 
     // Airwaves
     SILVER,
-    CREATIVE;
+    CREATIVE(false);
 
     public final String name;
 
