@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.cheater": "You feel a bitter taste in your mouth...",
+  "advancement.airwaves.cheater.description": "You're free. Free at last",
   "advancement.airwaves.pressed_shape": "Uma forma que entra em uma prensa de formas que pressiona a forma em uma forma pressionada",
   "advancement.airwaves.pressed_shape.description": "Pressione uma forma em uma forma pressionada",
   "advancement.airwaves.resistor": "Junte-se à resistência",
@@ -97,6 +99,10 @@
   "item.airwaves.copper_foil": "Película de Cobre",
   "item.airwaves.copper_spool": "Carretel de Cobre",
   "item.airwaves.copper_wire": "Fio de Cobre",
+  "item.airwaves.creative_cable_spool": "Creative Cable Spool",
+  "item.airwaves.creative_foil": "Creative Foil",
+  "item.airwaves.creative_spool": "Creative Spool",
+  "item.airwaves.creative_wire": "Creative Wire",
   "item.airwaves.crystal_oscillator": "Oscilador de Cristal",
   "item.airwaves.cut_amethyst": "Ametista Lapidada",
   "item.airwaves.empty_spool": "Carretel Vazio",
