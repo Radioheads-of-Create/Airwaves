@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.cheater": "You feel a bitter taste in your mouth...",
+  "advancement.airwaves.cheater.description": "You're free. Free at last",
   "advancement.airwaves.pressed_shape": "The shape goes into a shape press that presses the shape into a pressed shape",
   "advancement.airwaves.pressed_shape.description": "Press a shape into a pressed shape",
   "advancement.airwaves.resistor": "Sluit je aan bij het verzet",
@@ -97,6 +99,10 @@
   "item.airwaves.copper_foil": "Koperen Folie",
   "item.airwaves.copper_spool": "Koperen Spoel",
   "item.airwaves.copper_wire": "Koperen Draad",
+  "item.airwaves.creative_cable_spool": "Creative Cable Spool",
+  "item.airwaves.creative_foil": "Creative Foil",
+  "item.airwaves.creative_spool": "Creative Spool",
+  "item.airwaves.creative_wire": "Creative Wire",
   "item.airwaves.crystal_oscillator": "Kristal Oscillator",
   "item.airwaves.cut_amethyst": "Geslepen Amethyst",
   "item.airwaves.empty_spool": "Lege Spoel",
