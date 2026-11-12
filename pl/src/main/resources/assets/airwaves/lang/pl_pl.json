@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.cheater": "You feel a bitter taste in your mouth...",
+  "advancement.airwaves.cheater.description": "You're free. Free at last",
   "advancement.airwaves.pressed_shape": "The shape goes into a shape press that presses the shape into a pressed shape",
   "advancement.airwaves.pressed_shape.description": "Press a shape into a pressed shape",
   "advancement.airwaves.resistor": "Dołącz do ruchu oporu",
@@ -97,6 +99,10 @@
   "item.airwaves.copper_foil": "Mieszkania Folia",
   "item.airwaves.copper_spool": "Miedziana Szpula",
   "item.airwaves.copper_wire": "Miedziany Kabel",
+  "item.airwaves.creative_cable_spool": "Creative Cable Spool",
+  "item.airwaves.creative_foil": "Creative Foil",
+  "item.airwaves.creative_spool": "Creative Spool",
+  "item.airwaves.creative_wire": "Creative Wire",
   "item.airwaves.crystal_oscillator": "Kryształowy Oscylator",
   "item.airwaves.cut_amethyst": "Cięty Ametyst",
   "item.airwaves.empty_spool": "Pusta Szpula",
