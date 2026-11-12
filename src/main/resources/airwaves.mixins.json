@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.communal.airwaves.mixin",
+  "package": "dev.radioheads.airwaves.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
   "injectors": {
