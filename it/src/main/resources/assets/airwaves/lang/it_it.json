@@ -1,4 +1,6 @@
 {
+  "advancement.airwaves.cheater": "You feel a bitter taste in your mouth...",
+  "advancement.airwaves.cheater.description": "You're free. Free at last",
   "advancement.airwaves.pressed_shape": "La forma va in una pressa per forme che pressa la forma in una forma pressata",
   "advancement.airwaves.pressed_shape.description": "Pressa una forma in una pressa per forme",
   "advancement.airwaves.resistor": "Unisciti alla resistenza",
@@ -97,6 +99,10 @@
   "item.airwaves.copper_foil": "Lamina di Rame",
   "item.airwaves.copper_spool": "Bobina di Rame",
   "item.airwaves.copper_wire": "Filo di Rame",
+  "item.airwaves.creative_cable_spool": "Creative Cable Spool",
+  "item.airwaves.creative_foil": "Creative Foil",
+  "item.airwaves.creative_spool": "Creative Spool",
+  "item.airwaves.creative_wire": "Creative Wire",
   "item.airwaves.crystal_oscillator": "Oscillatore al cristallo",
   "item.airwaves.cut_amethyst": "Ametista Tagliata",
   "item.airwaves.empty_spool": "Bobina Vuota",
