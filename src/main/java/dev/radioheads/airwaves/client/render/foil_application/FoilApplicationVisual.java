@@ -7,6 +7,8 @@ import com.simibubi.create.foundation.render.AllInstanceTypes;
 import dev.engine_room.flywheel.api.instance.Instance;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.lib.model.Models;
+import dev.radioheads.airwaves.api.foil.FoilType;
+import dev.radioheads.airwaves.api.util.ColorUtil;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
@@ -14,32 +16,60 @@ import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity> {
     protected final RotatingInstance foilRoll;
-    protected final RotatingInstance rollBlock;
+    @Nullable
+    protected RotatingInstance rollBlock;
+    private FoilType currentType;
+
+    private final Direction facing;
+    private final Vector3f offset;
 
     public FoilApplicationVisual(VisualizationContext context, FoilApplicatorBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
 
-        Direction facing = blockEntity.getBlockState().getValue(FoilApplicatorBlock.HORIZONTAL_FACING).getCounterClockWise();
+        Direction facingDir = blockEntity.getBlockState().getValue(FoilApplicatorBlock.HORIZONTAL_FACING);
+        this.facing = facingDir.getCounterClockWise();
 
-        Vector3f offset = switch (blockEntity.getBlockState().getValue(FoilApplicatorBlock.HORIZONTAL_FACING)) {
+        this.offset = switch (facingDir) {
             case DOWN, UP -> new Vector3f();
             case NORTH -> new Vector3f(0, 10/16f + 0.1f, 7/16f);
             case SOUTH -> new Vector3f(0, 10/16f + 0.1f, -7/16f);
             case WEST -> new Vector3f(-7/16f, 10/16f + 0.1f, 0);
             case EAST -> new Vector3f(7/16f, 10/16f + 0.1f, 0);
         };
-        foilRoll = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AirwavePartialModels.FOIL_ROLL)).createInstance();
-        rollBlock = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AirwavePartialModels.FOIL_ROLL_BLOCK)).createInstance();
 
-        foilRoll.setPosition(getVisualPosition().getX() + offset.x(), getVisualPosition().getY() + offset.y(), getVisualPosition().getZ() - offset.z())
-                .rotateToFace(Direction.WEST, facing)
-                .setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1);
+        foilRoll = instancerProvider()
+                .instancer(AllInstanceTypes.ROTATING, Models.partial(AirwavePartialModels.FOIL_ROLL))
+                .createInstance();
+        setupRotatingInstance(foilRoll);
 
-        rollBlock.setPosition(getVisualPosition().getX() + offset.x(), getVisualPosition().getY() + offset.y(), getVisualPosition().getZ() - offset.z())
+        FoilType type = blockEntity.getFoilType();
+
+        if (type != null) {
+            rollBlock = createBlockInstance(type.color());
+            currentType = type;
+        }
+    }
+
+    private RotatingInstance createBlockInstance(int color) {
+        RotatingInstance instance = instancerProvider()
+                .instancer(AllInstanceTypes.ROTATING, Models.partial(AirwavePartialModels.FOIL_ROLL_BLOCK))
+                .createInstance();
+
+        setupRotatingInstance(instance);
+        instance.setColor(ColorUtil.toCatnipColor(color));
+        return instance;
+    }
+
+    private void setupRotatingInstance(RotatingInstance instance) {
+        instance.setPosition(
+                        getVisualPosition().getX() + offset.x(),
+                        getVisualPosition().getY() + offset.y(),
+                        getVisualPosition().getZ() - offset.z())
                 .rotateToFace(Direction.WEST, facing)
                 .setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1);
     }
@@ -55,20 +85,50 @@ public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity
     public void updateLight(float partialTick) {
         super.updateLight(partialTick);
         relight(foilRoll);
-        relight(rollBlock);
+        if (rollBlock != null) {
+            relight(rollBlock);
+        }
     }
 
     @Override
     protected void _delete() {
         super._delete();
         foilRoll.delete();
-        rollBlock.delete();
+        if (rollBlock != null) {
+            rollBlock.delete();
+            rollBlock = null;
+        }
+        currentType = null;
     }
 
     @Override
     public void update(float partialTick) {
         super.update(partialTick);
         foilRoll.setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1).setChanged();
-        rollBlock.setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1).setChanged();
+        if (rollBlock != null) {
+            rollBlock.setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1).setChanged();
+        }
+    }
+
+    @Override
+    public void tick(Context context) {
+        super.tick(context);
+
+        FoilType foilType = blockEntity.getFoilType();
+
+        if (foilType == null) {
+            if (rollBlock != null) {
+                rollBlock.delete();
+                rollBlock = null;
+            }
+            currentType = null;
+            return;
+        }
+
+        if (rollBlock == null || currentType != foilType) {
+            rollBlock = createBlockInstance(foilType.color());
+            relight(rollBlock);
+            currentType = foilType;
+        }
     }
 }
