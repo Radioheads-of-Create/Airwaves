@@ -1,6 +1,5 @@
 package dev.radioheads.airwaves.registry;
 
-import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.content.item.FoilItem;
 import dev.radioheads.airwaves.api.foil.FoilType;

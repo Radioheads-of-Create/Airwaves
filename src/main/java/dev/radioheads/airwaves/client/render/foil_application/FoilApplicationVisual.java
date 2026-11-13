@@ -16,7 +16,6 @@ import net.minecraft.core.Direction;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 
 public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity> {

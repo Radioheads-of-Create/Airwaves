@@ -11,18 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalDouble;
-import java.util.PriorityQueue;
-import java.util.Set;
+import java.util.*;
 
 // Cable network per level
 @NothingNullByDefault
