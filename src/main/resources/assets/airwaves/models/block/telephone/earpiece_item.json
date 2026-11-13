@@ -1,0 +1,419 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "airwaves:block/telephone",
+    "particle": "airwaves:block/telephone"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        180
+      ],
+      "translation": [
+        0,
+        2,
+        0.5
+      ],
+      "scale": [
+        1.6,
+        1.6,
+        1.6
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        0,
+        180
+      ],
+      "translation": [
+        0,
+        2,
+        0.5
+      ],
+      "scale": [
+        1.6,
+        1.6,
+        1.6
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -20,
+        180
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        -20,
+        180
+      ],
+      "translation": [
+        0,
+        3,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        1,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "gui": {
+      "rotation": [
+        20,
+        45,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        4,
+        4,
+        4
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        4,
+        4,
+        4
+      ]
+    }
+  },
+  "elements": [
+    {
+      "name": "holdear1",
+      "from": [
+        7.5,
+        8.47656,
+        7.5
+      ],
+      "to": [
+        8.5,
+        9.47656,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            10.5,
+            8,
+            11.5
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            11,
+            1.5,
+            12,
+            2.5
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            6,
+            10.5,
+            7,
+            11.5
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            11,
+            2.5,
+            12,
+            3.5
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            11,
+            3.5,
+            12,
+            4.5
+          ],
+          "texture": "#0",
+          "rotation": 90
+        },
+        "down": {
+          "uv": [
+            8,
+            10.5,
+            9,
+            11.5
+          ],
+          "texture": "#0",
+          "rotation": 270
+        }
+      }
+    },
+    {
+      "name": "holdear2",
+      "from": [
+        7.25,
+        6.52344,
+        7.25
+      ],
+      "to": [
+        8.75,
+        8.52344,
+        8.75
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10.5,
+            10.5,
+            12,
+            12.5
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "east": {
+          "uv": [
+            12,
+            5,
+            13.5,
+            7
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "south": {
+          "uv": [
+            9,
+            10.5,
+            10.5,
+            12.5
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "west": {
+          "uv": [
+            12,
+            7,
+            13.5,
+            9
+          ],
+          "texture": "#0",
+          "rotation": 180
+        },
+        "up": {
+          "uv": [
+            12,
+            10.5,
+            13.5,
+            12
+          ],
+          "texture": "#0",
+          "rotation": 90
+        },
+        "down": {
+          "uv": [
+            12,
+            9,
+            13.5,
+            10.5
+          ],
+          "texture": "#0",
+          "rotation": 270
+        }
+      }
+    },
+    {
+      "name": "holdear2_inside_north",
+      "from": [
+        8.74,
+        6.52344,
+        7.25
+      ],
+      "to": [
+        8.74,
+        8.52344,
+        8.75
+      ],
+      "faces": {
+        "west": {
+          "uv": [
+            13.5,
+            5,
+            12,
+            7
+          ],
+          "texture": "#0",
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "holdear2_inside_east",
+      "from": [
+        7.25,
+        6.52344,
+        8.74
+      ],
+      "to": [
+        8.75,
+        8.52344,
+        8.74
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10.5,
+            10.5,
+            9,
+            12.5
+          ],
+          "texture": "#0",
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "holdear2_inside_south",
+      "from": [
+        7.26,
+        6.52344,
+        7.25
+      ],
+      "to": [
+        7.26,
+        8.52344,
+        8.75
+      ],
+      "faces": {
+        "east": {
+          "uv": [
+            13.5,
+            7,
+            12,
+            9
+          ],
+          "texture": "#0",
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "holdear2_inside_west",
+      "from": [
+        7.25,
+        6.52344,
+        7.26
+      ],
+      "to": [
+        8.75,
+        8.52344,
+        7.26
+      ],
+      "faces": {
+        "south": {
+          "uv": [
+            12,
+            10.5,
+            10.5,
+            12.5
+          ],
+          "texture": "#0",
+          "rotation": 180
+        }
+      }
+    },
+    {
+      "name": "holdear2_inside_up",
+      "from": [
+        7.25,
+        8.51344,
+        7.25
+      ],
+      "to": [
+        8.75,
+        8.51344,
+        8.75
+      ],
+      "faces": {
+        "down": {
+          "uv": [
+            12,
+            12,
+            13.5,
+            10.5
+          ],
+          "texture": "#0",
+          "rotation": 270
+        }
+      }
+    }
+  ]
+}

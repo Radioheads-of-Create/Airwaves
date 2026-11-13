@@ -84,7 +84,7 @@ public final class RadioSounds {
             for (RadioVoice.Delivery delivery : feed.deliveries()) {
                 float quality = quality(delivery);
                 if (quality > 0.0F && level.getPlayerByUUID(delivery.listener()) instanceof ServerPlayer listener) {
-                    new RadioSoundPayload(sound, source, delivery.speaker(), volume * quality * delivery.gain(), pitch).sendTo(listener);
+                    new RadioSoundPayload(sound, source, delivery.speaker(), volume * quality * delivery.gain(), pitch, false).sendTo(listener);
                 }
             }
         }
@@ -158,7 +158,7 @@ public final class RadioSounds {
             if (sent == null || Math.abs(speakerLevel - sent) >= LEVEL_STEP || (speakerLevel == 0.0F) != (sent == 0.0F)) {
                 relay.tracks.put(track, speakerLevel);
                 new RadioSongPayload(track.channel(), Optional.of(relay.playing.song().soundEvent()), delivery.speaker(),
-                        speakerLevel, relay.ticks).sendTo(listener);
+                        speakerLevel, relay.ticks, false).sendTo(listener);
             }
         }
 

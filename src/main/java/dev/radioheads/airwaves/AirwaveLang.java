@@ -100,6 +100,7 @@ public final class AirwaveLang extends Lang {
 
         add("radio.signal", "Signal: %s%%");
         add("radio.no_signal", "No signal");
+        add("radio.no_power", "No power");
 
         add("transmitter.power", "Transmit Power");
         add("microphone.output", "Output: %s%%");
@@ -108,6 +109,7 @@ public final class AirwaveLang extends Lang {
         add("antenna.whip", "Whip antenna, %s blocks");
         add("antenna.dipole", "Dipole antenna, %s blocks");
         add("antenna.yagi", "Yagi antenna, %s elements");
+        add("antenna.top_loaded", "Top-loaded vertical, %s blocks");
 
         addHf("power", "Radio POWER");
         addHf("power.on", "Radio ON");
@@ -146,11 +148,28 @@ public final class AirwaveLang extends Lang {
         add("cable.select", "Click on a valid device to connect.");
         add("cable.length", "Length: %s blocks");
         add("cable.connected", "Connected!");
+        add("cable.cut", "Cable cut!");
         add("cable.cleared", "Selection cleared.");
         add("cable.too_far", "Too far away! Cables reach up to %s blocks.");
         add("cable.not_enough", "You don't have enough cable to reach this far!");
         add("cable.already_linked", "These are already connected!");
         add("cable.no_socket", "That block has no room for another cable!");
+        add("cable.wrong_line", "Radio and telephone lines can't be joined!");
+
+        add("insulator.in", "This insulator is in a...");
+        add("line.radio_network", "Radio Network");
+        add("line.telephone_network", "Telephone Network");
+        add("line.tx", "TX");
+        add("line.rx", "RX");
+
+        add("telephone.dial", "Dial %s");
+        add("telephone.confirm", "Confirm number");
+        add("telephone.missing", "This number does not exist!");
+        add("telephone.unavailable", "This number is unavailable!");
+        add("telephone.length", "Numbers are 6 digits long!");
+        add("telephone_earpiece.bound", "Bound to %s");
+        add("telephone_earpiece.unnumbered", "Bound to a telephone with no number yet");
+        addBasic("airwaves.subtitle.telephone_ring", "Telephone rings");
 
         add("tooltip.cable.loss_per_block", "%s dB loss per block");
         add("tooltip.old_content_no_functionallity", "This has no functionality currently.");

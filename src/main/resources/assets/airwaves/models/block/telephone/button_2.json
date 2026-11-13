@@ -1,0 +1,81 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "0": "airwaves:block/telephone",
+    "particle": "airwaves:block/telephone"
+  },
+  "elements": [
+    {
+      "name": "button_2",
+      "from": [
+        6.5,
+        1.08984,
+        7
+      ],
+      "to": [
+        7,
+        1.58984,
+        7.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            0.5,
+            11.5,
+            1
+          ],
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            11,
+            0.5,
+            11.5,
+            1
+          ],
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            11,
+            0.5,
+            11.5,
+            1
+          ],
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            11,
+            0.5,
+            11.5,
+            1
+          ],
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            11,
+            0.5,
+            11.5,
+            1
+          ],
+          "texture": "#0",
+          "rotation": 90
+        },
+        "down": {
+          "uv": [
+            11,
+            0.5,
+            11.5,
+            1
+          ],
+          "texture": "#0",
+          "rotation": 270
+        }
+      }
+    }
+  ]
+}

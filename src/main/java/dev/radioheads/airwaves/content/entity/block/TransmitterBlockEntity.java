@@ -22,8 +22,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -96,8 +99,9 @@ public abstract class TransmitterBlockEntity extends KineticBlockEntity implemen
     @Override
     public void initialize() {
         super.initialize();
-        if (this.level != null && !this.level.isClientSide) {
-            RadioNetwork.add(this.level, this);
+        if (this.level instanceof ServerLevel server) {
+            RadioNetwork.add(server, this);
+            Cables.loaded(server, this.worldPosition, this);
         }
     }
 
@@ -253,20 +257,28 @@ public abstract class TransmitterBlockEntity extends KineticBlockEntity implemen
         tooltip.add(Component.literal("    " + this.tuning.display()));
         tooltip.add(Component.literal("    " + Math.round(watts()) + " W"));
         tooltip.add(Component.literal("    ").append(antennaLine()));
-        if (receives()) {
-            tooltip.add(Component.literal("    ").append(this.quality > 0.0F
-                    ? Component.translatable("airwaves.radio.signal", Math.round(this.quality * 100.0F))
-                    : Component.translatable("airwaves.radio.no_signal")));
+        // Warnings in red
+        if (!receives()) {
+            tooltip.add(Component.literal("    ").append(offLine().withStyle(ChatFormatting.RED)));
+        } else if (this.quality > 0.0F) {
+            tooltip.add(Component.literal("    ").append(Component.translatable("airwaves.radio.signal", Math.round(this.quality * 100.0F))));
+        } else {
+            tooltip.add(Component.literal("    ").append(Component.translatable("airwaves.radio.no_signal").withStyle(ChatFormatting.RED)));
         }
         return true;
     }
 
+    protected MutableComponent offLine() {
+        return Component.translatable("airwaves.radio.no_power");
+    }
+
     protected Component antennaLine() {
         return switch (this.aerial.shape()) {
-            case NONE -> Component.translatable("airwaves.antenna.none");
+            case NONE -> Component.translatable("airwaves.antenna.none").withStyle(ChatFormatting.RED);
             case WHIP -> Component.translatable("airwaves.antenna.whip", (int) this.aerial.lengthBlocks());
             case DIPOLE -> Component.translatable("airwaves.antenna.dipole", (int) this.aerial.lengthBlocks());
             case YAGI -> Component.translatable("airwaves.antenna.yagi", this.aerial.elements());
+            case TOP_LOADED -> Component.translatable("airwaves.antenna.top_loaded", (int) this.aerial.lengthBlocks());
         };
     }
 

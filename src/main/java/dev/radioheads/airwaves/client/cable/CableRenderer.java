@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
+import dev.radioheads.airwaves.api.cable.CableAim;
 import dev.radioheads.airwaves.api.cable.CableLink;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
@@ -27,7 +28,6 @@ public class CableRenderer<T extends BlockEntity> implements BlockEntityRenderer
     private static final ResourceLocation TEXTURE = Airwaves.asResource("textures/misc/cable.png");
     private static final int COLOR = 0x242628;
     private static final float WIDTH = 0.06F;
-    private static final double MAX_SAG = 2.4;
 
     public CableRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -56,11 +56,19 @@ public class CableRenderer<T extends BlockEntity> implements BlockEntityRenderer
     }
 
     public static Vec3 along(Vec3 from, Vec3 delta, double t) {
-        double sag = Math.min(MAX_SAG, 0.045 * delta.length() + 0.06);
-        return from.add(delta.scale(t)).subtract(0.0, sag * 4.0 * t * (1.0 - t), 0.0);
+        return CableAim.along(from, delta, t);
     }
 
     private static void line(PoseStack poseStack, MultiBufferSource buffer, Vec3 from, Vec3 to, int lightFrom, int lightTo) {
+        strand(poseStack, buffer, from, to, lightFrom, lightTo, WIDTH, COLOR);
+    }
+
+    // Telephone cord
+    public static void cord(PoseStack poseStack, MultiBufferSource buffer, Vec3 from, Vec3 to, int lightFrom, int lightTo, float width, int color) {
+        strand(poseStack, buffer, from, to, lightFrom, lightTo, width, color);
+    }
+
+    private static void strand(PoseStack poseStack, MultiBufferSource buffer, Vec3 from, Vec3 to, int lightFrom, int lightTo, float width, int color) {
         Vec3 delta = to.subtract(from);
         double length = delta.length();
         if (length < 0.001) {
@@ -72,9 +80,9 @@ public class CableRenderer<T extends BlockEntity> implements BlockEntityRenderer
         Vec3 side = horizontal < 1.0E-4 ? new Vec3(1.0, 0.0, 0.0) : new Vec3(-delta.z / horizontal, 0.0, delta.x / horizontal);
         Vec3 up = horizontal < 1.0E-4 ? new Vec3(1.0, 0.0, 0.0) : new Vec3(0.0, 1.0, 0.0);
 
-        float red = (COLOR >> 16 & 255) / 255.0F;
-        float green = (COLOR >> 8 & 255) / 255.0F;
-        float blue = (COLOR & 255) / 255.0F;
+        float red = (color >> 16 & 255) / 255.0F;
+        float green = (color >> 8 & 255) / 255.0F;
+        float blue = (color & 255) / 255.0F;
         VertexConsumer consumer = buffer.getBuffer(RenderType.entitySolid(TEXTURE));
         PoseStack.Pose pose = poseStack.last();
 
@@ -83,8 +91,8 @@ public class CableRenderer<T extends BlockEntity> implements BlockEntityRenderer
             double t = (double) i / segments;
             Vec3 point = along(from, delta, t);
             Vec3 segment = point.subtract(previous);
-            Vec3 vertical = up.subtract(segment.scale(up.dot(segment) / Math.max(1.0E-9, segment.lengthSqr()))).normalize().scale(WIDTH / 2.0F);
-            Vec3 lateral = side.scale(WIDTH / 2.0F);
+            Vec3 vertical = up.subtract(segment.scale(up.dot(segment) / Math.max(1.0E-9, segment.lengthSqr()))).normalize().scale(width / 2.0F);
+            Vec3 lateral = side.scale(width / 2.0F);
             int lightStart = mix(lightFrom, lightTo, (double) (i - 1) / segments);
             int lightEnd = mix(lightFrom, lightTo, t);
 

@@ -2,6 +2,7 @@ package dev.radioheads.airwaves.client;
 
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.client.hf.HfTransceiverHud;
+import dev.radioheads.airwaves.client.telephone.TelephoneHud;
 import dev.radioheads.airwaves.content.block.HfTransceiverBlock;
 import dev.radioheads.airwaves.content.screen.TuningTableScreen;
 import dev.radioheads.airwaves.registry.AirwaveBlocks;
@@ -38,10 +39,11 @@ public class AirwaveClient {
         }, AirwaveItems.LED.get());
     }
 
-    // HF transceiver hints above the action bar
+    // Control hints above the action bar
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
         event.registerAbove(VanillaGuiLayers.OVERLAY_MESSAGE, HfTransceiverHud.LAYER, HfTransceiverHud::render);
+        event.registerAbove(HfTransceiverHud.LAYER, TelephoneHud.LAYER, TelephoneHud::render);
     }
 
     // HF transceiver item finish

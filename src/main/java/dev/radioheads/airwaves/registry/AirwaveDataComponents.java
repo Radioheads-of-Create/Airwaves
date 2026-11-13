@@ -4,6 +4,8 @@ import com.mojang.serialization.Codec;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.data.CapacitorData;
 import dev.radioheads.airwaves.api.radio.Tuning;
+import dev.radioheads.airwaves.content.telephone.EarpieceBinding;
+import dev.radioheads.airwaves.content.telephone.TelephoneData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +24,9 @@ public final class AirwaveDataComponents {
     public static final DataComponentType<CapacitorData> CAPACITOR_DATA = register("capacitor", CapacitorData.CODEC, CapacitorData.STREAM_CODEC);
 
     public static final DataComponentType<BlockPos> CABLE_START = register("cable_start", BlockPos.CODEC, BlockPos.STREAM_CODEC);
+
+    public static final DataComponentType<TelephoneData> TELEPHONE = register("telephone", TelephoneData.CODEC, TelephoneData.STREAM_CODEC);
+    public static final DataComponentType<EarpieceBinding> EARPIECE = register("earpiece", EarpieceBinding.CODEC, EarpieceBinding.STREAM_CODEC);
 
     public static final DataComponentType<Integer> FOIL_AMOUNT = registerNonNegativeInt("foil_amount");
     public static final DataComponentType<Integer> SPOOL_AMOUNT = registerNonNegativeInt("spool_amount");

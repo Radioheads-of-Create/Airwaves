@@ -243,6 +243,34 @@ public final class AirwaveBlocks {
             .build()
             .register();
 
+    // Earpiece on hook
+    public static final BlockEntry<TelephoneBlock> TELEPHONE = Airwaves.REGISTRATE.block("telephone", TelephoneBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> {
+                MultiPartBlockStateBuilder builder = prov.getMultipartBuilder(ctx.getEntry());
+                ModelFile body = new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/body"));
+                ModelFile earpiece = new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece"));
+                for (Direction facing : Direction.Plane.HORIZONTAL) {
+                    builder.part().modelFile(body).rotationY(yRotation(facing)).addModel()
+                            .condition(TelephoneBlock.FACING, facing).end();
+                    builder.part().modelFile(earpiece).rotationY(yRotation(facing)).addModel()
+                            .condition(TelephoneBlock.FACING, facing).condition(TelephoneBlock.HOOKED, true).end();
+                }
+            })
+            .item()
+            .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/item"))))
+            .build()
+            .loot((tables, block) -> tables.add(block, LootTable.lootTable()
+                    .withPool(LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .when(ExplosionCondition.survivesExplosion())
+                            .add(LootItem.lootTableItem(block.asItem())
+                                    .apply(CopyComponentsFunction.copyComponents(CopyComponentsFunction.Source.BLOCK_ENTITY)
+                                            .include(AirwaveDataComponents.TELEPHONE))))))
+            .register();
+
     public static final BlockEntry<AntennaRodBlock>
             COPPER_ANTENNA_ROD = registerAntennaRod("copper", 1.0),
             GOLD_ANTENNA_ROD = registerAntennaRod("gold", 2.44 / 1.68),

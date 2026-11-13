@@ -103,6 +103,7 @@ public class HfTransceiverRenderer extends SafeBlockEntityRenderer<HfTransceiver
             case WHIP -> "WHIP";
             case DIPOLE -> "DIPOLE";
             case YAGI -> "YAGI " + antenna.elements();
+            case TOP_LOADED -> "TOP HAT";
         } : null;
         HfTransceiverDisplay.Frame frame = new HfTransceiverDisplay.Frame(
                 !transceiver.standby(), onAir, transceiver.slotB(), transceiver.locked(), transceiver.fast(), transceiver.megahertz(),

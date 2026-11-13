@@ -8,8 +8,10 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
+import dev.radioheads.airwaves.content.item.CableCutterItem;
 import dev.radioheads.airwaves.content.item.EmptySpoolItem;
 import dev.radioheads.airwaves.content.item.FieldManualItem;
+import dev.radioheads.airwaves.content.item.TelephoneEarpieceItem;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.core.component.DataComponents;
@@ -17,6 +19,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.Supplier;
@@ -41,6 +44,17 @@ public final class AirwaveItems {
             HANDHELD_RADIO = Airwaves.REGISTRATE.item("handheld_radio", Item::new)
                 .properties(p -> p.stacksTo(1))
                 .model(NonNullBiConsumer.noop())
+                .register();
+
+    public static final ItemEntry<TelephoneEarpieceItem>
+            TELEPHONE_EARPIECE = Airwaves.REGISTRATE.item("telephone_earpiece", TelephoneEarpieceItem::new)
+                .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece_item"))))
+                .register();
+
+    public static final ItemEntry<CableCutterItem>
+            CABLE_CUTTER = Airwaves.REGISTRATE.item("cable_cutter", CableCutterItem::new)
+                .properties(p -> p.stacksTo(1))
+                .model((ctx, prov) -> prov.handheld(ctx))
                 .register();
 
     public static final ItemEntry<BoardItem>

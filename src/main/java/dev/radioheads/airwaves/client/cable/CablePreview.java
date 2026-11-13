@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @EventBusSubscriber(modid = Airwaves.MOD_ID, value = Dist.CLIENT)
 public class CablePreview {
-    private static final int REFUSED_COLOR = 0xFF5D5D;
+    public static final int REFUSED_COLOR = 0xFF5D5D;
     private static final double TRAIL_SPACING = 0.25;
     private static final float TRAIL_CHANCE = 0.1F;
 
@@ -92,7 +92,7 @@ public class CablePreview {
         return ItemStack.EMPTY;
     }
 
-    private static void trail(ClientLevel level, Vec3 from, Vec3 to, int color) {
+    public static void trail(ClientLevel level, Vec3 from, Vec3 to, int color) {
         Vec3 delta = to.subtract(from);
         double length = delta.length();
         DustParticleOptions dust = new DustParticleOptions(Vec3.fromRGB24(color).toVector3f(), 1.0F);

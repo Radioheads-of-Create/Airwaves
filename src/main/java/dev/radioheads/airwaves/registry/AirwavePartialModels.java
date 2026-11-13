@@ -17,6 +17,16 @@ public final class AirwavePartialModels {
         FOIL_ROLL_BLOCK = block("foil_applicator/roll_block"),
         MICROPHONE_KNOB = block("microphone/knob");
 
+    // Telephone dial buttons
+    public static final PartialModel[] TELEPHONE_BUTTONS = new PartialModel[9];
+
+    static {
+        TELEPHONE_BUTTONS[0] = block("telephone/button_call");
+        for (int digit = 1; digit < TELEPHONE_BUTTONS.length; digit++) {
+            TELEPHONE_BUTTONS[digit] = block("telephone/button_" + digit);
+        }
+    }
+
     // HF transceiver controls and lights by finish
     private static final Map<HfTransceiverBlock.Finish, Map<String, PartialModel>> HF_TRANSCEIVER = new EnumMap<>(HfTransceiverBlock.Finish.class);
 
