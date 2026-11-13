@@ -18,6 +18,7 @@ import java.util.function.Consumer;
 
 public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity> {
     protected final RotatingInstance foilRoll;
+    protected final RotatingInstance rollBlock;
 
     public FoilApplicationVisual(VisualizationContext context, FoilApplicatorBlockEntity blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
@@ -32,8 +33,13 @@ public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity
             case EAST -> new Vector3f(7/16f, 10/16f + 0.1f, 0);
         };
         foilRoll = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AirwavePartialModels.FOIL_ROLL)).createInstance();
+        rollBlock = instancerProvider().instancer(AllInstanceTypes.ROTATING, Models.partial(AirwavePartialModels.FOIL_ROLL_BLOCK)).createInstance();
 
         foilRoll.setPosition(getVisualPosition().getX() + offset.x(), getVisualPosition().getY() + offset.y(), getVisualPosition().getZ() - offset.z())
+                .rotateToFace(Direction.WEST, facing)
+                .setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1);
+
+        rollBlock.setPosition(getVisualPosition().getX() + offset.x(), getVisualPosition().getY() + offset.y(), getVisualPosition().getZ() - offset.z())
                 .rotateToFace(Direction.WEST, facing)
                 .setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1);
     }
@@ -42,23 +48,27 @@ public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity
     public void collectCrumblingInstances(Consumer<@Nullable Instance> consumer) {
         super.collectCrumblingInstances(consumer);
         consumer.accept(foilRoll);
+        consumer.accept(rollBlock);
     }
 
     @Override
     public void updateLight(float partialTick) {
         super.updateLight(partialTick);
         relight(foilRoll);
+        relight(rollBlock);
     }
 
     @Override
     protected void _delete() {
         super._delete();
         foilRoll.delete();
+        rollBlock.delete();
     }
 
     @Override
     public void update(float partialTick) {
         super.update(partialTick);
         foilRoll.setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1).setChanged();
+        rollBlock.setup(blockEntity, KineticBlockEntityVisual.rotationAxis(blockState), blockEntity.getSpeed() * -1).setChanged();
     }
 }

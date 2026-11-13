@@ -13,7 +13,8 @@ public final class AirwavePartialModels {
     private AirwavePartialModels() {}
 
     public static final PartialModel
-        FOIL_ROLL = block("foil/roll"),
+        FOIL_ROLL = block("foil_applicator/roll"),
+        FOIL_ROLL_BLOCK = block("foil_applicator/roll_block"),
         MICROPHONE_KNOB = block("microphone/knob");
 
     // HF transceiver controls and lights by finish

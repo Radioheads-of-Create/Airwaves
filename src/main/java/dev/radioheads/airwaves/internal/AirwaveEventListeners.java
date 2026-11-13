@@ -1,11 +1,13 @@
 package dev.radioheads.airwaves.internal;
 
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 @EventBusSubscriber(modid = Airwaves.MOD_ID)
@@ -17,5 +19,10 @@ public class AirwaveEventListeners {
         }
 
         player.sendSystemMessage(Component.literal("Airwaves is currently in alpha. Expect bugs and breaking changes on each update. Nothing is final.").withStyle(ChatFormatting.RED));
+    }
+
+    @SubscribeEvent
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        FoilApplicatorBlockEntity.registerCapabilities(event);
     }
 }

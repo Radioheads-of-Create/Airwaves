@@ -8,6 +8,7 @@ import com.simibubi.create.foundation.data.TagGen;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.block.*;
@@ -374,7 +375,9 @@ public final class AirwaveBlocks {
                                 )
                         };
                     }))
-                    .simpleItem()
+                    .item()
+                    .model(NonNullBiConsumer.noop())
+                    .build()
                     .register();
 
     public static void init() {}

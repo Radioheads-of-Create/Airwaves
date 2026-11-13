@@ -40,6 +40,7 @@ public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilAppl
         Direction facing = blockState.getValue(FoilApplicatorBlock.HORIZONTAL_FACING);
 
         SuperByteBuffer rollRender = CachedBuffers.partialFacing(AirwavePartialModels.FOIL_ROLL, blockState, facing);
+        SuperByteBuffer foilBlock = CachedBuffers.partialFacing(AirwavePartialModels.FOIL_ROLL_BLOCK, blockState, facing);
 
         Vector3f offset = switch (blockState.getValue(FoilApplicatorBlock.HORIZONTAL_FACING)) {
             case DOWN, UP -> new Vector3f();
@@ -54,11 +55,13 @@ public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilAppl
         float angle = ((time * (be.getSpeed() * -1) * 3f / 10 + angleOffset) % 360) / 180 * (float) Math.PI;
 
         rollRender.translate(offset.x(), offset.y(), offset.z());
+        foilBlock.translate(offset.x(), offset.y(), offset.z());
 
         kineticRotationTransform(rollRender, be, axis, angle, light);
+        kineticRotationTransform(foilBlock, be, axis, angle, light);
 
-        rollRender.light(light)
-                .renderInto(ms, buffer.getBuffer(RenderType.solid()));
+        rollRender.light(light).renderInto(ms, buffer.getBuffer(RenderType.solid()));
+        foilBlock.light(light).renderInto(ms, buffer.getBuffer(RenderType.solid()));
     }
 
     @Override
