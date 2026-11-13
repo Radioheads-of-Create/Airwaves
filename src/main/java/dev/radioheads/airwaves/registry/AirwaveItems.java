@@ -8,6 +8,7 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
+import dev.radioheads.airwaves.api.foil.FoilType;
 import dev.radioheads.airwaves.content.item.CableCutterItem;
 import dev.radioheads.airwaves.content.item.EmptySpoolItem;
 import dev.radioheads.airwaves.content.item.FieldManualItem;
@@ -122,10 +123,10 @@ public final class AirwaveItems {
         LARGE_CAPACITOR = registerCapacitor("large", 50);
 
     public static final ItemEntry<FoilItem>
-        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER),
-        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD),
-        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER),
-        CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE);
+        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER, AirwaveFoilTypes.COPPER),
+        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD, AirwaveFoilTypes.GOLD),
+        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER, AirwaveFoilTypes.SILVER),
+        CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE, AirwaveFoilTypes.CREATIVE);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
         return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)
@@ -168,8 +169,8 @@ public final class AirwaveItems {
         return Airwaves.REGISTRATE.item(path, Item::new).tag(tag).register();
     }
 
-    private static ItemEntry<FoilItem> registerFoil(String path, AirwaveMaterials material) {
-        return Airwaves.REGISTRATE.item(path + "_foil", FoilItem::new)
+    private static ItemEntry<FoilItem> registerFoil(String path, AirwaveMaterials material, Supplier<FoilType> type) {
+        return Airwaves.REGISTRATE.item(path + "_foil", (p) -> new FoilItem(p, type))
                 .tag(material.foil)
                 .tag(AirwaveTags.Items.FOILS.tag)
                 .properties(p -> p.component(AirwaveDataComponents.FOIL_AMOUNT, 250))
