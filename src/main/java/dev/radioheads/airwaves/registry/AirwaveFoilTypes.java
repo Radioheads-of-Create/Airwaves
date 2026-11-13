@@ -11,12 +11,13 @@ public final class AirwaveFoilTypes {
     private AirwaveFoilTypes() {}
 
     public static final FoilTypeEntry
-            COPPER = register("copper", AirwaveItems.COPPER_FOIL, ColorUtil.rgb(184, 115, 51)),
-            GOLD = register("gold", AirwaveItems.GOLD_FOIL, ColorUtil.rgb(255, 215, 0)),
-            SILVER = register("silver", AirwaveItems.SILVER_FOIL, ColorUtil.rgb(192, 192, 192));
+            CREATIVE = register("creative", ColorUtil.rgb(128, 0, 128)),
+            COPPER = register("copper", ColorUtil.rgb(184, 115, 51)),
+            GOLD = register("gold", ColorUtil.rgb(255, 215, 0)),
+            SILVER = register("silver", ColorUtil.rgb(192, 192, 192));
 
-    private static <T extends FoilItem> FoilTypeEntry register(String name, ItemEntry<T> foil, int color) {
-        return Airwaves.REGISTRATE.foilType(name, () -> new FoilType(foil, color)).register();
+    private static <T extends FoilItem> FoilTypeEntry register(String name, int color) {
+        return Airwaves.REGISTRATE.foilType(name, () -> new FoilType(color)).register();
     }
 
     public static void init() {}
