@@ -2,6 +2,7 @@ package dev.radioheads.airwaves.client.render.foil_application;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
+import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringRenderer;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.radioheads.airwaves.api.util.AirwaveUtil;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
@@ -32,6 +33,8 @@ public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilAppl
     @Override
     protected void renderSafe(FoilApplicatorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
+        FilteringRenderer.renderOnBlockEntity(be, partialTicks, ms, buffer, light, overlay);
+
         if (VisualizationManager.supportsVisualization(be.getLevel()))
             return;
 
