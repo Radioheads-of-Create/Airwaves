@@ -6,6 +6,7 @@ import dev.radioheads.airwaves.registry.AirwaveBlocks;
 import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.PlayerTrigger;
@@ -42,6 +43,27 @@ public final class AirwaveAdvancementGen extends AdvancementProvider {
                     .addCriterion("airwaves_root", PlayerTrigger.TriggerInstance.tick())
                     .build(Airwaves.asResource("root"));
             saver.accept(root);
+
+            AdvancementHolder cheater = Advancement.Builder.advancement()
+                    .parent(root)
+                    .display(
+                            AirwaveItems.CREATIVE_SPOOL,
+                            Component.translatable("advancement.airwaves.cheater"),
+                            Component.translatable("advancement.airwaves.cheater.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            true
+                    )
+                    .addCriterion("get_creative_cable_spool", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_CABLE_SPOOL))
+                    .addCriterion("get_creative_foil", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_FOIL))
+                    .addCriterion("get_creative_spool", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_SPOOL))
+                    .addCriterion("get_creative_wire", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_WIRE))
+                    .requirements(AdvancementRequirements.anyOf(List.of("get_creative_cable_spool", "get_creative_foil", "get_creative_spool", "get_creative_wire")))
+                    .build(Airwaves.asResource("cheater"));
+            saver.accept(cheater);
+
 
             //TODO Change?
             AdvancementHolder speakerCone = Advancement.Builder.advancement()

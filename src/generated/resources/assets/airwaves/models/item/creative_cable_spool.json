@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "airwaves:item/creative_cable_spool"
+  }
+}

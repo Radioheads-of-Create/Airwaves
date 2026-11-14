@@ -52,7 +52,10 @@ public class AirwaveCreativeTabs {
                         List.of(AirwaveItems.EMPTY_SPOOL, AirwaveBlocks.SILVER_CASING, AirwaveItems.CUT_AMETHYST))),
                 new Section("circuitry", List.of(
                         List.of(AirwaveItems.RESISTOR, AirwaveItems.SMALL_CAPACITOR, AirwaveItems.LARGE_CAPACITOR, AirwaveItems.TRANSISTOR,
-                                AirwaveItems.LED, AirwaveItems.CRYSTAL_OSCILLATOR, AirwaveItems.MEMORY_CHIP, AirwaveItems.SPEAKER_CONE)))
+                                AirwaveItems.LED, AirwaveItems.CRYSTAL_OSCILLATOR, AirwaveItems.MEMORY_CHIP, AirwaveItems.SPEAKER_CONE))),
+                new Section("creative", List.of(
+                        List.of(AirwaveItems.CREATIVE_WIRE, AirwaveItems.CREATIVE_SPOOL, AirwaveItems.CREATIVE_FOIL, AirwaveItems.CREATIVE_CABLE_SPOOL)
+        ))
         );
     }
 

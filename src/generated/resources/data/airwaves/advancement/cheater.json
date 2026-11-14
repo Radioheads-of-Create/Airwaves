@@ -1,0 +1,67 @@
+{
+  "parent": "airwaves:root",
+  "criteria": {
+    "get_creative_cable_spool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:creative_cable_spool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_creative_foil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:creative_foil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_creative_spool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:creative_spool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "get_creative_wire": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:creative_wire"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.airwaves.cheater.description"
+    },
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "airwaves:creative_spool"
+    },
+    "title": {
+      "translate": "advancement.airwaves.cheater"
+    }
+  },
+  "requirements": [
+    [
+      "get_creative_cable_spool",
+      "get_creative_foil",
+      "get_creative_spool",
+      "get_creative_wire"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
