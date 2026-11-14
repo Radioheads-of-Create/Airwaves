@@ -52,7 +52,7 @@
   "airwaves.hf_transceiver.mhz.off": "MHz STEP OFF",
   "airwaves.hf_transceiver.mhz.on": "MHz STEP ON",
   "airwaves.hf_transceiver.power": "Radio POWER",
-  "airwaves.hf_transceiver.power.off": "Radio uit",
+  "airwaves.hf_transceiver.power.off": "Radio UIT",
   "airwaves.hf_transceiver.power.on": "Radio AAN",
   "airwaves.hf_transceiver.pwr_down": "TX Power DOWN",
   "airwaves.hf_transceiver.pwr_up": "TX Power UP",
