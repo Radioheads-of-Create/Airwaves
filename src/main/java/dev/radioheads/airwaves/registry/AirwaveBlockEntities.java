@@ -7,6 +7,7 @@ import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationRen
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationVisual;
 import dev.radioheads.airwaves.client.render.hf.HfTransceiverRenderer;
 import dev.radioheads.airwaves.client.render.microphone.MicrophoneRenderer;
+import dev.radioheads.airwaves.client.render.telephone.TelephoneRenderer;
 import dev.radioheads.airwaves.client.render.transmitter.TransmitterVisual;
 import dev.radioheads.airwaves.content.entity.block.*;
 
@@ -44,6 +45,11 @@ public final class AirwaveBlockEntities {
     public static final BlockEntityEntry<MicrophoneBlockEntity> MICROPHONE = Airwaves.REGISTRATE.blockEntity("microphone", MicrophoneBlockEntity::new)
             .validBlock(AirwaveBlocks.MICROPHONE::get)
             .renderer(() -> MicrophoneRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<TelephoneBlockEntity> TELEPHONE = Airwaves.REGISTRATE.blockEntity("telephone", TelephoneBlockEntity::new)
+            .validBlock(AirwaveBlocks.TELEPHONE::get)
+            .renderer(() -> TelephoneRenderer::new)
             .register();
 
     public static void init() {}

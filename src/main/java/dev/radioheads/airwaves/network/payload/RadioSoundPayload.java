@@ -14,13 +14,14 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-// A sound picked up by a microphone and played at a speaker
+// Relayed sound
 public record RadioSoundPayload(
         Holder<SoundEvent> sound,
         SoundSource source,
         Vec3 speaker,
         float volume,
-        float pitch
+        float pitch,
+        boolean direct
 ) implements CustomPacketPayload {
     public static final Type<RadioSoundPayload> TYPE = new Type<>(Airwaves.asResource("radio_sound"));
 
@@ -37,6 +38,7 @@ public record RadioSoundPayload(
             POSITION_CODEC, RadioSoundPayload::speaker,
             ByteBufCodecs.FLOAT, RadioSoundPayload::volume,
             ByteBufCodecs.FLOAT, RadioSoundPayload::pitch,
+            ByteBufCodecs.BOOL, RadioSoundPayload::direct,
             RadioSoundPayload::new
     );
 

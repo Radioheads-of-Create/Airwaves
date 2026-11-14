@@ -13,6 +13,16 @@ import java.util.List;
 
 public final class CableLinks {
     private final List<CableLink> links = new ArrayList<>();
+    // In the cable graph
+    private boolean graphed;
+
+    public boolean graphed() {
+        return this.graphed;
+    }
+
+    public void graphed(boolean graphed) {
+        this.graphed = graphed;
+    }
 
     public List<CableLink> all() {
         return this.links;
@@ -30,8 +40,12 @@ public final class CableLinks {
         return this.links.stream().anyMatch(link -> link.other().equals(other));
     }
 
-    public void add(BlockPos other, CableType type) {
-        this.links.add(new CableLink(other.immutable(), type));
+    public boolean has(CableLink.Flow flow) {
+        return this.links.stream().anyMatch(link -> link.flow() == flow);
+    }
+
+    public void add(BlockPos other, CableType type, CableLink.Flow flow) {
+        this.links.add(new CableLink(other.immutable(), type, flow));
     }
 
     public boolean remove(BlockPos other) {
@@ -49,13 +63,16 @@ public final class CableLinks {
             CompoundTag tag = new CompoundTag();
             tag.putLong("Other", link.other().asLong());
             tag.putString("Type", key.toString());
+            tag.putByte("Flow", (byte) link.flow().ordinal());
             list.add(tag);
         }
         compound.put("Links", list);
+        compound.putBoolean("Graphed", this.graphed);
     }
 
     public void load(CompoundTag compound) {
         this.links.clear();
+        this.graphed = compound.getBoolean("Graphed");
         for (Tag entry : compound.getList("Links", Tag.TAG_COMPOUND)) {
             CompoundTag tag = (CompoundTag) entry;
 
@@ -70,7 +87,9 @@ public final class CableLinks {
                 throw new IllegalStateException("Unknown cable type in save data: " + key);
             }
 
-            this.links.add(new CableLink(BlockPos.of(tag.getLong("Other")), type));
+            CableLink.Flow[] flows = CableLink.Flow.values();
+            int flow = tag.contains("Flow") ? tag.getByte("Flow") : CableLink.Flow.BOTH.ordinal();
+            this.links.add(new CableLink(BlockPos.of(tag.getLong("Other")), type, flows[Math.floorMod(flow, flows.length)]));
         }
     }
 }

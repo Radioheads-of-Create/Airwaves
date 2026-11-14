@@ -51,6 +51,13 @@ public final class AirwaveSoundEvents {
     TEXTURA_SHORT = create("textura_short")
             .category(SoundSource.BLOCKS)
             .attenuationDistance(20)
+            .build(),
+
+    // Telephone ring
+    TELEPHONE_RING = create("telephone_ring")
+            .subtitle("Telephone rings")
+            .category(SoundSource.BLOCKS)
+            .attenuationDistance(24)
             .build()
 
     ;

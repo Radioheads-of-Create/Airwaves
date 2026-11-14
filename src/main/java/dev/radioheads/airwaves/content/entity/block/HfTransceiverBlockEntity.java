@@ -11,6 +11,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -46,6 +48,12 @@ public class HfTransceiverBlockEntity extends TransmitterBlockEntity {
     @Override
     protected boolean powered() {
         return !this.standby && super.powered();
+    }
+
+    // POWER key standby
+    @Override
+    protected MutableComponent offLine() {
+        return this.standby ? Component.translatable("airwaves.hf_transceiver.power.off") : super.offLine();
     }
 
     @Override

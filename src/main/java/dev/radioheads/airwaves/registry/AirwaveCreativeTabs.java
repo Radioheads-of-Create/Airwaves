@@ -40,9 +40,10 @@ public class AirwaveCreativeTabs {
                         List.of(AirwaveBlocks.AM_TRANSMITTER, AirwaveBlocks.FM_TRANSMITTER, AirwaveBlocks.HF_TRANSCEIVER, AirwaveBlocks.VHF_BASE_STATION,
                                 AirwaveBlocks.UHF_BASE_STATION, AirwaveBlocks.VHF_REPEATER, AirwaveBlocks.UHF_REPEATER, AirwaveBlocks.AMPLIFIER,
                                 AirwaveBlocks.MICROPHONE),
+                        List.of(AirwaveBlocks.TELEPHONE, AirwaveItems.TELEPHONE_EARPIECE),
                         List.of(AirwaveBlocks.COPPER_ANTENNA_ROD, AirwaveBlocks.GOLD_ANTENNA_ROD, AirwaveBlocks.SILVER_ANTENNA_ROD,
                                 AirwaveBlocks.COPPER_ROD_BASE, AirwaveBlocks.GOLD_ROD_BASE, AirwaveBlocks.SILVER_ROD_BASE,
-                                AirwaveBlocks.ANDESITE_INSULATOR, AirwaveBlocks.BRASS_INSULATOR))),
+                                AirwaveBlocks.ANDESITE_INSULATOR, AirwaveBlocks.BRASS_INSULATOR, AirwaveItems.CABLE_CUTTER))),
                 new Section("materials", List.of(
                         List.of(AirwaveBlocks.SILVER_ORE, AirwaveItems.RAW_SILVER, AirwaveItems.SILVER_INGOT, AirwaveItems.SILVER_NUGGET,
                                 AirwaveBlocks.SILVER_BLOCK, AirwaveItems.SILVER_SHEET, AirwaveItems.COPPER_WIRE, AirwaveItems.GOLD_WIRE, AirwaveItems.SILVER_WIRE),

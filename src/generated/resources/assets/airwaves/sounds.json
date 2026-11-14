@@ -1,4 +1,14 @@
 {
+  "telephone_ring": {
+    "sounds": [
+      {
+        "type": "file",
+        "attenuation_distance": 24,
+        "name": "airwaves:telephone_ring"
+      }
+    ],
+    "subtitle": "airwaves.subtitle.telephone_ring"
+  },
   "textura_short": {
     "sounds": [
       {

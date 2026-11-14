@@ -31,4 +31,22 @@ public interface CableNode {
     default double amplifierDb() {
         return 0.0;
     }
+
+    // Device line type
+    default LineType line() {
+        return LineType.RADIO;
+    }
+
+    // Wiring line type
+    default LineType wiredLine() {
+        return line();
+    }
+
+    // Line update
+    default void lineChanged(LineType line, LineSide side) {}
+
+    // Free jack for this flow
+    default boolean accepts(CableLink.Flow flow) {
+        return links().size() < maxLinks();
+    }
 }

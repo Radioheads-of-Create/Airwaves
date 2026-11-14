@@ -34,7 +34,15 @@ public final class RadioSoundPlayer {
     private RadioSoundPlayer() {}
 
     public static void play(RadioSoundPayload payload) {
-        Minecraft.getInstance().getSoundManager().play(instance(payload.sound(), payload.source(), payload.speaker(), payload.volume(), payload.pitch()));
+        Minecraft.getInstance().getSoundManager().play(payload.direct()
+                ? earpiece(payload.sound(), payload.source(), payload.volume(), payload.pitch())
+                : instance(payload.sound(), payload.source(), payload.speaker(), payload.volume(), payload.pitch()));
+    }
+
+    // Earpiece playback
+    private static SoundInstance earpiece(Holder<SoundEvent> sound, SoundSource source, float volume, float pitch) {
+        return new SimpleSoundInstance(sound.value().getLocation(), source, volume, pitch, SoundInstance.createUnseededRandom(),
+                false, 0, SoundInstance.Attenuation.NONE, 0.0, 0.0, 0.0, true);
     }
 
     public static void song(RadioSongPayload payload) {
@@ -50,7 +58,7 @@ public final class RadioSoundPlayer {
             sounds.stop(playing);
         }
         payload.song().ifPresent(song -> {
-            SoundInstance instance = new Song(song, payload.speaker(), payload.volume(), (double) payload.ticks() / SharedConstants.TICKS_PER_SECOND);
+            SoundInstance instance = new Song(song, payload.speaker(), payload.volume(), (double) payload.ticks() / SharedConstants.TICKS_PER_SECOND, payload.direct());
             SONGS.put(payload.channelId(), instance);
             sounds.play(instance);
         });
@@ -71,15 +79,18 @@ public final class RadioSoundPlayer {
     private static final class Song extends AbstractTickableSoundInstance {
         private final double seconds;
         private final long receivedNanos = System.nanoTime();
+        private final boolean direct;
         private float level;
 
-        private Song(Holder<SoundEvent> sound, Vec3 speaker, float level, double seconds) {
+        private Song(Holder<SoundEvent> sound, Vec3 speaker, float level, double seconds, boolean direct) {
             super(sound.value(), SoundSource.RECORDS, SoundInstance.createUnseededRandom());
             this.x = speaker.x;
             this.y = speaker.y;
             this.z = speaker.z;
             // Falloff in tick for live level changes
             this.attenuation = SoundInstance.Attenuation.NONE;
+            this.relative = direct;
+            this.direct = direct;
             this.seconds = seconds;
             this.level = level;
             tick();
@@ -92,7 +103,8 @@ public final class RadioSoundPlayer {
         @Override
         public void tick() {
             Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-            this.volume = loudness(this.level, camera.getPosition().distanceTo(new Vec3(this.x, this.y, this.z)));
+            this.volume = this.direct ? Math.clamp(this.level, 0.0F, 1.0F)
+                    : loudness(this.level, camera.getPosition().distanceTo(new Vec3(this.x, this.y, this.z)));
         }
 
         // Silent start keeps song time unless records are muted

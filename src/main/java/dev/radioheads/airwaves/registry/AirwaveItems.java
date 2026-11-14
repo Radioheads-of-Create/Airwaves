@@ -8,8 +8,11 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
+import dev.radioheads.airwaves.api.foil.FoilType;
+import dev.radioheads.airwaves.content.item.CableCutterItem;
 import dev.radioheads.airwaves.content.item.EmptySpoolItem;
 import dev.radioheads.airwaves.content.item.FieldManualItem;
+import dev.radioheads.airwaves.content.item.TelephoneEarpieceItem;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.core.component.DataComponents;
@@ -17,6 +20,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.DyedItemColor;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.function.Supplier;
@@ -41,6 +45,17 @@ public final class AirwaveItems {
             HANDHELD_RADIO = Airwaves.REGISTRATE.item("handheld_radio", Item::new)
                 .properties(p -> p.stacksTo(1))
                 .model(NonNullBiConsumer.noop())
+                .register();
+
+    public static final ItemEntry<TelephoneEarpieceItem>
+            TELEPHONE_EARPIECE = Airwaves.REGISTRATE.item("telephone_earpiece", TelephoneEarpieceItem::new)
+                .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece_item"))))
+                .register();
+
+    public static final ItemEntry<CableCutterItem>
+            CABLE_CUTTER = Airwaves.REGISTRATE.item("cable_cutter", CableCutterItem::new)
+                .properties(p -> p.stacksTo(1))
+                .model((ctx, prov) -> prov.handheld(ctx))
                 .register();
 
     public static final ItemEntry<BoardItem>
@@ -108,10 +123,10 @@ public final class AirwaveItems {
         LARGE_CAPACITOR = registerCapacitor("large", 50);
 
     public static final ItemEntry<FoilItem>
-        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER),
-        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD),
-        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER),
-        CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE);
+        COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER, AirwaveFoilTypes.COPPER),
+        GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD, AirwaveFoilTypes.GOLD),
+        SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER, AirwaveFoilTypes.SILVER),
+        CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE, AirwaveFoilTypes.CREATIVE);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
         return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)
@@ -154,8 +169,8 @@ public final class AirwaveItems {
         return Airwaves.REGISTRATE.item(path, Item::new).tag(tag).register();
     }
 
-    private static ItemEntry<FoilItem> registerFoil(String path, AirwaveMaterials material) {
-        return Airwaves.REGISTRATE.item(path + "_foil", FoilItem::new)
+    private static ItemEntry<FoilItem> registerFoil(String path, AirwaveMaterials material, Supplier<FoilType> type) {
+        return Airwaves.REGISTRATE.item(path + "_foil", (p) -> new FoilItem(p, type))
                 .tag(material.foil)
                 .tag(AirwaveTags.Items.FOILS.tag)
                 .properties(p -> p.component(AirwaveDataComponents.FOIL_AMOUNT, 250))

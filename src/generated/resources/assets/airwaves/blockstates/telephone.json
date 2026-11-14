@@ -1,0 +1,78 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/body"
+      },
+      "when": {
+        "facing": "north"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/earpiece"
+      },
+      "when": {
+        "facing": "north",
+        "hooked": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/body",
+        "y": 90
+      },
+      "when": {
+        "facing": "east"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/earpiece",
+        "y": 90
+      },
+      "when": {
+        "facing": "east",
+        "hooked": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/body",
+        "y": 180
+      },
+      "when": {
+        "facing": "south"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/earpiece",
+        "y": 180
+      },
+      "when": {
+        "facing": "south",
+        "hooked": "true"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/body",
+        "y": 270
+      },
+      "when": {
+        "facing": "west"
+      }
+    },
+    {
+      "apply": {
+        "model": "airwaves:block/telephone/earpiece",
+        "y": 270
+      },
+      "when": {
+        "facing": "west",
+        "hooked": "true"
+      }
+    }
+  ]
+}

@@ -19,13 +19,14 @@ import java.util.UUID;
 
 // A jukebox song on a radio channel that stops when song is empty
 // Volume is the level at the speaker and ticks is how long the jukebox has played it
-// Sent again for the same song when the level changes
+// Song relay
 public record RadioSongPayload(
         UUID channelId,
         Optional<Holder<SoundEvent>> song,
         Vec3 speaker,
         float volume,
-        long ticks
+        long ticks,
+        boolean direct
 ) implements CustomPacketPayload {
     public static final Type<RadioSongPayload> TYPE = new Type<>(Airwaves.asResource("radio_song"));
 
@@ -35,11 +36,12 @@ public record RadioSongPayload(
             RadioSoundPayload.POSITION_CODEC, RadioSongPayload::speaker,
             ByteBufCodecs.FLOAT, RadioSongPayload::volume,
             ByteBufCodecs.VAR_LONG, RadioSongPayload::ticks,
+            ByteBufCodecs.BOOL, RadioSongPayload::direct,
             RadioSongPayload::new
     );
 
     public static RadioSongPayload stop(UUID channelId) {
-        return new RadioSongPayload(channelId, Optional.empty(), Vec3.ZERO, 0.0F, 0L);
+        return new RadioSongPayload(channelId, Optional.empty(), Vec3.ZERO, 0.0F, 0L, false);
     }
 
     public void sendTo(ServerPlayer player) {
