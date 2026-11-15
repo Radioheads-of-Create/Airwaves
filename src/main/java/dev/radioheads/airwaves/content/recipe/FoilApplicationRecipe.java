@@ -43,7 +43,7 @@ public class FoilApplicationRecipe extends StandardProcessingRecipe<RecipeWrappe
 
     @Override
     public boolean matches(RecipeWrapper wrapper, Level level) {
-        return !wrapper.isEmpty() && this.ingredients.getFirst().test(wrapper.getItem(0));
+        return ingredients.get(0).test(wrapper.getItem(0)) && ingredients.get(1).test(wrapper.getItem(1));
     }
 
     @Override
