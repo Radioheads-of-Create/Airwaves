@@ -18,6 +18,6 @@ public final class AirwaveFoilApplicationGen extends FoilApplicationRecipeGen {
             .require(Items.DIRT)
             .require(AirwaveItems.COPPER_FOIL)
             .output(Items.GRASS_BLOCK)
-            .duration(100)
+            .duration(1)
     );
 }
