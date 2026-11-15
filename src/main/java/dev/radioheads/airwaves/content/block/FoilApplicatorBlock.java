@@ -46,7 +46,7 @@ public class FoilApplicatorBlock extends HorizontalKineticBlock implements IBE<F
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.getBlockEntity(pos) instanceof FoilApplicatorBlockEntity applicator && !applicator.getFoilInventory().isEmpty()) {
+        if (player.isShiftKeyDown() && level.getBlockEntity(pos) instanceof FoilApplicatorBlockEntity applicator && !applicator.getFoilInventory().isEmpty()) {
             ItemStack removed = applicator.getFoilInventory().extractItem(0, 1, false);
             player.getInventory().add(removed);
             applicator.notifyUpdate();
