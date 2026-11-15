@@ -59,13 +59,13 @@ public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilAppl
         float angle = ((time * (be.getSpeed() * -1) * 3f / 10 + angleOffset) % 360) / 180 * (float) Math.PI;
 
         rollRender.translate(offset.x(), offset.y(), offset.z());
-        AirwaveUtil.callNotNull(foilBlock, f -> f.translate(offset.x(), offset.y(), offset.z()));
+        AirwaveUtil.callNonNull(foilBlock, f -> f.translate(offset.x(), offset.y(), offset.z()));
 
         kineticRotationTransform(rollRender, be, axis, angle, light);
-        AirwaveUtil.callNotNull(foilBlock, f -> kineticRotationTransform(f, be, axis, angle, light));
+        AirwaveUtil.callNonNull(foilBlock, f -> kineticRotationTransform(f, be, axis, angle, light));
 
         rollRender.light(light).renderInto(ms, buffer.getBuffer(RenderType.solid()));
-        AirwaveUtil.callNotNull(foilBlock, f -> f.light(light).renderInto(ms, buffer.getBuffer(RenderType.SOLID).setColor(be.getFoilType().color())));
+        AirwaveUtil.callNonNull(foilBlock, f -> f.light(light).renderInto(ms, buffer.getBuffer(RenderType.SOLID).setColor(be.getFoilType().color())));
     }
 
     @Override
