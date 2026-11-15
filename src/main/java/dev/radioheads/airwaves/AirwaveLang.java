@@ -80,7 +80,7 @@ public final class AirwaveLang extends Lang {
     public static void init() {
         lang = new ArrayList<>();
         collect();
-        lang.forEach(pair -> Airwaves.REGISTRATE.addRawLang(pair.getA(), pair.getB()));
+        lang.forEach(pair -> Airwaves.registrate().addRawLang(pair.getA(), pair.getB()));
         lang = null;
     }
 

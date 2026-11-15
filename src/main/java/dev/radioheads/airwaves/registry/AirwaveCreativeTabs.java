@@ -78,7 +78,7 @@ public class AirwaveCreativeTabs {
             }
 
             // Unsectioned items last
-            for (RegistryEntry<Item, ?> item : Airwaves.REGISTRATE.getAll(Registries.ITEM)) {
+            for (RegistryEntry<Item, ?> item : Airwaves.registrate().getAll(Registries.ITEM)) {
                 if (item.get() instanceof SequencedAssemblyItem || sorted.contains(item.get())) {
                     continue;
                 }

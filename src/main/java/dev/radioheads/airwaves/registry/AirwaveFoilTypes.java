@@ -16,7 +16,7 @@ public final class AirwaveFoilTypes {
             SILVER = register("silver", ColorUtil.rgb(192, 192, 192));
 
     private static <T extends FoilItem> FoilTypeEntry register(String name, int color) {
-        return Airwaves.REGISTRATE.foilType(name, () -> new FoilType(color)).register();
+        return Airwaves.registrate().foilType(name, () -> new FoilType(color)).register();
     }
 
     public static void init() {}

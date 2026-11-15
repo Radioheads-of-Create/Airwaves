@@ -23,6 +23,6 @@ public final class AirwaveMenuTypes {
     public static final Supplier<MenuType<TuningTableMenu>> TUNING_TABLE = MENU.register("tuning_table", () -> IMenuTypeExtension.create((id, inv, buf) -> new TuningTableMenu(id, inv)));
 
     private static <C extends AbstractContainerMenu, S extends Screen & MenuAccess<C>> MenuEntry<C> register(String name, MenuBuilder.ForgeMenuFactory<C> factory, NonNullSupplier<MenuBuilder.ScreenFactory<C, S>> screenFactory) {
-        return Airwaves.REGISTRATE.menu(name, factory, screenFactory).register();
+        return Airwaves.registrate().menu(name, factory, screenFactory).register();
     }
 }

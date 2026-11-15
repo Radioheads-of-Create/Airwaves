@@ -6,8 +6,10 @@ import com.simibubi.create.content.kinetics.base.ShaftVisual;
 import com.simibubi.create.foundation.render.AllInstanceTypes;
 import dev.engine_room.flywheel.api.instance.Instance;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
+import dev.engine_room.flywheel.lib.instance.AbstractInstance;
 import dev.engine_room.flywheel.lib.model.Models;
 import dev.radioheads.airwaves.api.foil.FoilType;
+import dev.radioheads.airwaves.api.util.AirwaveUtil;
 import dev.radioheads.airwaves.api.util.ColorUtil;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
@@ -84,9 +86,7 @@ public class FoilApplicationVisual extends ShaftVisual<FoilApplicatorBlockEntity
     public void updateLight(float partialTick) {
         super.updateLight(partialTick);
         relight(foilRoll);
-        if (rollBlock != null) {
-            relight(rollBlock);
-        }
+        AirwaveUtil.callNonNull(rollBlock, AbstractInstance::delete);
     }
 
     @Override

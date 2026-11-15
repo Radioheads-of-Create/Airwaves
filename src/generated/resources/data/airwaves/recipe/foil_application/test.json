@@ -8,7 +8,7 @@
       "item": "airwaves:copper_foil"
     }
   ],
-  "processing_time": 100,
+  "processing_time": 1,
   "results": [
     {
       "id": "minecraft:grass_block"
