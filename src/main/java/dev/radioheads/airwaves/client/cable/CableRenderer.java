@@ -77,8 +77,8 @@ public class CableRenderer<T extends BlockEntity> implements BlockEntityRenderer
 
         int segments = Math.clamp((int) (length * 1.25), 4, 24);
         double horizontal = Math.hypot(delta.x, delta.z);
-        Vec3 side = horizontal < 1.0E-4 ? new Vec3(1.0, 0.0, 0.0) : new Vec3(-delta.z / horizontal, 0.0, delta.x / horizontal);
-        Vec3 up = horizontal < 1.0E-4 ? new Vec3(1.0, 0.0, 0.0) : new Vec3(0.0, 1.0, 0.0);
+        Vec3 side = horizontal < 1.0E-4 ? new Vec3(0.0, 0.0, 1.0) : new Vec3(-delta.z / horizontal, 0.0, delta.x / horizontal);
+        Vec3 up   = horizontal < 1.0E-4 ? new Vec3(1.0, 0.0, 0.0) : new Vec3(0.0, 1.0, 0.0);
 
         float red = (color >> 16 & 255) / 255.0F;
         float green = (color >> 8 & 255) / 255.0F;
