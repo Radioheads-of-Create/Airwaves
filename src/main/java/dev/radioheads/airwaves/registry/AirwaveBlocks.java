@@ -50,7 +50,7 @@ public final class AirwaveBlocks {
     private AirwaveBlocks() {}
 
     public static final BlockEntry<TuningTableBlock> TUNING_TABLE =
-            Airwaves.REGISTRATE.block("tuning_table", TuningTableBlock::new)
+            Airwaves.registrate().block("tuning_table", TuningTableBlock::new)
                     .properties(p -> p
                             .strength(2.5f)
                             .mapColor(MapColor.WOOD)
@@ -76,7 +76,7 @@ public final class AirwaveBlocks {
                     .register();
 
     public static final BlockEntry<Block>
-        SILVER_ORE = Airwaves.REGISTRATE.block("silver_ore", Block::new)
+        SILVER_ORE = Airwaves.registrate().block("silver_ore", Block::new)
             .initialProperties(() -> Blocks.GOLD_ORE)
             .properties(p -> p
                     .requiresCorrectToolForDrops()
@@ -101,7 +101,7 @@ public final class AirwaveBlocks {
             .register();
 
     public static final BlockEntry<Block>
-            SILVER_BLOCK = Airwaves.REGISTRATE.block("silver_block", Block::new)
+            SILVER_BLOCK = Airwaves.registrate().block("silver_block", Block::new)
                 .initialProperties(() -> Blocks.IRON_BLOCK)
                 .properties(p -> p.mapColor(MapColor.TERRACOTTA_WHITE)
                         .requiresCorrectToolForDrops())
@@ -117,13 +117,13 @@ public final class AirwaveBlocks {
                 .register();
 
     public static final BlockEntry<CasingBlock>
-            SILVER_CASING = Airwaves.REGISTRATE.block("silver_casing", CasingBlock::new)
+            SILVER_CASING = Airwaves.registrate().block("silver_casing", CasingBlock::new)
                 .properties(p -> p.mapColor(MapColor.TERRACOTTA_WHITE))
                 .transform(BuilderTransformers.casing(() -> AirwaveSpriteShifts.SILVER_CASING))
                 .register();
 
     public static final BlockEntry<RadioBlock>
-        RADIO = Airwaves.REGISTRATE.block("radio", RadioBlock::new)
+        RADIO = Airwaves.registrate().block("radio", RadioBlock::new)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .blockstate((ctx, prov) ->  prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
                 Direction facing = state.getValue(RadioBlock.HORIZONTAL_FACING);
@@ -157,7 +157,7 @@ public final class AirwaveBlocks {
             VHF_REPEATER = registerIncompleteTransmitter("vhf_repeater", "VHF Repeater", "repeater"),
             UHF_REPEATER = registerIncompleteTransmitter("uhf_repeater", "UHF Repeater", "repeater");
 
-    public static final BlockEntry<HfTransceiverBlock> HF_TRANSCEIVER = Airwaves.REGISTRATE
+    public static final BlockEntry<HfTransceiverBlock> HF_TRANSCEIVER = Airwaves.registrate()
             .block("hf_transceiver", properties -> new HfTransceiverBlock(properties, 100, AirwaveRadioBands.HF))
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
@@ -195,7 +195,7 @@ public final class AirwaveBlocks {
             BRASS_INSULATOR = registerInsulator("brass");
 
     private static BlockEntry<InsulatorBlock> registerInsulator(String material) {
-        return Airwaves.REGISTRATE.block(material + "_insulator", InsulatorBlock::new)
+        return Airwaves.registrate().block(material + "_insulator", InsulatorBlock::new)
                 .initialProperties(() -> Blocks.TERRACOTTA)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(pickaxeOnly())
@@ -208,7 +208,7 @@ public final class AirwaveBlocks {
                 .register();
     }
 
-    public static final BlockEntry<AmplifierBlock> AMPLIFIER = Airwaves.REGISTRATE.block("amplifier", AmplifierBlock::new)
+    public static final BlockEntry<AmplifierBlock> AMPLIFIER = Airwaves.registrate().block("amplifier", AmplifierBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .transform(pickaxeOnly())
@@ -226,7 +226,7 @@ public final class AirwaveBlocks {
             .build()
             .register();
 
-    public static final BlockEntry<MicrophoneBlock> MICROPHONE = Airwaves.REGISTRATE.block("microphone", MicrophoneBlock::new)
+    public static final BlockEntry<MicrophoneBlock> MICROPHONE = Airwaves.registrate().block("microphone", MicrophoneBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .transform(pickaxeOnly())
@@ -244,7 +244,7 @@ public final class AirwaveBlocks {
             .register();
 
     // Earpiece on hook
-    public static final BlockEntry<TelephoneBlock> TELEPHONE = Airwaves.REGISTRATE.block("telephone", TelephoneBlock::new)
+    public static final BlockEntry<TelephoneBlock> TELEPHONE = Airwaves.registrate().block("telephone", TelephoneBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)
             .transform(pickaxeOnly())
@@ -278,7 +278,7 @@ public final class AirwaveBlocks {
 
     // Resistivity relative to copper
     private static BlockEntry<AntennaRodBlock> registerAntennaRod(String material, double resistivity) {
-        return Airwaves.REGISTRATE.block(material + "_antenna_rod", properties -> new AntennaRodBlock(properties, resistivity))
+        return Airwaves.registrate().block(material + "_antenna_rod", properties -> new AntennaRodBlock(properties, resistivity))
                 .initialProperties(SharedProperties::softMetal)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(pickaxeOnly())
@@ -326,7 +326,7 @@ public final class AirwaveBlocks {
             SILVER_ROD_BASE = registerRodBase("silver");
 
     private static BlockEntry<RodBaseBlock> registerRodBase(String material) {
-        return Airwaves.REGISTRATE.block(material + "_rod_base", RodBaseBlock::new)
+        return Airwaves.registrate().block(material + "_rod_base", RodBaseBlock::new)
                 .initialProperties(() -> Blocks.TERRACOTTA)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(pickaxeOnly())
@@ -344,7 +344,7 @@ public final class AirwaveBlocks {
     }
 
     private static BlockEntry<TransmitterBlock> registerIncompleteTransmitter(String name, String lang, String model) {
-        return Airwaves.REGISTRATE.block(name, TransmitterBlock::new)
+        return Airwaves.registrate().block(name, TransmitterBlock::new)
                 .initialProperties(SharedProperties::softMetal)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(pickaxeOnly())
@@ -364,7 +364,7 @@ public final class AirwaveBlocks {
     }
 
     private static BlockEntry<TransmitterBlock> registerTransmitter(String name, String lang, String model) {
-        return Airwaves.REGISTRATE.block(name, TransmitterBlock::new)
+        return Airwaves.registrate().block(name, TransmitterBlock::new)
                 .initialProperties(SharedProperties::softMetal)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(pickaxeOnly())
@@ -389,7 +389,7 @@ public final class AirwaveBlocks {
 
     public static final BlockEntry<FoilApplicatorBlock>
         FOIL_APPLICATOR =
-            Airwaves.REGISTRATE.block("foil_applicator", FoilApplicatorBlock::new)
+            Airwaves.registrate().block("foil_applicator", FoilApplicatorBlock::new)
                     .properties(BlockBehaviour.Properties::noOcclusion)
                     .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> {
                         Direction facing = state.getValue(FoilApplicatorBlock.HORIZONTAL_FACING);

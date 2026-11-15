@@ -21,11 +21,19 @@ public class Airwaves {
     public static final String MOD_ID = "airwaves";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public static final AirwaveRegistrate REGISTRATE = AirwaveRegistrate.create(MOD_ID)
+    private static final AirwaveRegistrate REGISTRATE = AirwaveRegistrate.create(MOD_ID)
             .setTooltipModifierFactory(item ->
                     new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
                             .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
             );
+
+    private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
+
+    public static AirwaveRegistrate registrate() {
+        if (!STACK_WALKER.getCallerClass().getPackageName().startsWith("dev.radioheads.airwaves"))
+            throw new UnsupportedOperationException("Other mods are not permitted to use Airwaves's registrate instance.");
+        return REGISTRATE;
+    }
 
     public Airwaves(IEventBus modEventBus, ModContainer modContainer) {
         REGISTRATE.registerEventListeners(modEventBus);

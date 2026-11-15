@@ -30,30 +30,30 @@ public final class AirwaveItems {
     private AirwaveItems() {}
 
     public static final ItemEntry<Item>
-            CUT_AMETHYST = Airwaves.REGISTRATE.item("cut_amethyst", Item::new)
+            CUT_AMETHYST = Airwaves.registrate().item("cut_amethyst", Item::new)
                 .tag(Tags.Items.GEMS)
                 .tag(Tags.Items.GEMS_AMETHYST)
                 .register();
 
     public static final ItemEntry<FieldManualItem>
-            FIELD_MANUAL = Airwaves.REGISTRATE.item("field_manual", FieldManualItem::new)
+            FIELD_MANUAL = Airwaves.registrate().item("field_manual", FieldManualItem::new)
                 .properties(p -> p.stacksTo(1))
                 .lang("Airwaves Field Manual")
                 .register();
 
     public static final ItemEntry<Item>
-            HANDHELD_RADIO = Airwaves.REGISTRATE.item("handheld_radio", Item::new)
+            HANDHELD_RADIO = Airwaves.registrate().item("handheld_radio", Item::new)
                 .properties(p -> p.stacksTo(1))
                 .model(NonNullBiConsumer.noop())
                 .register();
 
     public static final ItemEntry<TelephoneEarpieceItem>
-            TELEPHONE_EARPIECE = Airwaves.REGISTRATE.item("telephone_earpiece", TelephoneEarpieceItem::new)
+            TELEPHONE_EARPIECE = Airwaves.registrate().item("telephone_earpiece", TelephoneEarpieceItem::new)
                 .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece_item"))))
                 .register();
 
     public static final ItemEntry<CableCutterItem>
-            CABLE_CUTTER = Airwaves.REGISTRATE.item("cable_cutter", CableCutterItem::new)
+            CABLE_CUTTER = Airwaves.registrate().item("cable_cutter", CableCutterItem::new)
                 .properties(p -> p.stacksTo(1))
                 .model((ctx, prov) -> prov.handheld(ctx))
                 .register();
@@ -64,7 +64,7 @@ public final class AirwaveItems {
             MEMORY_CHIP = registerBoardItem("memory_chip"),
             SPEAKER_CONE = registerBoardItem("speaker_cone"),
             TRANSISTOR = registerBoardItem("transistor"),
-            LED = Airwaves.REGISTRATE.item("led", BoardItem::new)
+            LED = Airwaves.registrate().item("led", BoardItem::new)
                     .tag(ItemTags.DYEABLE)
                     .lang("LED")
                     // Dyed base with a plain overlay
@@ -79,19 +79,19 @@ public final class AirwaveItems {
             INCOMPLETE_SPEAKER_CONE = registerSequencedItem("incomplete_speaker_cone");
 
     public static final ItemEntry<Item>
-            RAW_SILVER = Airwaves.REGISTRATE.item("raw_silver", Item::new)
+            RAW_SILVER = Airwaves.registrate().item("raw_silver", Item::new)
                 .tag(Tags.Items.RAW_MATERIALS)
                 .tag(AirwaveMaterials.SILVER.rawMaterial)
                 .register(),
-            SILVER_INGOT = Airwaves.REGISTRATE.item("silver_ingot", Item::new)
+            SILVER_INGOT = Airwaves.registrate().item("silver_ingot", Item::new)
                     .tag(Tags.Items.INGOTS)
                     .tag(AirwaveMaterials.SILVER.ingots)
                     .register(),
-            SILVER_NUGGET = Airwaves.REGISTRATE.item("silver_nugget", Item::new)
+            SILVER_NUGGET = Airwaves.registrate().item("silver_nugget", Item::new)
                     .tag(Tags.Items.NUGGETS)
                     .tag(AirwaveMaterials.SILVER.nuggets)
                     .register(),
-            SILVER_SHEET = Airwaves.REGISTRATE.item("silver_sheet", Item::new)
+            SILVER_SHEET = Airwaves.registrate().item("silver_sheet", Item::new)
                     .tag(AirwaveMaterials.SILVER.plates)
                     .register()
     ;
@@ -129,48 +129,48 @@ public final class AirwaveItems {
         CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE, AirwaveFoilTypes.CREATIVE);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {
-        return Airwaves.REGISTRATE.item(path + "_spool", SpoolItem::new)
+        return Airwaves.registrate().item(path + "_spool", SpoolItem::new)
                 .properties(p -> p.component(AirwaveDataComponents.SPOOL_AMOUNT, 100))
                 .register();
     }
 
     private static ItemEntry<EmptySpoolItem> registerEmptySpool(String path) {
-        return Airwaves.REGISTRATE.item(path + "_spool", EmptySpoolItem::new)
+        return Airwaves.registrate().item(path + "_spool", EmptySpoolItem::new)
                 .properties(p -> p.component(AirwaveDataComponents.SPOOL_AMOUNT, 100))
                 .register();
     }
 
     private static ItemEntry<Item> registerWire(String path, AirwaveMaterials material) {
-        return Airwaves.REGISTRATE.item(path + "_wire", Item::new)
+        return Airwaves.registrate().item(path + "_wire", Item::new)
                 .tag(material.wire)
                 .tag(AirwaveTags.Items.WIRES.tag)
                 .register();
     }
 
     private static ItemEntry<CableItem> registerCable(String path, AirwaveMaterials material, Supplier<CableType> type) {
-        return Airwaves.REGISTRATE.item(path + "_cable_spool", properties -> new CableItem(properties, type))
+        return Airwaves.registrate().item(path + "_cable_spool", properties -> new CableItem(properties, type))
                 .tag(material.cable)
                 .tag(AirwaveTags.Items.CABLES.tag)
                 .register();
     }
 
     private static ItemEntry<CapacitorItem> registerCapacitor(String path, int maxCharge) {
-        return Airwaves.REGISTRATE.item(path + "_capacitor", CapacitorItem::new)
+        return Airwaves.registrate().item(path + "_capacitor", CapacitorItem::new)
                 .properties(p -> p.component(AirwaveDataComponents.CAPACITOR_DATA, new CapacitorData(0, maxCharge)))
                 .register();
     }
 
     private static ItemEntry<Item> registerSimpleItem(String path) {
-        return Airwaves.REGISTRATE.item(path, Item::new).register();
+        return Airwaves.registrate().item(path, Item::new).register();
     }
 
     @SafeVarargs
     private static ItemEntry<Item> registerSimpleItem(String path, TagKey<Item>... tag) {
-        return Airwaves.REGISTRATE.item(path, Item::new).tag(tag).register();
+        return Airwaves.registrate().item(path, Item::new).tag(tag).register();
     }
 
     private static ItemEntry<FoilItem> registerFoil(String path, AirwaveMaterials material, Supplier<FoilType> type) {
-        return Airwaves.REGISTRATE.item(path + "_foil", (p) -> new FoilItem(p, type))
+        return Airwaves.registrate().item(path + "_foil", (p) -> new FoilItem(p, type))
                 .tag(material.foil)
                 .tag(AirwaveTags.Items.FOILS.tag)
                 .properties(p -> p.component(AirwaveDataComponents.FOIL_AMOUNT, 250))
@@ -178,21 +178,21 @@ public final class AirwaveItems {
     }
 
     private static ItemEntry<BoardItem> registerBoardItem(String path) {
-        return Airwaves.REGISTRATE.item(path, BoardItem::new).register();
+        return Airwaves.registrate().item(path, BoardItem::new).register();
     }
 
     private static ItemEntry<BoardItem> registerBoardItem(String path, String langOverride) {
-        return Airwaves.REGISTRATE.item(path, BoardItem::new).lang(langOverride).register();
+        return Airwaves.registrate().item(path, BoardItem::new).lang(langOverride).register();
     }
 
     private static ItemEntry<SequencedAssemblyItem> registerSequencedItem(String path) {
-        return Airwaves.REGISTRATE.item(path, SequencedAssemblyItem::new)
+        return Airwaves.registrate().item(path, SequencedAssemblyItem::new)
                 .tag(Tags.Items.HIDDEN_FROM_RECIPE_VIEWERS)
                 .register();
     }
 
     private static <T extends Item> ItemEntry<T> registerSimpleItem(String path, NonNullFunction<Item.Properties, T> item) {
-        return Airwaves.REGISTRATE.item(path, item).register();
+        return Airwaves.registrate().item(path, item).register();
     }
 
     public static void init() {}
