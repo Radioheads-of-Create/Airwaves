@@ -199,11 +199,12 @@ public final class AirwaveBlocks {
                 .initialProperties(() -> Blocks.TERRACOTTA)
                 .properties(BlockBehaviour.Properties::noOcclusion)
                 .transform(pickaxeOnly())
-                .blockstate((ctx, prov) -> prov.directionalBlock(ctx.getEntry(), prov.models().withExistingParent(ctx.getName(), prov.modLoc("block/insulator"))
-                        .texture("insulator", Airwaves.asResource("block/" + ctx.getName()))))
+                .blockstate((ctx, prov) -> prov.directionalBlock(ctx.getEntry(), prov.models()
+                        .withExistingParent(ctx.getName(), prov.modLoc("block/insulator/insulator"))
+                        .texture("insulator", Airwaves.asResource("block/insulator/insulator_" + material))))
                 .item()
-                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/insulator"))
-                        .texture("insulator", Airwaves.asResource("block/" + ctx.getName())))
+                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/insulator/insulator"))
+                        .texture("insulator", Airwaves.asResource("block/insulator/insulator_" + material)))
                 .build()
                 .register();
     }
