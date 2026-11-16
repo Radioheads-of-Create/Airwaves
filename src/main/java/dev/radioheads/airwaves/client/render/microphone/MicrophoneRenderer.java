@@ -2,8 +2,7 @@ package dev.radioheads.airwaves.client.render.microphone;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import dev.radioheads.airwaves.client.cable.CableRenderer;
+import dev.radioheads.airwaves.api.render.SafeCableNodeRenderer;
 import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.MicrophoneBlock;
 import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
@@ -13,13 +12,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class MicrophoneRenderer extends SafeBlockEntityRenderer<MicrophoneBlockEntity> {
+public class MicrophoneRenderer extends SafeCableNodeRenderer<MicrophoneBlockEntity> {
     private static final float EASE = 0.35F;
     private final Map<MicrophoneBlockEntity, float[]> angles = new WeakHashMap<>();
 
@@ -36,7 +34,7 @@ public class MicrophoneRenderer extends SafeBlockEntityRenderer<MicrophoneBlockE
         if (!(state.getBlock() instanceof MicrophoneBlock)) {
             return;
         }
-        float[] shown = this.angles.computeIfAbsent(microphone, key -> new float[] {angle(key)});
+        float[] shown = this.angles.computeIfAbsent(microphone, key -> new float[]{angle(key)});
         shown[0] += (angle(microphone) - shown[0]) * EASE;
 
         Vec3 knob = MicrophoneBlock.KNOB.scale(1.0 / 16.0);
@@ -49,21 +47,6 @@ public class MicrophoneRenderer extends SafeBlockEntityRenderer<MicrophoneBlockE
         CachedBuffers.partial(AirwavePartialModels.MICROPHONE_KNOB, state).light(light).renderInto(poseStack, buffer.getBuffer(RenderType.cutout()));
         poseStack.popPose();
 
-        CableRenderer.renderCables(microphone, poseStack, buffer);
-    }
-
-    @Override
-    public boolean shouldRenderOffScreen(MicrophoneBlockEntity blockEntity) {
-        return true;
-    }
-
-    @Override
-    public int getViewDistance() {
-        return CableRenderer.VIEW_DISTANCE;
-    }
-
-    @Override
-    public AABB getRenderBoundingBox(MicrophoneBlockEntity blockEntity) {
-        return CableRenderer.bounds(blockEntity);
+        renderCables(microphone, poseStack, buffer);
     }
 }

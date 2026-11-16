@@ -2,7 +2,8 @@ package dev.radioheads.airwaves.client.render.telephone;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
+import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
+import dev.radioheads.airwaves.api.render.SafeCableNodeRenderer;
 import dev.radioheads.airwaves.client.cable.CableRenderer;
 import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.TelephoneBlock;
@@ -27,11 +28,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class TelephoneRenderer extends SafeBlockEntityRenderer<TelephoneBlockEntity> {
+@NothingNullByDefault
+public class TelephoneRenderer extends SafeCableNodeRenderer<TelephoneBlockEntity> {
     // Button travel to the dial top
     private static final float PRESS_PIXELS = 0.07984F;
     private static final double CORD_SEARCH = 12.0;
@@ -63,7 +66,7 @@ public class TelephoneRenderer extends SafeBlockEntityRenderer<TelephoneBlockEnt
         poseStack.popPose();
 
         cord(phone, partialTicks, poseStack, buffer);
-        CableRenderer.renderCables(phone, poseStack, buffer);
+        renderCables(phone, poseStack, buffer);
     }
 
     // Earpiece cord
@@ -140,17 +143,7 @@ public class TelephoneRenderer extends SafeBlockEntityRenderer<TelephoneBlockEnt
     }
 
     @Override
-    public boolean shouldRenderOffScreen(TelephoneBlockEntity blockEntity) {
-        return true;
-    }
-
-    @Override
-    public int getViewDistance() {
-        return CableRenderer.VIEW_DISTANCE;
-    }
-
-    @Override
     public AABB getRenderBoundingBox(TelephoneBlockEntity blockEntity) {
-        return CableRenderer.bounds(blockEntity).minmax(new AABB(blockEntity.getBlockPos()).inflate(CORD_SEARCH));
+        return super.getRenderBoundingBox(blockEntity).minmax(new AABB(blockEntity.getBlockPos()).inflate(CORD_SEARCH));
     }
 }
