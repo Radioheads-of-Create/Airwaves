@@ -50,9 +50,9 @@ public class CableItem extends Item {
     }
 
     public Optional<Component> refusal(Player player, Level level, BlockPos start, BlockPos end) {
-        Optional<Component> refusal = Cables.refusal(Cables.node(level, start), start, Cables.node(level, end), end)
+        Optional<Component> refusal = Cables.refusal(level, Cables.node(level, start), start, Cables.node(level, end), end)
                 .map(reason -> reason == Cables.Refusal.NO_JUNCTION ? Component.empty() : refused(reason.name().toLowerCase(Locale.ROOT), Cables.MAX_LENGTH));
-        if (refusal.isEmpty() && !hasSpools(player, Cables.spools(Cables.length(start, end)))) {
+        if (refusal.isEmpty() && !hasSpools(player, Cables.spools(Cables.length(level, start, end)))) {
             return Optional.of(refused("not_enough"));
         }
         return refusal;
@@ -126,7 +126,7 @@ public class CableItem extends Item {
 
         stack.remove(AirwaveDataComponents.CABLE_START);
         Cables.link(level, start, end, this.type.get());
-        takeSpools(player, stack, Cables.spools(Cables.length(start, end)));
+        takeSpools(player, stack, Cables.spools(Cables.length(level, start, end)));
         player.containerMenu.broadcastChanges();
         player.displayClientMessage(hint("connected"), true);
     }

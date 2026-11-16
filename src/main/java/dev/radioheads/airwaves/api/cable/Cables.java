@@ -1,12 +1,12 @@
 package dev.radioheads.airwaves.api.cable;
 
 import dev.radioheads.airwaves.api.antenna.AntennaProfile;
+import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,17 +46,11 @@ public final class Cables {
 
     @Nullable
     public static CableNode node(Level level, BlockPos pos) {
-        if (level.isLoaded(pos)) {
-            BlockEntity blockEntity = level.getBlockEntity(pos);
-            if (blockEntity instanceof CableNode node) {
-                return node;
-            }
-        }
-        return null;
+        return level.isLoaded(pos) && level.getBlockEntity(pos) instanceof CableNode node ? node : null;
     }
 
-    public static int length(BlockPos a, BlockPos b) {
-        return (int) Math.round(Math.sqrt(a.distSqr(b)));
+    public static int length(Level level, BlockPos a, BlockPos b) {
+        return (int) Math.round(Math.sqrt(CableNodeSable.getActualPosition(level, a).distSqr(CableNodeSable.getActualPosition(level, b))));
     }
 
     public static int spools(int length) {
@@ -64,14 +58,14 @@ public final class Cables {
     }
 
     // Flow from a to b
-    public static Optional<Refusal> refusal(CableNode a, BlockPos posA, CableNode b, BlockPos posB) {
+    public static Optional<Refusal> refusal(Level level, CableNode a, BlockPos posA, CableNode b, BlockPos posB) {
         if (!a.junction() && !b.junction()) {
             return Optional.of(Refusal.NO_JUNCTION);
         }
         if (a.wiredLine().clashes(b.wiredLine())) {
             return Optional.of(Refusal.WRONG_LINE);
         }
-        if (length(posA, posB) > MAX_LENGTH) {
+        if (length(level, CableNodeSable.getActualPosition(level, a), CableNodeSable.getActualPosition(level, b)) > MAX_LENGTH) {
             return Optional.of(Refusal.TOO_FAR);
         }
         if (a.links().has(posB)) {
@@ -83,14 +77,15 @@ public final class Cables {
         return Optional.empty();
     }
 
-    public static boolean canLink(CableNode a, BlockPos posA, CableNode b, BlockPos posB) {
-        return !posA.equals(posB) && refusal(a, posA, b, posB).isEmpty();
+    public static boolean canLink(Level level, CableNode a, BlockPos posA, CableNode b, BlockPos posB) {
+        return !CableNodeSable.getActualPosition(level, a).equals(CableNodeSable.getActualPosition(level, b))
+                && refusal(level, a, posA, b, posB).isEmpty();
     }
 
     public static boolean link(Level level, BlockPos posA, BlockPos posB, CableType type) {
         CableNode a = node(level, posA);
         CableNode b = node(level, posB);
-        if (a == null || b == null || !canLink(a, posA, b, posB)) {
+        if (a == null || b == null || !canLink(level, a, posA, b, posB)) {
             return false;
         }
 
@@ -122,7 +117,7 @@ public final class Cables {
                 CableGraph.of(server).unlink(pos, link.other());
             }
             touched.add(link.other());
-            cables.add(link.type().cable(spools(length(pos, link.other()))));
+            cables.add(link.type().cable(spools(length(level, pos, link.other()))));
         }
 
         node.links().all().clear();
@@ -154,7 +149,7 @@ public final class Cables {
         if (changedB) {
             nodeB.cablesChanged();
         }
-        return Optional.of(link.get().type().cable(spools(length(a, b))));
+        return Optional.of(link.get().type().cable(spools(length(level, a, b))));
     }
 
     private static Optional<CableLink> linkBetween(@Nullable CableNode node, BlockPos other) {

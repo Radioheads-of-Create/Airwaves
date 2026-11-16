@@ -57,8 +57,8 @@ public final class CableCutterAim {
         }
 
         target = aimed.get();
-        BlueprintOverlayRenderer.displayChainRequirements(target.type().spool().get(), target.spools(), true);
-        player.displayClientMessage(CableItem.hint("length", target.length()), true);
+        BlueprintOverlayRenderer.displayChainRequirements(target.type().spool().get(), target.spools(level), true);
+        player.displayClientMessage(CableItem.hint("length", target.length(level)), true);
         CablePreview.trail(level, target.fromAnchor(), target.toAnchor(), CablePreview.REFUSED_COLOR);
     }
 

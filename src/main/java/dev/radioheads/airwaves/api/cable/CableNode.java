@@ -1,6 +1,7 @@
 package dev.radioheads.airwaves.api.cable;
 
 import dev.radioheads.airwaves.api.antenna.AntennaProfile;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Optional;
@@ -11,6 +12,8 @@ public interface CableNode {
     Vec3 anchor();
 
     void cablesChanged();
+
+    BlockPos getBlockPos();
 
     default int maxLinks() {
         return 4;

@@ -61,7 +61,7 @@ public class CablePreview {
         }
 
         CableItem cable = (CableItem) stack.getItem();
-        int length = Cables.length(start, end);
+        int length = Cables.length(level, start, end);
         int spools = Cables.spools(length);
         Optional<Component> refusal = cable.refusal(player, level, start, end);
 

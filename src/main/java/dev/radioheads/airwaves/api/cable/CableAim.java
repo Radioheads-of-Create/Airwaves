@@ -24,12 +24,12 @@ public final class CableAim {
 
     // Aimed cable
     public record Target(BlockPos from, BlockPos to, Vec3 fromAnchor, Vec3 toAnchor, CableType type, double distance) {
-        public int length() {
-            return Cables.length(this.from, this.to);
+        public int length(Level level) {
+            return Cables.length(level, this.from, this.to);
         }
 
-        public int spools() {
-            return Cables.spools(length());
+        public int spools(Level level) {
+            return Cables.spools(length(level));
         }
     }
 
