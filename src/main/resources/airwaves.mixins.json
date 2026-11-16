@@ -2,7 +2,10 @@
   "required": true,
   "package": "dev.radioheads.airwaves.mixins",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "BeltInventoryMixin",
+    "BeltProcessingBehaviourMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
