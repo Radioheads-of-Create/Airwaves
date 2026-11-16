@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 @NothingNullByDefault
-public class CableRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
+public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEntityRenderer<T> {
     public static final int VIEW_DISTANCE = 96;
     private static final ResourceLocation TEXTURE = Airwaves.asResource("textures/misc/cable.png");
     private static final int COLOR = 0x242628;
