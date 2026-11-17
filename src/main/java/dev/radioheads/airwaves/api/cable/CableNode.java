@@ -19,10 +19,12 @@ public interface CableNode {
         return 4;
     }
 
+    /** Whether this node will pass data onto other nodes that are connected to this node. */
     default boolean junction() {
         return false;
     }
 
+    /** When {@code false}, this marks this node as "dirty," and will be recomputed. */
     default boolean settled() {
         return true;
     }
