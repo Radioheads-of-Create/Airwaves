@@ -1,27 +1,21 @@
 package dev.radioheads.airwaves.client.render.foil_application;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringRenderer;
 import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
-import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.radioheads.airwaves.api.foil.FoilType;
-import dev.radioheads.airwaves.api.util.AirwaveUtil;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
-import net.createmod.catnip.animation.AnimationTickHolder;
 import net.createmod.catnip.render.CachedBuffers;
 import net.createmod.catnip.render.SuperByteBuffer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Vector3f;
 
 public class FoilApplicationRenderer extends SafeBlockEntityRenderer<FoilApplicatorBlockEntity> {
     public FoilApplicationRenderer(BlockEntityRendererProvider.Context context) {}
