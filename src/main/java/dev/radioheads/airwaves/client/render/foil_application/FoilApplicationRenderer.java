@@ -3,7 +3,9 @@ package dev.radioheads.airwaves.client.render.foil_application;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.foundation.blockEntity.behaviour.filtering.FilteringRenderer;
+import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
+import dev.radioheads.airwaves.api.foil.FoilType;
 import dev.radioheads.airwaves.api.util.AirwaveUtil;
 import dev.radioheads.airwaves.content.block.FoilApplicatorBlock;
 import dev.radioheads.airwaves.content.entity.block.FoilApplicatorBlockEntity;
@@ -17,13 +19,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
 
-public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilApplicatorBlockEntity> {
-    public FoilApplicationRenderer(BlockEntityRendererProvider.Context context) {
-        super(context);
-    }
+public class FoilApplicationRenderer extends SafeBlockEntityRenderer<FoilApplicatorBlockEntity> {
+    public FoilApplicationRenderer(BlockEntityRendererProvider.Context context) {}
 
     @Override
     public boolean shouldRenderOffScreen(@NotNull FoilApplicatorBlockEntity be) {
@@ -31,45 +32,33 @@ public class FoilApplicationRenderer extends KineticBlockEntityRenderer<FoilAppl
     }
 
     @Override
-    protected void renderSafe(FoilApplicatorBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
-        super.renderSafe(be, partialTicks, ms, buffer, light, overlay);
+    protected void renderSafe(FoilApplicatorBlockEntity be, float partialTicks, PoseStack ms,
+                              MultiBufferSource buffer, int light, int overlay) {
         FilteringRenderer.renderOnBlockEntity(be, partialTicks, ms, buffer, light, overlay);
 
-        if (VisualizationManager.supportsVisualization(be.getLevel()))
-            return;
-
-        Direction.Axis axis = getRotationAxisOf(be);
-        BlockPos pos = be.getBlockPos();
         BlockState blockState = be.getBlockState();
         Direction facing = blockState.getValue(FoilApplicatorBlock.HORIZONTAL_FACING);
 
-        SuperByteBuffer rollRender = CachedBuffers.partialFacing(AirwavePartialModels.FOIL_ROLL, blockState, facing);
-        SuperByteBuffer foilBlock = be.getFoilType() != null ? CachedBuffers.partialFacing(AirwavePartialModels.FOIL_ROLL_BLOCK, blockState, facing) : null;
+        Vec3 offset = FoilApplicatorBlock.rollOffset(facing);
+        float ox = (float) offset.x, oy = (float) offset.y, oz = (float) offset.z;
 
-        Vector3f offset = switch (blockState.getValue(FoilApplicatorBlock.HORIZONTAL_FACING)) {
-            case DOWN, UP -> new Vector3f();
-            case NORTH -> new Vector3f(0, 10/16f + 0.1f, -7/16f);
-            case SOUTH -> new Vector3f(0, 10/16f + 0.1f, 7/16f);
-            case WEST -> new Vector3f(-7/16f, 10/16f + 0.1f, 0);
-            case EAST -> new Vector3f(7/16f, 10/16f + 0.1f, 0);
-        };
+        Direction rollAxis = facing.getClockWise();
+        float angle = be.getRollAngle(partialTicks) / 180f * (float) Math.PI;
 
-        float time = AnimationTickHolder.getRenderTime(be.getLevel());
-        float angleOffset = getRotationOffsetForPosition(be, pos, axis);
-        float angle = ((time * (be.getSpeed() * -1) * 3f / 10 + angleOffset) % 360) / 180 * (float) Math.PI;
+        SuperByteBuffer roll = CachedBuffers.partialFacing(AirwavePartialModels.FOIL_ROLL, blockState, facing);
+        roll.translate(ox, oy, oz)
+                .rotateCentered(angle, rollAxis)
+                .light(light)
+                .renderInto(ms, buffer.getBuffer(RenderType.solid()));
 
-        rollRender.translate(offset.x(), offset.y(), offset.z());
-        AirwaveUtil.callNonNull(foilBlock, f -> f.translate(offset.x(), offset.y(), offset.z()));
-
-        kineticRotationTransform(rollRender, be, axis, angle, light);
-        AirwaveUtil.callNonNull(foilBlock, f -> kineticRotationTransform(f, be, axis, angle, light));
-
-        rollRender.light(light).renderInto(ms, buffer.getBuffer(RenderType.solid()));
-        AirwaveUtil.callNonNull(foilBlock, f -> f.light(light).renderInto(ms, buffer.getBuffer(RenderType.SOLID).setColor(be.getFoilType().color())));
-    }
-
-    @Override
-    protected BlockState getRenderedBlockState(FoilApplicatorBlockEntity be) {
-        return shaft(getRotationAxisOf(be));
+        FoilType type = be.getFoilType();
+        if (type != null) {
+            SuperByteBuffer foil = CachedBuffers.partialFacing(AirwavePartialModels.FOIL_ROLL_BLOCK, blockState, facing);
+            foil.translate(ox, oy, oz)
+                    .rotateCentered(angle, rollAxis)
+                    .light(light)
+                    .color(type.color())
+                    .renderInto(ms, buffer.getBuffer(RenderType.SOLID).setColor(type.color()));
+        }
     }
 }

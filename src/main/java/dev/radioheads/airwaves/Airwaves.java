@@ -5,6 +5,7 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import dev.radioheads.airwaves.config.AirwaveConfig;
+import dev.radioheads.airwaves.content.AirwaveArmInteractionPoints;
 import dev.radioheads.airwaves.integration.IntegrationLoader;
 import dev.radioheads.airwaves.registry.*;
 import net.createmod.catnip.lang.FontHelper;
@@ -14,6 +15,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 
 @Mod(Airwaves.MOD_ID)
@@ -60,6 +62,7 @@ public class Airwaves {
         modEventBus.addListener(AirwaveSoundEvents::register);
 
         modEventBus.addListener(Airwaves::onClientSetup);
+        modEventBus.addListener(Airwaves::onRegister);
     }
 
     public static ResourceLocation asResource(String path) {
@@ -82,5 +85,9 @@ public class Airwaves {
         if (Minecraft.getInstance().getResourceManager().getResource(asResource("coconut.jpg")).isEmpty()) {
             System.exit(0);
         }
+    }
+
+    private static void onRegister(final RegisterEvent event) {
+        AirwaveArmInteractionPoints.prepare();
     }
 }

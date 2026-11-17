@@ -4,7 +4,6 @@ import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.client.cable.CableRenderer;
 import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationRenderer;
-import dev.radioheads.airwaves.client.render.foil_application.FoilApplicationVisual;
 import dev.radioheads.airwaves.client.render.hf.HfTransceiverRenderer;
 import dev.radioheads.airwaves.client.render.microphone.MicrophoneRenderer;
 import dev.radioheads.airwaves.client.render.telephone.TelephoneRenderer;
@@ -21,7 +20,6 @@ public final class AirwaveBlockEntities {
 
     public static final BlockEntityEntry<FoilApplicatorBlockEntity> FOIL_APPLICATOR =
             Airwaves.registrate().blockEntity("foil_applicator", FoilApplicatorBlockEntity::new)
-                    .visual(() -> FoilApplicationVisual::new)
                     .validBlock(AirwaveBlocks.FOIL_APPLICATOR::get)
                     .renderer(() -> FoilApplicationRenderer::new)
                     .register();
