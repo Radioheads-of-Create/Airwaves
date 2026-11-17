@@ -13,6 +13,7 @@ public enum AirwaveMaterials {
     // Vanilla
     COPPER,
     GOLD,
+    MOSS(false),
 
     // Airwaves
     SILVER,

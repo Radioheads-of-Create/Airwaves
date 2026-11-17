@@ -126,6 +126,7 @@ public final class AirwaveItems {
         COPPER_FOIL = registerFoil("copper", AirwaveMaterials.COPPER, AirwaveFoilTypes.COPPER),
         GOLD_FOIL = registerFoil("gold", AirwaveMaterials.GOLD, AirwaveFoilTypes.GOLD),
         SILVER_FOIL = registerFoil("silver", AirwaveMaterials.SILVER, AirwaveFoilTypes.SILVER),
+        MOSS_SPOOL = registerFoil("moss", AirwaveMaterials.MOSS, AirwaveFoilTypes.MOSS),
         CREATIVE_FOIL = registerFoil("creative", AirwaveMaterials.CREATIVE, AirwaveFoilTypes.CREATIVE);
 
     private static ItemEntry<SpoolItem> registerSpool(String path) {

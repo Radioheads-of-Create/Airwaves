@@ -10,6 +10,7 @@ public final class AirwaveFoilTypes {
     private AirwaveFoilTypes() {}
 
     public static final FoilTypeEntry
+            MOSS = register("moss", ColorUtil.rgb(124, 156, 30)),
             CREATIVE = register("creative", ColorUtil.rgb(128, 0, 128)),
             COPPER = register("copper", ColorUtil.rgb(184, 115, 51)),
             GOLD = register("gold", ColorUtil.rgb(255, 215, 0)),
