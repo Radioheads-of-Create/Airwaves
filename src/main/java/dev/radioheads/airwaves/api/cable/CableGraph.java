@@ -98,7 +98,7 @@ public final class CableGraph extends SavedData {
         }
     }
 
-    // Tie break
+    // Tie-break
     private int tie(Reach tag) {
         return (tag.side() == sideAt(tag.pos()) ? 0 : LineSide.values().length) + tag.side().ordinal();
     }
@@ -183,9 +183,12 @@ public final class CableGraph extends SavedData {
                 put(at, other, new Edge(link.flow(), length, length * link.type().delayMsPerBlock()));
                 this.nodes.putIfAbsent(other, LineType.NONE);
                 changed = true;
-            } else if (edge.delayMs() != edge.length() * link.type().delayMsPerBlock()) {
-                put(at, other, new Edge(edge.flow(), edge.length(), edge.length() * link.type().delayMsPerBlock()));
-                changed = true;
+            } else {
+                double v = edge.length() * link.type().delayMsPerBlock();
+                if (edge.delayMs() != v) {
+                    put(at, other, new Edge(edge.flow(), edge.length(), v));
+                    changed = true;
+                }
             }
         }
         if (this.edges.containsKey(at) && this.nodes.get(at) != node.line()) {
@@ -272,7 +275,7 @@ public final class CableGraph extends SavedData {
         long start = from.asLong();
         long goal = to.asLong();
         Map<Long, Double> best = new HashMap<>(Map.of(start, 0.0));
-        PriorityQueue<Step> queue = new PriorityQueue<>((x, y) -> Double.compare(x.delayMs(), y.delayMs()));
+        PriorityQueue<Step> queue = new PriorityQueue<>(Comparator.comparingDouble(Step::delayMs));
         queue.add(new Step(start, 0.0));
         while (!queue.isEmpty()) {
             Step step = queue.poll();
@@ -343,20 +346,7 @@ public final class CableGraph extends SavedData {
         tag.putLongArray("Nodes", positions);
         tag.putByteArray("Lines", lines);
 
-        ListTag list = new ListTag();
-        for (Map.Entry<Long, Map<Long, Edge>> from : this.edges.entrySet()) {
-            for (Map.Entry<Long, Edge> to : from.getValue().entrySet()) {
-                if (from.getKey() < to.getKey()) {
-                    CompoundTag edge = new CompoundTag();
-                    edge.putLong("From", from.getKey());
-                    edge.putLong("To", to.getKey());
-                    edge.putByte("Flow", (byte) to.getValue().flow().ordinal());
-                    edge.putDouble("Length", to.getValue().length());
-                    edge.putDouble("Delay", to.getValue().delayMs());
-                    list.add(edge);
-                }
-            }
-        }
+        ListTag list = createNetworkListThing();
         tag.put("Edges", list);
 
         long[] numbered = new long[this.networks.size()];
@@ -379,5 +369,23 @@ public final class CableGraph extends SavedData {
         tag.putLongArray("Sided", sided);
         tag.putByteArray("Sides", sides);
         return tag;
+    }
+
+    private ListTag createNetworkListThing() {
+        ListTag list = new ListTag();
+        for (Map.Entry<Long, Map<Long, Edge>> from : this.edges.entrySet()) {
+            for (Map.Entry<Long, Edge> to : from.getValue().entrySet()) {
+                if (from.getKey() < to.getKey()) {
+                    CompoundTag edge = new CompoundTag();
+                    edge.putLong("From", from.getKey());
+                    edge.putLong("To", to.getKey());
+                    edge.putByte("Flow", (byte) to.getValue().flow().ordinal());
+                    edge.putDouble("Length", to.getValue().length());
+                    edge.putDouble("Delay", to.getValue().delayMs());
+                    list.add(edge);
+                }
+            }
+        }
+        return list;
     }
 }
