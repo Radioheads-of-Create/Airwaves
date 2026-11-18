@@ -44,25 +44,21 @@ public final class AirwaveAdvancementGen extends AdvancementProvider {
                     .build(Airwaves.asResource("root"));
             saver.accept(root);
 
-            AdvancementHolder cheater = Advancement.Builder.advancement()
+            AdvancementHolder turtle = Advancement.Builder.advancement()
                     .parent(root)
                     .display(
-                            AirwaveItems.CREATIVE_SPOOL,
-                            Component.translatable("advancement.airwaves.cheater"),
-                            Component.translatable("advancement.airwaves.cheater.description"),
+                            AirwaveBlocks.TURTLE_MIC,
+                            Component.translatable("advancement.airwaves.turtle"),
+                            Component.translatable("advancement.airwaves.turtle.description"),
                             null,
-                            AdvancementType.TASK,
+                            AdvancementType.CHALLENGE,
                             true,
                             true,
-                            true
+                            false
                     )
-                    .addCriterion("get_creative_cable_spool", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_CABLE_SPOOL))
-                    .addCriterion("get_creative_foil", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_FOIL))
-                    .addCriterion("get_creative_spool", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_SPOOL))
-                    .addCriterion("get_creative_wire", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_WIRE))
-                    .requirements(AdvancementRequirements.anyOf(List.of("get_creative_cable_spool", "get_creative_foil", "get_creative_spool", "get_creative_wire")))
-                    .build(Airwaves.asResource("cheater"));
-            saver.accept(cheater);
+                    .addCriterion("get_turtle_mic", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveBlocks.TURTLE_MIC))
+                    .build(Airwaves.asResource("turtle"));
+            saver.accept(turtle);
 
 
             //TODO Change?
@@ -112,6 +108,27 @@ public final class AirwaveAdvancementGen extends AdvancementProvider {
                     ).addCriterion("get_silver_sheet", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.SILVER_SHEET))
                     .build(Airwaves.asResource("pressed_shape"));
             saver.accept(silver_sheet);
+
+            //TODO Don't change.
+            AdvancementHolder cheater = Advancement.Builder.advancement()
+                    .parent(root)
+                    .display(
+                            AirwaveItems.CREATIVE_SPOOL,
+                            Component.translatable("advancement.airwaves.cheater"),
+                            Component.translatable("advancement.airwaves.cheater.description"),
+                            null,
+                            AdvancementType.TASK,
+                            true,
+                            true,
+                            true
+                    )
+                    .addCriterion("get_creative_cable_spool", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_CABLE_SPOOL))
+                    .addCriterion("get_creative_foil", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_FOIL))
+                    .addCriterion("get_creative_spool", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_SPOOL))
+                    .addCriterion("get_creative_wire", InventoryChangeTrigger.TriggerInstance.hasItems(AirwaveItems.CREATIVE_WIRE))
+                    .requirements(AdvancementRequirements.anyOf(List.of("get_creative_cable_spool", "get_creative_foil", "get_creative_spool", "get_creative_wire")))
+                    .build(Airwaves.asResource("cheater"));
+            saver.accept(cheater);
         }
     }
 }

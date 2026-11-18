@@ -1,0 +1,34 @@
+{
+  "parent": "airwaves:root",
+  "criteria": {
+    "get_turtle_mic": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:turtle_mic"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.airwaves.turtle.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "airwaves:turtle_mic"
+    },
+    "title": {
+      "translate": "advancement.airwaves.turtle"
+    }
+  },
+  "requirements": [
+    [
+      "get_turtle_mic"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
