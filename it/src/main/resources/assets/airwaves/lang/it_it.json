@@ -88,6 +88,7 @@
   "airwaves.telephone.unavailable": "This number is unavailable!",
   "airwaves.telephone_earpiece.bound": "Bound to %s",
   "airwaves.telephone_earpiece.unnumbered": "Bound to a telephone with no number yet",
+  "airwaves.tooltip.amount.remaining": "Remaining Amount: %s",
   "airwaves.tooltip.cable.loss_per_block": "%s dB loss per block",
   "airwaves.tooltip.old_content_no_functionallity": "This has no functionality currently.",
   "airwaves.transmitter.power": "Transmit Power",
