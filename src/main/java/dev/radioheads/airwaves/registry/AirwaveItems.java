@@ -47,6 +47,13 @@ public final class AirwaveItems {
                 .model(NonNullBiConsumer.noop())
                 .register();
 
+    public static final ItemEntry<Item>
+            CAN = Airwaves.registrate().item("can", Item::new)
+            .properties(p -> p.stacksTo(67))
+            .model(NonNullBiConsumer.noop())
+            .register();
+
+
     public static final ItemEntry<TelephoneEarpieceItem>
             TELEPHONE_EARPIECE = Airwaves.registrate().item("telephone_earpiece", TelephoneEarpieceItem::new)
                 .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece_item"))))
