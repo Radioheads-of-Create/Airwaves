@@ -88,6 +88,7 @@
   "airwaves.telephone.unavailable": "Este número não está disponível",
   "airwaves.telephone_earpiece.bound": "Vinculado à %s",
   "airwaves.telephone_earpiece.unnumbered": "Vinculado a um telefone sem número",
+  "airwaves.tooltip.amount.remaining": "Remaining Amount: %s",
   "airwaves.tooltip.cable.loss_per_block": "Perde de %s dB por bloco",
   "airwaves.tooltip.old_content_no_functionallity": "Isto não possui funcionalidade atualmente.",
   "airwaves.transmitter.power": "Potência de Transmissão",
