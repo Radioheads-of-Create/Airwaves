@@ -88,6 +88,7 @@
   "airwaves.telephone.unavailable": "Dit nummer is niet beschikbaar!",
   "airwaves.telephone_earpiece.bound": "Gekoppeld aan %s",
   "airwaves.telephone_earpiece.unnumbered": "Gekoppeld aan een telefoon zonder nummer",
+  "airwaves.tooltip.amount.remaining": "Remaining Amount: %s",
   "airwaves.tooltip.cable.loss_per_block": "%s dB verlies per blok",
   "airwaves.tooltip.old_content_no_functionallity": "Dit heeft momenteel geen functionaliteit.",
   "airwaves.transmitter.power": "Zendvermogen",
