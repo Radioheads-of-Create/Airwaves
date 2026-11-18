@@ -5,6 +5,7 @@ import com.mojang.math.Axis;
 import dev.radioheads.airwaves.api.render.SafeCableNodeRenderer;
 import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.MicrophoneBlock;
+import dev.radioheads.airwaves.content.block.TurtleMicBlock;
 import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import net.createmod.catnip.render.CachedBuffers;
@@ -31,16 +32,16 @@ public class MicrophoneRenderer extends SafeCableNodeRenderer<MicrophoneBlockEnt
     @Override
     protected void renderSafe(MicrophoneBlockEntity microphone, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int light, int overlay) {
         BlockState state = microphone.getBlockState();
-        if (!(state.getBlock() instanceof MicrophoneBlock)) {
+        if (!(state.getBlock() instanceof MicrophoneBlock || state.getBlock() instanceof TurtleMicBlock)) {
             return;
         }
         float[] shown = this.angles.computeIfAbsent(microphone, key -> new float[]{angle(key)});
         shown[0] += (angle(microphone) - shown[0]) * EASE;
 
-        Vec3 knob = MicrophoneBlock.KNOB.scale(1.0 / 16.0);
+        Vec3 knob = state.getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.KNOB.scale(1.0 / 16.0) : TurtleMicBlock.KNOB.scale(1.0 / 16.0);
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);
-        poseStack.mulPose(Axis.YP.rotationDegrees(-HfTransceiverPanel.modelRotation(state.getValue(MicrophoneBlock.FACING))));
+        poseStack.mulPose(Axis.YP.rotationDegrees(-HfTransceiverPanel.modelRotation(state.getValue(state.getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.FACING : TurtleMicBlock.FACING))));
         poseStack.translate(knob.x - 0.5, knob.y, knob.z - 0.5);
         poseStack.mulPose(Axis.ZP.rotationDegrees(shown[0]));
         poseStack.translate(-knob.x, -knob.y, -knob.z);

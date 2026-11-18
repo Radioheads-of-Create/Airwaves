@@ -39,7 +39,7 @@ public class AirwaveCreativeTabs {
                         List.of(AirwaveItems.FIELD_MANUAL, AirwaveBlocks.TUNING_TABLE, AirwaveBlocks.RADIO, AirwaveItems.HANDHELD_RADIO),
                         List.of(AirwaveBlocks.AM_TRANSMITTER, AirwaveBlocks.FM_TRANSMITTER, AirwaveBlocks.HF_TRANSCEIVER, AirwaveBlocks.VHF_BASE_STATION,
                                 AirwaveBlocks.UHF_BASE_STATION, AirwaveBlocks.VHF_REPEATER, AirwaveBlocks.UHF_REPEATER, AirwaveBlocks.AMPLIFIER,
-                                AirwaveBlocks.MICROPHONE),
+                                AirwaveBlocks.MICROPHONE, AirwaveBlocks.TURTLE_MIC),
                         List.of(AirwaveBlocks.TELEPHONE, AirwaveItems.TELEPHONE_EARPIECE),
                         List.of(AirwaveBlocks.COPPER_ANTENNA_ROD, AirwaveBlocks.GOLD_ANTENNA_ROD, AirwaveBlocks.SILVER_ANTENNA_ROD,
                                 AirwaveBlocks.COPPER_ROD_BASE, AirwaveBlocks.GOLD_ROD_BASE, AirwaveBlocks.SILVER_ROD_BASE,
@@ -55,8 +55,7 @@ public class AirwaveCreativeTabs {
                         List.of(AirwaveItems.RESISTOR, AirwaveItems.SMALL_CAPACITOR, AirwaveItems.LARGE_CAPACITOR, AirwaveItems.TRANSISTOR,
                                 AirwaveItems.LED, AirwaveItems.CRYSTAL_OSCILLATOR, AirwaveItems.MEMORY_CHIP, AirwaveItems.SPEAKER_CONE))),
                 new Section("creative", List.of(
-                        List.of(AirwaveItems.CREATIVE_WIRE, AirwaveItems.CREATIVE_SPOOL, AirwaveItems.CREATIVE_FOIL, AirwaveItems.CREATIVE_CABLE_SPOOL)
-        ))
+                        List.of(AirwaveItems.CREATIVE_WIRE, AirwaveItems.CREATIVE_SPOOL, AirwaveItems.CREATIVE_FOIL, AirwaveItems.CREATIVE_CABLE_SPOOL)))
         );
     }
 

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_required_material": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/silver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_spool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:empty_spool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "airwaves:silver_foil"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_spool",
+      "has_required_material"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "airwaves:silver_foil"
+    ]
+  }
+}

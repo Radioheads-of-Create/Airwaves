@@ -42,6 +42,7 @@ public final class AirwaveBlockEntities {
 
     public static final BlockEntityEntry<MicrophoneBlockEntity> MICROPHONE = Airwaves.registrate().blockEntity("microphone", MicrophoneBlockEntity::new)
             .validBlock(AirwaveBlocks.MICROPHONE::get)
+            .validBlock(AirwaveBlocks.TURTLE_MIC::get)
             .renderer(() -> MicrophoneRenderer::new)
             .register();
 
