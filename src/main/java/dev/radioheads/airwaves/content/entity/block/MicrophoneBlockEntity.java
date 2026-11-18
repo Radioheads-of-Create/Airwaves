@@ -9,6 +9,7 @@ import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.api.radio.RadioStation;
 import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.MicrophoneBlock;
+import dev.radioheads.airwaves.content.block.TurtleMicBlock;
 import dev.radioheads.airwaves.network.Microphones;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,6 +39,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     public static final int HOLD_TICKS = 8;
     public static final double REACH = 6.0;
     public static final float KNOB_STEP = 0.05F;
+    public static final float CROUCH_STEP = 0.05F;
 
     private final CableLinks links = new CableLinks();
     private List<BlockPos> devices = List.of();
@@ -103,7 +105,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
             }
         }
 
-        BlockState state = getBlockState().setValue(MicrophoneBlock.ON_AIR, this.on);
+        BlockState state = getBlockState().setValue( getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.ON_AIR : TurtleMicBlock.ON_AIR, this.on);
         if (state != getBlockState()) {
             this.level.setBlockAndUpdate(this.worldPosition, state);
         }
@@ -148,7 +150,11 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     }
 
     public void turn(ServerPlayer player, int delta) {
-        this.gain = Mth.clamp(Math.round((this.gain + delta * KNOB_STEP) / KNOB_STEP) * KNOB_STEP, 0.0F, 1.0F);
+        if (!player.isCrouching()) {
+            this.gain = Mth.clamp(Math.round((this.gain + delta * KNOB_STEP) / KNOB_STEP) * KNOB_STEP, 0.05F, 1.0F);
+        } else {
+            this.gain = Mth.clamp(Math.round((this.gain + delta * CROUCH_STEP) / CROUCH_STEP) * CROUCH_STEP, 0.01F, 1.0F);
+        }
         player.displayClientMessage(Component.translatable("airwaves.microphone.output", Math.round(this.gain * 100.0F)), true);
         this.level.playSound(null, this.worldPosition, SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.BLOCKS, 0.1F, 0.6F + this.gain);
         sendData();
@@ -168,7 +174,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     }
 
     private Direction facing() {
-        return getBlockState().getValue(MicrophoneBlock.FACING);
+        return getBlockState().getValue(getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.FACING : TurtleMicBlock.FACING);
     }
 
     private Vec3 model(Vec3 pixels) {
@@ -176,7 +182,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     }
 
     public Vec3 capsule() {
-        return model(MicrophoneBlock.CAPSULE);
+        return model(getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.CAPSULE : TurtleMicBlock.CAPSULE);
     }
 
     // Nearest cabled transmitter
@@ -196,7 +202,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
 
     @Override
     public Vec3 anchor() {
-        return model(MicrophoneBlock.SOCKET);
+        return model(getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.SOCKET : TurtleMicBlock.SOCKET);
     }
 
     @Override

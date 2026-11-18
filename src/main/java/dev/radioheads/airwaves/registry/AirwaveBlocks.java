@@ -244,6 +244,23 @@ public final class AirwaveBlocks {
             .build()
             .register();
 
+    public static final BlockEntry<TurtleMicBlock> TURTLE_MIC = Airwaves.registrate().block("turtle_mic", TurtleMicBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(BlockBehaviour.Properties::noOcclusion)
+            .transform(pickaxeOnly())
+            .blockstate((ctx, prov) -> prov.getVariantBuilder(ctx.getEntry()).forAllStates(state -> new ConfiguredModel[] {
+                    new ConfiguredModel(
+                            prov.models().getExistingFile(prov.modLoc("block/turtle_mic/" + (state.getValue(TurtleMicBlock.ON_AIR) ? "on" : "off"))),
+                            0,
+                            yRotation(state.getValue(TurtleMicBlock.FACING)),
+                            false
+                    )
+            }))
+            .item()
+            .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/turtle_mic/item")))
+            .build()
+            .register();
+
     // Earpiece on hook
     public static final BlockEntry<TelephoneBlock> TELEPHONE = Airwaves.registrate().block("telephone", TelephoneBlock::new)
             .initialProperties(SharedProperties::softMetal)

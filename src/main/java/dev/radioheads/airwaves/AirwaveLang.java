@@ -144,6 +144,7 @@ public final class AirwaveLang extends Lang {
         add("section.hardware", "Hardware");
         add("section.materials", "Materials");
         add("section.circuitry", "Circuitry");
+        add("section.creative", "Creative");
 
         add("cable.select", "Click on a valid device to connect.");
         add("cable.length", "Length: %s blocks");
@@ -179,6 +180,7 @@ public final class AirwaveLang extends Lang {
 
         addAdvancement("root", "Airwaves", "It's Airwave time!");
         addAdvancement("cheater", "You feel a bitter taste in your mouth...", "You're free. Free at last");
+        addAdvancement("turtle", "s Cuteeee", "*turtle noises*");
         addAdvancement("speaker_cone", "Good Morning Vietnam!", "Obtain a radio");
         addAdvancement("resistor", "Join the resistance", "Ohmmmmmm...");
         addAdvancement("pressed_shape", "The shape goes into a shape press that presses the shape into a pressed shape", "Press a shape into a pressed shape");
