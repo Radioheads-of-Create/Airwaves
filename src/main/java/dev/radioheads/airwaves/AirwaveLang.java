@@ -173,6 +173,7 @@ public final class AirwaveLang extends Lang {
 
         add("tooltip.cable.loss_per_block", "%s dB loss per block");
         add("tooltip.old_content_no_functionallity", "This has no functionality currently.");
+        add("tooltip.amount.remaining", "Remaining Amount: %s");
 
         addBasic("creative_tab.airwave_main", "Airwaves");
 
