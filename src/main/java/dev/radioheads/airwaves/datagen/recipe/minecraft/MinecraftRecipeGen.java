@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ArmorDyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +32,7 @@ public class MinecraftRecipeGen extends RecipeProvider {
         SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(AirwaveMaterials.SILVER.rawMaterial),
                 RecipeCategory.MISC,
-                AirwaveItems.SILVER_INGOT.asStack(),
+                AirwaveItems.SILVER_INGOT.asStack(9),
                 0.1f,
                 200
         )
@@ -41,7 +42,7 @@ public class MinecraftRecipeGen extends RecipeProvider {
         SimpleCookingRecipeBuilder.smelting(
                         Ingredient.of(AirwaveMaterials.SILVER.rawMaterial),
                         RecipeCategory.MISC,
-                        AirwaveItems.SILVER_INGOT.asStack(),
+                        AirwaveItems.SILVER_INGOT.asStack(9),
                         0.1f,
                         200
                 )
@@ -78,6 +79,38 @@ public class MinecraftRecipeGen extends RecipeProvider {
                 .pattern("III")
                 .define('I', AirwaveMaterials.SILVER.ingots)
                 .unlockedBy("has_silver_ingot", has(AirwaveMaterials.SILVER.ingots))
+                .save(out);
+
+        createFoil(AirwaveItems.COPPER_FOIL, AirwaveMaterials.COPPER, out);
+        createFoil(AirwaveItems.GOLD_FOIL, AirwaveMaterials.GOLD, out);
+        createFoil(AirwaveItems.SILVER_FOIL, AirwaveMaterials.SILVER, out);
+
+        createSpool(AirwaveItems.COPPER_SPOOL, AirwaveMaterials.COPPER, out);
+        createSpool(AirwaveItems.GOLD_SPOOL, AirwaveMaterials.GOLD, out);
+        createSpool(AirwaveItems.SILVER_SPOOL, AirwaveMaterials.SILVER, out);
+    }
+
+    private static void createFoil(ItemLike foil, AirwaveMaterials material, RecipeOutput out) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, foil)
+                .pattern(" M ")
+                .pattern("MSM")
+                .pattern(" M ")
+                .define('M', material.plates)
+                .define('S', AirwaveItems.EMPTY_SPOOL)
+                .unlockedBy("has_spool", has(AirwaveItems.EMPTY_SPOOL))
+                .unlockedBy("has_required_material", has(material.plates))
+                .save(out);
+    }
+
+    private static void createSpool(ItemLike spool, AirwaveMaterials material, RecipeOutput out) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, spool)
+                .pattern(" W ")
+                .pattern("WSW")
+                .pattern(" W ")
+                .define('W', material.wire)
+                .define('S', AirwaveItems.EMPTY_SPOOL)
+                .unlockedBy("has_spool", has(AirwaveItems.EMPTY_SPOOL))
+                .unlockedBy("has_required_material", has(material.wire))
                 .save(out);
     }
 
