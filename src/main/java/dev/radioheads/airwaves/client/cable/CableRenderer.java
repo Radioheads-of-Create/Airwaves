@@ -8,6 +8,7 @@ import dev.radioheads.airwaves.api.cable.CableAim;
 import dev.radioheads.airwaves.api.cable.CableLink;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
+import dev.radioheads.airwaves.config.AirwaveConfig;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,6 +30,10 @@ public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEn
     private static final int COLOR = 0x242628;
     private static final float WIDTH = 0.06F;
 
+    private static final float DEBUG_BOX_SIZE = 0.15F;
+    private static final int DEBUG_SELF_COLOR = 0xFF0000;
+    private static final int DEBUG_LINK_COLOR = 0x00FF00;
+
     public CableRenderer(BlockEntityRendererProvider.Context context) {
     }
 
@@ -39,17 +44,28 @@ public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEn
         }
 
         BlockPos origin = blockEntity.getBlockPos();
+        Vec3 renderOrigin = Vec3.atLowerCornerOf(origin);
+        Vec3 fromWorld = node.anchor();
+
+        if (AirwaveConfig.client().devConfig.nodeDebugRendering()) {
+            renderDebugBox(level, fromWorld, renderOrigin, poseStack, buffer, DEBUG_BOX_SIZE, DEBUG_SELF_COLOR);
+        }
+
         for (CableLink link : node.links().all()) {
             CableNode other = Cables.node(level, link.other());
             if (other == null || (link.other().asLong() < origin.asLong() && other.links().has(origin))) {
                 continue;
             }
 
-            Vec3 fromWorld = node.anchor();
             Vec3 toWorld = other.anchor();
+
+            if (AirwaveConfig.client().devConfig.nodeDebugRendering()) {
+                renderDebugBox(level, toWorld, renderOrigin, poseStack, buffer, DEBUG_BOX_SIZE, DEBUG_LINK_COLOR);
+            }
+
             line(poseStack, buffer,
-                    fromWorld.subtract(Vec3.atLowerCornerOf(origin)),
-                    toWorld.subtract(Vec3.atLowerCornerOf(origin)),
+                    fromWorld.subtract(renderOrigin),
+                    toWorld.subtract(renderOrigin),
                     LevelRenderer.getLightColor(level, BlockPos.containing(fromWorld)),
                     LevelRenderer.getLightColor(level, BlockPos.containing(toWorld)));
         }
@@ -167,5 +183,45 @@ public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEn
     @Override
     public AABB getRenderBoundingBox(T blockEntity) {
         return bounds(blockEntity);
+    }
+
+    public static void renderDebugBox(Level level, Vec3 worldPoint, Vec3 renderOrigin, PoseStack poseStack, MultiBufferSource buffer, float size, int color) {
+        Vec3 center = worldPoint.subtract(renderOrigin);
+        int light = LevelRenderer.getLightColor(level, BlockPos.containing(worldPoint));
+
+        float red = (color >> 16 & 255) / 255.0F;
+        float green = (color >> 8 & 255) / 255.0F;
+        float blue = (color & 255) / 255.0F;
+
+        double h = size / 2.0;
+        double x0 = center.x - h, x1 = center.x + h;
+        double y0 = center.y - h, y1 = center.y + h;
+        double z0 = center.z - h, z1 = center.z + h;
+
+        VertexConsumer consumer = buffer.getBuffer(RenderType.entitySolid(TEXTURE));
+        PoseStack.Pose pose = poseStack.last();
+
+        debugFace(consumer, pose, new Vec3(x0, y0, z0), new Vec3(x0, y0, z1), new Vec3(x0, y1, z1), new Vec3(x0, y1, z0), red, green, blue, light, new Vec3(-1, 0, 0));
+        debugFace(consumer, pose, new Vec3(x1, y0, z0), new Vec3(x1, y1, z0), new Vec3(x1, y1, z1), new Vec3(x1, y0, z1), red, green, blue, light, new Vec3(1, 0, 0));
+        debugFace(consumer, pose, new Vec3(x0, y0, z0), new Vec3(x1, y0, z0), new Vec3(x1, y0, z1), new Vec3(x0, y0, z1), red, green, blue, light, new Vec3(0, -1, 0));
+        debugFace(consumer, pose, new Vec3(x0, y1, z0), new Vec3(x0, y1, z1), new Vec3(x1, y1, z1), new Vec3(x1, y1, z0), red, green, blue, light, new Vec3(0, 1, 0));
+        debugFace(consumer, pose, new Vec3(x0, y0, z0), new Vec3(x0, y1, z0), new Vec3(x1, y1, z0), new Vec3(x1, y0, z0), red, green, blue, light, new Vec3(0, 0, -1));
+        debugFace(consumer, pose, new Vec3(x0, y0, z1), new Vec3(x1, y0, z1), new Vec3(x1, y1, z1), new Vec3(x0, y1, z1), red, green, blue, light, new Vec3(0, 0, 1));
+    }
+
+    private static void debugFace(VertexConsumer consumer, PoseStack.Pose pose, Vec3 a, Vec3 b, Vec3 c, Vec3 d, float red, float green, float blue, int light, Vec3 normal) {
+        float nx = (float) normal.x;
+        float ny = (float) normal.y;
+        float nz = (float) normal.z;
+
+        vertex(consumer, pose, a, red, green, blue, 0.0F, 0.0F, light, nx, ny, nz);
+        vertex(consumer, pose, b, red, green, blue, 0.0F, 1.0F, light, nx, ny, nz);
+        vertex(consumer, pose, c, red, green, blue, 1.0F, 1.0F, light, nx, ny, nz);
+        vertex(consumer, pose, d, red, green, blue, 1.0F, 0.0F, light, nx, ny, nz);
+
+        vertex(consumer, pose, d, red, green, blue, 1.0F, 0.0F, light, -nx, -ny, -nz);
+        vertex(consumer, pose, c, red, green, blue, 1.0F, 1.0F, light, -nx, -ny, -nz);
+        vertex(consumer, pose, b, red, green, blue, 0.0F, 1.0F, light, -nx, -ny, -nz);
+        vertex(consumer, pose, a, red, green, blue, 0.0F, 0.0F, light, -nx, -ny, -nz);
     }
 }
