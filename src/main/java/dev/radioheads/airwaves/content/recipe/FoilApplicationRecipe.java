@@ -22,6 +22,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -85,8 +86,11 @@ public class FoilApplicationRecipe extends ProcessingRecipe<RecipeWrapper, FoilA
 
     @Override
     public List<String> validate() {
-        if (foilUsage < 1) super.validate().add("Recipe must have foil usage 1 or greater, currently (" + foilUsage + ")");
-        return super.validate();
+        List<String> errors = new ArrayList<>(super.validate());
+        if (foilUsage < 1) {
+            errors.add("Recipe must have foil usage 1 or greater, currently (" + foilUsage + ")");
+        }
+        return errors;
     }
 
     @FunctionalInterface
