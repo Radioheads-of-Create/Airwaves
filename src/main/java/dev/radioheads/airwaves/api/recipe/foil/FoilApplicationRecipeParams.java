@@ -15,7 +15,7 @@ public class FoilApplicationRecipeParams extends ProcessingRecipeParams {
 
     public static final MapCodec<FoilApplicationRecipeParams> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
             codec(FoilApplicationRecipeParams::new).forGetter(Function.identity()),
-            ExtraCodecs.POSITIVE_INT.fieldOf("foil_usage").forGetter(FoilApplicationRecipeParams::getFoilUsage)
+            ExtraCodecs.POSITIVE_INT.optionalFieldOf("foil_usage", 1).forGetter(FoilApplicationRecipeParams::getFoilUsage)
     ).apply(inst, (params, foilUsage) -> {
         params.foilUsage = foilUsage;
         return params;
