@@ -69,6 +69,12 @@ public class FoilApplicationRecipe extends ProcessingRecipe<RecipeWrapper, FoilA
         return AirwaveLang.translate("recipe.assembly.foil_applicator", Component.translatable(matchingStacks[0].getDescriptionId()).getString()).component();
     }
 
+    //TODO
+    // WHY WON'T FoilApplicationRecipe::new work with sequenced assembly??
+    public static Builder<FoilApplicationRecipe> builder(ResourceLocation id) {
+        return new Builder<>(FoilApplicationRecipe::new, id);
+    }
+
     @Override
     public void addRequiredMachines(Set<ItemLike> list) {
         list.add(AirwaveBlocks.FOIL_APPLICATOR);

@@ -43,7 +43,7 @@ public final class AirwaveSequencedAssemblyRecipeGen extends SequencedAssemblyRe
             .transitionTo(AirwaveItems.INCOMPLETE_SPEAKER_CONE)
             .require(AirwaveMaterials.SILVER.ingots)
             .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(Tags.Items.NUGGETS)))
-            .addStep(FoilApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.GOLD.foil)))
+            .addStep(FoilApplicationRecipe::builder, d -> d.foilUsage(50).duration(30).withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.GOLD.foil)))
             .addOutput(Items.DIORITE, 0.9f)
     )
     ;
