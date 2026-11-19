@@ -29,6 +29,7 @@
     },
     {
       "type": "airwaves:foil_application",
+      "foil_usage": 50,
       "ingredients": [
         {
           "item": "airwaves:incomplete_speaker_cone"
@@ -37,6 +38,7 @@
           "tag": "airwaves:foils/gold"
         }
       ],
+      "processing_time": 30,
       "results": [
         {
           "id": "airwaves:incomplete_speaker_cone"
