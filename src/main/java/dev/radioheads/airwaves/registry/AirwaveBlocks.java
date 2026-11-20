@@ -13,6 +13,7 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.block.*;
 import dev.radioheads.airwaves.content.entity.block.TransmitterBlockEntity;
+import dev.radioheads.airwaves.content.item.ChainCopperBulbItem;
 import dev.radioheads.airwaves.content.item.OldModelNotCompleteYetBlockItem;
 import dev.radioheads.airwaves.content.item.RadioItem;
 import net.minecraft.core.Direction;
@@ -48,6 +49,25 @@ import static com.simibubi.create.foundation.data.TagGen.tagBlockAndItem;
 
 public final class AirwaveBlocks {
     private AirwaveBlocks() {}
+
+    public static final BlockEntry<ChainCopperBulbBlock> CHAIN_COPPER_BULB =
+            Airwaves.registrate().block("chain_copper_bulb", ChainCopperBulbBlock::new)
+                    .initialProperties(() -> Blocks.COPPER_BULB)
+                    .lang("Chain Copper Bulb")
+                    .blockstate((ctx, prov) ->  prov.getVariantBuilder(ctx.get())
+                            .forAllStates(state -> {
+                                boolean LIT = state.getValue(ChainCopperBulbBlock.LIT);
+                                boolean POWERED = state.getValue(ChainCopperBulbBlock.POWERED);
+
+                                ModelFile model = prov.models().cubeAll("block/chain_copper_bulb" + (LIT ? "_lit" : "") + (POWERED ? "_powered" : ""), prov.modLoc("block/chain_copper_bulb" + (LIT ? "_lit" : "") + (POWERED ? "_powered" : "")));
+
+                                return ConfiguredModel.builder()
+                                        .modelFile(model)
+                                        .build();
+                            }))
+                    .item(ChainCopperBulbItem::new)
+                    .build()
+                    .register();
 
     public static final BlockEntry<TuningTableBlock> TUNING_TABLE =
             Airwaves.registrate().block("tuning_table", TuningTableBlock::new)
