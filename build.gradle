@@ -11,10 +11,11 @@ tasks.named('wrapper', Wrapper).configure {
 
 def ci = System.getenv("CI") != null && System.getenv("CI").toBoolean()
 def release = System.getenv("RELEASE") != null && System.getenv("RELEASE").toBoolean()
-def webhook = ci && !release
+def snapshot = ci && !release
 def buildNumber = System.getenv("MOD_BUILD_NUMBER")
+def baseVersion = "${minecraft_version}-${mod_version}"
 
-version = "${minecraft_version}-${mod_version}${webhook ? "-build.${buildNumber}" : ''}"
+version = snapshot ? "${baseVersion}-build.${buildNumber}" : baseVersion
 group = mod_group_id
 
 sourceSets.main.resources {
@@ -169,11 +170,25 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             from components.java
+            artifactId = mod_id
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/repo"
+            name = "KryMaven"
+            url = uri("https://krystalsmaven.oreostack.uk/releases")
+            credentials {
+                username = "${findProperty("kry.maven.username") ?: System.getenv("KRY_MAVEN_USER")}"
+                password = "${findProperty("kry.maven.token") ?: System.getenv("KRY_MAVEN_TOKEN")}"
+            }
+        }
+        maven {
+            name = "KrySnapshotMaven"
+            url = uri("https://krystalsmaven.oreostack.uk/snapshots")
+            credentials {
+                username = "${findProperty("kry.maven.username") ?: System.getenv("KRY_MAVEN_USER")}"
+                password = "${findProperty("kry.maven.token") ?: System.getenv("KRY_MAVEN_TOKEN")}"
+            }
         }
     }
 }
