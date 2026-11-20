@@ -88,7 +88,7 @@
   "airwaves.telephone.unavailable": "Die Telefonnummere isch unerreichbar!",
   "airwaves.telephone_earpiece.bound": "A %s bunde",
   "airwaves.telephone_earpiece.unnumbered": "An es Telefon ohni Telefonnummere bunde ",
-  "airwaves.tooltip.amount.remaining": "Remaining Amount: %s",
+  "airwaves.tooltip.amount.remaining": "%s übrig",
   "airwaves.tooltip.cable.loss_per_block": "%s dB verluscht pro Block",
   "airwaves.tooltip.old_content_no_functionallity": "Das isch grad nutzlos",
   "airwaves.transmitter.power": "Schtrom übermittle",
