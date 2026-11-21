@@ -9,10 +9,7 @@ import dev.radioheads.airwaves.api.cable.CableType;
 import dev.radioheads.airwaves.api.content.item.*;
 import dev.radioheads.airwaves.api.data.CapacitorData;
 import dev.radioheads.airwaves.api.foil.FoilType;
-import dev.radioheads.airwaves.content.item.CableCutterItem;
-import dev.radioheads.airwaves.content.item.EmptySpoolItem;
-import dev.radioheads.airwaves.content.item.FieldManualItem;
-import dev.radioheads.airwaves.content.item.TelephoneEarpieceItem;
+import dev.radioheads.airwaves.content.item.*;
 import dev.radioheads.airwaves.data.AirwaveMaterials;
 import dev.radioheads.airwaves.data.AirwaveTags;
 import net.minecraft.core.component.DataComponents;
@@ -47,10 +44,9 @@ public final class AirwaveItems {
                 .model(NonNullBiConsumer.noop())
                 .register();
 
-    public static final ItemEntry<Item>
-            CAN = Airwaves.registrate().item("can", Item::new)
-            .properties(p -> p.stacksTo(67))
-            .model(NonNullBiConsumer.noop())
+    public static final ItemEntry<TelephoneEarpieceItem>
+            CAN = Airwaves.registrate().item("can", TelephoneEarpieceItem::new)
+            .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece_item"))))
             .register();
 
 

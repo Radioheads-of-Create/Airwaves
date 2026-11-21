@@ -28,6 +28,8 @@ public final class AirwaveDataComponents {
     public static final DataComponentType<TelephoneData> TELEPHONE = register("telephone", TelephoneData.CODEC, TelephoneData.STREAM_CODEC);
     public static final DataComponentType<EarpieceBinding> EARPIECE = register("earpiece", EarpieceBinding.CODEC, EarpieceBinding.STREAM_CODEC);
 
+    public static final DataComponentType<EarpieceBinding> CAN = register("can", EarpieceBinding.CODEC, EarpieceBinding.STREAM_CODEC);
+
     public static final DataComponentType<Integer> FOIL_AMOUNT = registerNonNegativeInt("foil_amount");
     public static final DataComponentType<Integer> SPOOL_AMOUNT = registerNonNegativeInt("spool_amount");
 
