@@ -19,9 +19,11 @@ public class AirwaveConfig {
     private static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
 
     private static AirwaveCommonConfig common;
+    private static AirwaveClientConfig client;
 
     public static void register(ModContainer container) {
         common = register(AirwaveCommonConfig::new, ModConfig.Type.COMMON);
+        client = register(AirwaveClientConfig::new, ModConfig.Type.CLIENT);
 
         for (Map.Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet()) {
             container.registerConfig(pair.getKey(), pair.getValue().specification);
@@ -30,6 +32,10 @@ public class AirwaveConfig {
 
     public static AirwaveCommonConfig common() {
         return common;
+    }
+
+    public static AirwaveClientConfig client() {
+        return client;
     }
 
     private static <T extends ConfigBase> T register(Supplier<T> factory, ModConfig.Type side) {

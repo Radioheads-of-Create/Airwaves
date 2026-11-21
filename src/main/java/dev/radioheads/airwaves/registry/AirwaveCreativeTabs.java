@@ -36,7 +36,7 @@ public class AirwaveCreativeTabs {
     public static List<Section> sections() {
         return List.of(
                 new Section("hardware", List.of(
-                        List.of(AirwaveItems.FIELD_MANUAL, AirwaveBlocks.TUNING_TABLE, AirwaveBlocks.RADIO, AirwaveItems.HANDHELD_RADIO),
+                        List.of(AirwaveItems.FIELD_MANUAL, AirwaveBlocks.TUNING_TABLE, AirwaveBlocks.RADIO, AirwaveItems.HANDHELD_RADIO, AirwaveBlocks.CHAIN_COPPER_BULB),
                         List.of(AirwaveBlocks.AM_TRANSMITTER, AirwaveBlocks.FM_TRANSMITTER, AirwaveBlocks.HF_TRANSCEIVER, AirwaveBlocks.VHF_BASE_STATION,
                                 AirwaveBlocks.UHF_BASE_STATION, AirwaveBlocks.VHF_REPEATER, AirwaveBlocks.UHF_REPEATER, AirwaveBlocks.AMPLIFIER,
                                 AirwaveBlocks.MICROPHONE, AirwaveBlocks.TURTLE_MIC),
