@@ -145,7 +145,6 @@ public final class AirwaveLang extends Lang {
         add("section.materials", "Materials");
         add("section.circuitry", "Circuitry");
         add("section.creative", "Creative");
-        add("section.sillies", "Sillies");
 
         add("cable.select", "Click on a valid device to connect.");
         add("cable.length", "Length: %s blocks");

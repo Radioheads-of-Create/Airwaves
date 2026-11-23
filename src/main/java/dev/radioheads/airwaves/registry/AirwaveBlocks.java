@@ -229,19 +229,6 @@ public final class AirwaveBlocks {
                 .register();
     }
 
-    public static final BlockEntry<PlayerDollBlock>
-        OP_HERO_DOLL = registerDoll("op_hero", "OP_Hero");
-
-    private static BlockEntry<PlayerDollBlock> registerDoll(String id, String name) {
-        return Airwaves.registrate().block(id + "_doll", PlayerDollBlock::new)
-                .item()
-                .model((ctx, prov) -> prov.withExistingParent(ctx.getName(), prov.modLoc("block/doll"))
-                        .texture("skin", Airwaves.asResource("block/" + id + "_doll")))
-                .lang(name)
-                .build()
-                .register();
-    }
-
     public static final BlockEntry<AmplifierBlock> AMPLIFIER = Airwaves.registrate().block("amplifier", AmplifierBlock::new)
             .initialProperties(SharedProperties::softMetal)
             .properties(BlockBehaviour.Properties::noOcclusion)

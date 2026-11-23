@@ -1,6 +1,0 @@
-{
-  "parent": "airwaves:block/doll",
-  "textures": {
-    "skin": "airwaves:block/op_hero_doll"
-  }
-}
