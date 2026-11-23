@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/copper"
+    },
+    "S": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SIS",
+    " S "
+  ],
+  "result": {
+    "count": 8,
+    "id": "airwaves:copper_antenna_rod"
+  }
+}

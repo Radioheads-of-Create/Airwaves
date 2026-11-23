@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_empty_spool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "airwaves:empty_spool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "airwaves:moss_foil"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_empty_spool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "airwaves:moss_foil"
+    ]
+  }
+}

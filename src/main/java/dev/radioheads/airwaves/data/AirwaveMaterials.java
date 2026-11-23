@@ -39,6 +39,7 @@ public enum AirwaveMaterials {
     public final TagKey<Item> nuggets;
     public final TagKey<Item> plates;
     public final TagKey<Item> wire;
+    public final TagKey<Item> spool;
     public final TagKey<Item> cable;
     public final TagKey<Item> foil;
 
@@ -59,6 +60,7 @@ public enum AirwaveMaterials {
         this.nuggets = itemTag("nuggets/" + this.name);
         this.plates = itemTag("plates/" + this.name);
         this.wire = itemTag("wires/" + this.name);
+        this.spool = itemTag("spools/" + this.name);
         this.cable = selfItemTag("cables/" + this.name);
         this.foil = selfItemTag("foils/" + this.name);
     }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/silver"
+    },
+    "S": {
+      "tag": "c:plates/silver"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SIS",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "airwaves:silver_antenna_rod"
+  }
+}
