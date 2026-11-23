@@ -1,6 +1,4 @@
 {
-	"format_version": "26.3",
-	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"render_type": "minecraft:cutout",
 	"textures": {

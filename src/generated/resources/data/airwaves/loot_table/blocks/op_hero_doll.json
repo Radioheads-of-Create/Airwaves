@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "airwaves:op_hero_doll"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "airwaves:blocks/op_hero_doll"
+}
