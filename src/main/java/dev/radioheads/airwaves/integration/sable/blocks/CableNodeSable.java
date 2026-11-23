@@ -37,19 +37,18 @@ public class CableNodeSable {
         return BlockPos.containing(transformed.x, transformed.y, transformed.z);
     }
 
-    public static Quaterniond getSublevelRot(Level level, CableNode node) {
+    public static Vec3 toGlobal(Level level, CableNode node, Vec3 local) {
         SubLevelAccess subLevel = getNodeSubLevel(level, node);
-        if (subLevel == null) return new Quaterniond();
-        return new Quaterniond(subLevel.logicalPose().orientation());
+        return subLevel == null ? local : subLevel.logicalPose().transformPosition(local);
     }
 
-    public static Vec3 getActualCenter(Level level, CableNode node) {
-        Vec3 center = node.getBlockPos().getCenter();
-        SubLevelAccess subLevel = getNodeSubLevel(level, node);
-        if (subLevel == null) {
-            return center;
-        }
-        return subLevel.logicalPose().transformPosition(center);
+    public static Vec3 toLocal(Level level, CableNode source, Vec3 global) {
+        SubLevelAccess subLevel = getNodeSubLevel(level, source);
+        return subLevel == null ? global : subLevel.logicalPose().transformPositionInverse(global);
+    }
+
+    public static Vec3 toLocal(Level level, CableNode source, CableNode target) {
+        return toLocal(level, source, toGlobal(level, target, target.anchor()));
     }
 
     @Nullable

@@ -92,7 +92,9 @@ public final class Cables {
         a.links().add(posB, type, CableLink.Flow.OUT);
         b.links().add(posA, type, CableLink.Flow.IN);
         if (level instanceof ServerLevel server) {
-            CableGraph.of(server).link(posA, a.line(), posB, b.line(), a.anchor().distanceTo(b.anchor()), type);
+            Vec3 from = CableNodeSable.toGlobal(level, a, a.anchor());
+            Vec3 to = CableNodeSable.toGlobal(level, b, b.anchor());
+            CableGraph.of(server).link(posA, a.line(), posB, b.line(), from.distanceTo(to), type);
             rewire(server, List.of(posA));
         }
         a.cablesChanged();
@@ -227,7 +229,7 @@ public final class Cables {
         return devices;
     }
 
-    public static Survey survey(Function<BlockPos, CableNode> nodes, Predicate<BlockPos> loaded, BlockPos start) {
+    public static Survey survey(Level level, Function<BlockPos, CableNode> nodes, Predicate<BlockPos> loaded, BlockPos start) {
         Set<BlockPos> seen = new HashSet<>(Set.of(start));
         Deque<Hop> queue = new ArrayDeque<>();
         queue.add(new Hop(start, 0.0, 0.0, 0.0, 0.0, 0.0));
@@ -247,7 +249,8 @@ public final class Cables {
                     continue;
                 }
 
-                double length = node.anchor().distanceTo(next.anchor());
+                double length = CableNodeSable.toGlobal(level, node, node.anchor())
+                        .distanceTo(CableNodeSable.toGlobal(level, next, next.anchor()));
                 double segment = link.type().lossPerBlock() * length;
                 boolean amplifier = next.amplifierDb() > 0.0;
                 Hop reached = new Hop(link.other(), hop.factor() + segment, hop.blocks() + length,

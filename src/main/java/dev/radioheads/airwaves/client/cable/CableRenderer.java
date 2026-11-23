@@ -9,6 +9,7 @@ import dev.radioheads.airwaves.api.cable.CableLink;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.config.AirwaveConfig;
+import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -45,10 +46,10 @@ public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEn
 
         BlockPos origin = blockEntity.getBlockPos();
         Vec3 renderOrigin = Vec3.atLowerCornerOf(origin);
-        Vec3 fromWorld = node.anchor();
+        Vec3 from = node.anchor();
 
         if (AirwaveConfig.client().devConfig.nodeDebugRendering()) {
-            renderDebugBox(level, fromWorld, renderOrigin, poseStack, buffer, DEBUG_BOX_SIZE, DEBUG_SELF_COLOR);
+            renderDebugBox(level, from, renderOrigin, poseStack, buffer, DEBUG_BOX_SIZE, DEBUG_SELF_COLOR);
         }
 
         for (CableLink link : node.links().all()) {
@@ -57,17 +58,17 @@ public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEn
                 continue;
             }
 
-            Vec3 toWorld = other.anchor();
+            Vec3 to = CableNodeSable.toLocal(level, node, other);
 
             if (AirwaveConfig.client().devConfig.nodeDebugRendering()) {
-                renderDebugBox(level, toWorld, renderOrigin, poseStack, buffer, DEBUG_BOX_SIZE, DEBUG_LINK_COLOR);
+                renderDebugBox(level, to, renderOrigin, poseStack, buffer, DEBUG_BOX_SIZE, DEBUG_LINK_COLOR);
             }
 
             line(poseStack, buffer,
-                    fromWorld.subtract(renderOrigin),
-                    toWorld.subtract(renderOrigin),
-                    LevelRenderer.getLightColor(level, BlockPos.containing(fromWorld)),
-                    LevelRenderer.getLightColor(level, BlockPos.containing(toWorld)));
+                    from.subtract(renderOrigin),
+                    to.subtract(renderOrigin),
+                    LevelRenderer.getLightColor(level, BlockPos.containing(from)),
+                    LevelRenderer.getLightColor(level, BlockPos.containing(to)));
         }
     }
 
@@ -185,9 +186,9 @@ public class CableRenderer<T extends BlockEntity & CableNode> implements BlockEn
         return bounds(blockEntity);
     }
 
-    public static void renderDebugBox(Level level, Vec3 worldPoint, Vec3 renderOrigin, PoseStack poseStack, MultiBufferSource buffer, float size, int color) {
-        Vec3 center = worldPoint.subtract(renderOrigin);
-        int light = LevelRenderer.getLightColor(level, BlockPos.containing(worldPoint));
+    public static void renderDebugBox(Level level, Vec3 point, Vec3 renderOrigin, PoseStack poseStack, MultiBufferSource buffer, float size, int color) {
+        Vec3 center = point.subtract(renderOrigin);
+        int light = LevelRenderer.getLightColor(level, BlockPos.containing(point));
 
         float red = (color >> 16 & 255) / 255.0F;
         float green = (color >> 8 & 255) / 255.0F;

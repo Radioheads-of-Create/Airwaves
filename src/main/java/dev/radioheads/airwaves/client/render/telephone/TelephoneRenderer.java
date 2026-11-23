@@ -9,6 +9,7 @@ import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.TelephoneBlock;
 import dev.radioheads.airwaves.content.entity.block.TelephoneBlockEntity;
 import dev.radioheads.airwaves.content.telephone.EarpieceBinding;
+import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import dev.radioheads.airwaves.registry.AirwaveDataComponents;
 import dev.radioheads.airwaves.registry.AirwavePartialModels;
 import net.createmod.catnip.render.CachedBuffers;
@@ -75,7 +76,8 @@ public class TelephoneRenderer extends SafeCableNodeRenderer<TelephoneBlockEntit
         if (earpiece == null || level == null || phone.hooked()) {
             return;
         }
-        Vec3 jack = phone.anchor();
+        Vec3 localJack = phone.anchor();
+        Vec3 jack = CableNodeSable.toGlobal(level, phone, localJack);
         Vec3 end = holderHand(level, jack, earpiece, partialTicks);
         if (end == null) {
             end = droppedEarpiece(level, jack, earpiece, partialTicks);
@@ -84,8 +86,9 @@ public class TelephoneRenderer extends SafeCableNodeRenderer<TelephoneBlockEntit
             return;
         }
         BlockPos origin = phone.getBlockPos();
-        CableRenderer.cord(poseStack, buffer, jack.subtract(Vec3.atLowerCornerOf(origin)), end.subtract(Vec3.atLowerCornerOf(origin)),
-                LevelRenderer.getLightColor(level, BlockPos.containing(jack)), LevelRenderer.getLightColor(level, BlockPos.containing(end)),
+        Vec3 localEnd = CableNodeSable.toLocal(level, phone, end);
+        CableRenderer.cord(poseStack, buffer, localJack.subtract(Vec3.atLowerCornerOf(origin)), localEnd.subtract(Vec3.atLowerCornerOf(origin)),
+                LevelRenderer.getLightColor(level, BlockPos.containing(localJack)), LevelRenderer.getLightColor(level, BlockPos.containing(localEnd)),
                 CORD_WIDTH, CORD_COLOR);
     }
 

@@ -5,6 +5,7 @@ import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.api.content.item.CableItem;
+import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import dev.radioheads.airwaves.registry.AirwaveDataComponents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -69,7 +70,10 @@ public class CablePreview {
             BlueprintOverlayRenderer.displayChainRequirements(cable, spools, cable.hasSpools(player, spools));
         }
         player.displayClientMessage(refusal.orElseGet(() -> CableItem.hint("length", length)), true);
-        trail(level, from.anchor(), to.anchor(), refusal.isPresent() ? REFUSED_COLOR : CableItem.HINT_COLOR);
+        trail(level,
+                CableNodeSable.toGlobal(level, from, from.anchor()),
+                CableNodeSable.toGlobal(level, to, to.anchor()),
+                refusal.isPresent() ? REFUSED_COLOR : CableItem.HINT_COLOR);
     }
 
     // Ignores held-button repeats

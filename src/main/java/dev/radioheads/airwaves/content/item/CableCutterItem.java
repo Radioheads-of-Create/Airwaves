@@ -4,6 +4,7 @@ import dev.radioheads.airwaves.api.cable.CableAim;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.api.content.item.CableItem;
+import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -40,8 +41,8 @@ public class CableCutterItem extends Item {
         if (!holding(player) || (a == null && b == null)) {
             return false;
         }
-        Vec3 fromAnchor = a != null ? a.anchor() : Vec3.atCenterOf(from);
-        Vec3 toAnchor = b != null ? b.anchor() : Vec3.atCenterOf(to);
+        Vec3 fromAnchor = a != null ? CableNodeSable.toGlobal(level, a, a.anchor()) : Vec3.atCenterOf(from);
+        Vec3 toAnchor = b != null ? CableNodeSable.toGlobal(level, b, b.anchor()) : Vec3.atCenterOf(to);
         if (CableAim.distance(player.getEyePosition(), fromAnchor, toAnchor) > player.blockInteractionRange() + SLACK) {
             return false;
         }

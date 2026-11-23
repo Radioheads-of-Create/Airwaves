@@ -6,7 +6,6 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.cable.*;
 import dev.radioheads.airwaves.content.block.InsulatorBlock;
-import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,8 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Quaterniond;
-import org.joml.Vector3d;
 
 import java.util.List;
 import java.util.Locale;
@@ -44,7 +41,7 @@ public class InsulatorBlockEntity extends SmartBlockEntity implements CableNode,
     public void initialize() {
         super.initialize();
         if (this.level instanceof ServerLevel server) {
-            Cables.loaded(server, CableNodeSable.getActualPosition(this.level, this), this);
+            Cables.loaded(server, getBlockPos(), this);
         }
     }
 
@@ -56,13 +53,7 @@ public class InsulatorBlockEntity extends SmartBlockEntity implements CableNode,
     @Override
     public Vec3 anchor() {
         Direction facing = getBlockState().getValue(InsulatorBlock.FACING);
-
-        Vec3 localOffset = Vec3.atLowerCornerOf(facing.getNormal()).scale(ANCHOR_OFFSET);
-
-        Quaterniond rot = CableNodeSable.getSublevelRot(this.level, this);
-        Vector3d rotated = rot.transform(new Vector3d(localOffset.x, localOffset.y, localOffset.z));
-
-        return CableNodeSable.getActualCenter(this.level, this).add(rotated.x, rotated.y, rotated.z);
+        return Vec3.atCenterOf(getBlockPos()).add(Vec3.atLowerCornerOf(facing.getNormal()).scale(ANCHOR_OFFSET));
     }
 
     @Override

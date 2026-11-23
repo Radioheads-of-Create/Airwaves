@@ -1,5 +1,6 @@
 package dev.radioheads.airwaves.api.cable;
 
+import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.level.Level;
@@ -143,9 +144,11 @@ public final class CableAim {
             if (other == null || !seen.add(pair(origin, link.other()))) {
                 continue;
             }
-            OptionalDouble hit = hit(eye, end, node.anchor(), other.anchor());
+            Vec3 from = CableNodeSable.toGlobal(level, node, node.anchor());
+            Vec3 to = CableNodeSable.toGlobal(level, other, other.anchor());
+            OptionalDouble hit = hit(eye, end, from, to);
             if (hit.isPresent() && (best == null || hit.getAsDouble() < best.distance())) {
-                best = new Target(origin, link.other(), node.anchor(), other.anchor(), link.type(), hit.getAsDouble());
+                best = new Target(origin, link.other(), from, to, link.type(), hit.getAsDouble());
             }
         }
         return best;

@@ -123,7 +123,7 @@ public abstract class TransmitterBlockEntity extends KineticBlockEntity implemen
 
     private boolean scanAntenna() {
         if (this.level == null) return false;
-        Cables.Survey survey = Cables.survey(pos -> Cables.node(this.level, pos), this.level::isLoaded, this.worldPosition);
+        Cables.Survey survey = Cables.survey(this.level, pos -> Cables.node(this.level, pos), this.level::isLoaded, this.worldPosition);
         if (!survey.complete()) {
             return false;
         }
