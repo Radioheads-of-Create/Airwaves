@@ -42,6 +42,7 @@ public class Airwaves {
 
         AirwaveItems.init();
         AirwaveBlocks.init();
+        AirwaveFluids.init();
         AirwaveBlockEntities.init();
         AirwaveRadioBands.init();
         AirwaveModulations.init();
