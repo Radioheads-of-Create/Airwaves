@@ -32,6 +32,11 @@ public final class AirwaveItems {
                 .tag(Tags.Items.GEMS_AMETHYST)
                 .register();
 
+    public static final ItemEntry<Item>
+            ROCK_SALT = Airwaves.registrate().item("rock_salt", Item::new)
+                .tag(Tags.Items.RAW_MATERIALS)
+                .register();
+
     public static final ItemEntry<FieldManualItem>
             FIELD_MANUAL = Airwaves.registrate().item("field_manual", FieldManualItem::new)
                 .properties(p -> p.stacksTo(1))
@@ -44,11 +49,16 @@ public final class AirwaveItems {
                 .model(NonNullBiConsumer.noop())
                 .register();
 
-    public static final ItemEntry<TelephoneEarpieceItem>
-            CAN = Airwaves.registrate().item("can", TelephoneEarpieceItem::new)
-            .model((ctx, prov) -> prov.getBuilder(ctx.getName()).parent(new ModelFile.UncheckedModelFile(prov.modLoc("block/telephone/earpiece_item"))))
-            .register();
+    public static final ItemEntry<Item>
+            CAN = Airwaves.registrate().item("can", Item::new)
+                .properties(p -> p.stacksTo(69420))
+                .model(NonNullBiConsumer.noop())
+                .register();
 
+    public static final ItemEntry<Item>
+            SILVER_PRECISION_MECHANISM = Airwaves.registrate().item("silver_precision_mechanism", Item::new)
+                .properties(p -> p.stacksTo(64))
+                .register();
 
     public static final ItemEntry<TelephoneEarpieceItem>
             TELEPHONE_EARPIECE = Airwaves.registrate().item("telephone_earpiece", TelephoneEarpieceItem::new)
@@ -79,6 +89,7 @@ public final class AirwaveItems {
 
     public static final ItemEntry<SequencedAssemblyItem>
             INCOMPLETE_RESISTOR = registerSequencedItem("incomplete_resistor"),
+            INCOMPLETE_SILVER_PRECISION_MECHANISM = registerSequencedItem("incomplete_silver_precision_mechanism"),
             INCOMPLETE_SPEAKER_CONE = registerSequencedItem("incomplete_speaker_cone");
 
     public static final ItemEntry<Item>

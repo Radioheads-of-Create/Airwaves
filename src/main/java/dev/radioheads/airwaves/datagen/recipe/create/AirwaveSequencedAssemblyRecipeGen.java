@@ -1,5 +1,6 @@
 package dev.radioheads.airwaves.datagen.recipe.create;
 
+import com.simibubi.create.AllItems;
 import com.simibubi.create.api.data.recipe.SequencedAssemblyRecipeGen;
 import com.simibubi.create.content.kinetics.deployer.DeployerApplicationRecipe;
 import dev.radioheads.airwaves.Airwaves;
@@ -38,13 +39,24 @@ public final class AirwaveSequencedAssemblyRecipeGen extends SequencedAssemblyRe
                 .addOutput(AirwaveItems.SPEAKER_CONE, 0.9f)
         ),
 
-    TEST = create("test", b -> b
-            .loops(3)
-            .transitionTo(AirwaveItems.INCOMPLETE_SPEAKER_CONE)
-            .require(AirwaveMaterials.SILVER.ingots)
-            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(Tags.Items.NUGGETS)))
-            .addStep(FoilApplicationRecipe::builder, d -> d.foilUsage(50).duration(30).withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.GOLD.foil)))
-            .addOutput(Items.DIORITE, 0.9f)
-    )
-    ;
+        TEST = create("test", b -> b
+                .loops(3)
+                .transitionTo(AirwaveItems.INCOMPLETE_SPEAKER_CONE)
+                .require(AirwaveMaterials.SILVER.ingots)
+                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(Tags.Items.NUGGETS)))
+                .addStep(FoilApplicationRecipe::builder, d -> d.foilUsage(50).duration(30).withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SPEAKER_CONE), Ingredient.of(AirwaveMaterials.GOLD.foil)))
+                .addOutput(Items.DIORITE, 0.9f)
+
+        ),
+
+        SILVER_PRECISION_MECHANISM = create("silver_precision_mechanism", b -> b
+            .loops(5)
+            .transitionTo(AirwaveItems.INCOMPLETE_SILVER_PRECISION_MECHANISM)
+                .require(AllItems.PRECISION_MECHANISM)
+                .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SILVER_PRECISION_MECHANISM), Ingredient.of(AirwaveMaterials.SILVER.spool)))
+            .addStep(DeployerApplicationRecipe::new, d -> d.withItemIngredients(Ingredient.of(AirwaveItems.INCOMPLETE_SILVER_PRECISION_MECHANISM), Ingredient.of(AllItems.ELECTRON_TUBE)))
+            .addOutput(AirwaveItems.SILVER_PRECISION_MECHANISM, 0.7f)
+        );
+
+
 }
