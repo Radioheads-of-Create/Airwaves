@@ -52,6 +52,7 @@ public final class AirwaveTags {
         PLATES_COPPER(COMMON, "plates/copper"),
         FOILS,
         WIRES(COMMON),
+        SPOOLS,
         CABLES
         ;
 
