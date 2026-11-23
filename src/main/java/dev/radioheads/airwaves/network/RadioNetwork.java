@@ -16,6 +16,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 @EventBusSubscriber(modid = Airwaves.MOD_ID)
 public final class RadioNetwork {
@@ -51,23 +52,57 @@ public final class RadioNetwork {
     }
 
     public static Map<UUID, List<Route>> refresh(Collection<RadioStation> stations, RadioTerrain terrain, SkyState sky, long gameTime) {
+        TreeMap<Long, List<RadioStation>> sources = sources(stations);
+        Map<UUID, List<Route>> routes = new HashMap<>();
+        for (RadioStation receiver : stations) {
+            if (receiver.receives()) {
+                receiver.hear(listenFor(receiver, sources, routes, terrain, sky, gameTime));
+            }
+        }
+        return routes;
+    }
+
+    public static Map<UUID, List<Route>> routesTo(ServerLevel level, RadioStation source, Predicate<RadioStation> receivers) {
+        return routesTo(level, List.of(source), receivers);
+    }
+
+    public static Map<UUID, List<Route>> routesTo(ServerLevel level, Collection<RadioStation> sources, Predicate<RadioStation> receivers) {
+        TreeMap<Long, List<RadioStation>> byFrequency = sources(sources);
+        Collection<RadioStation> stations = stations(level);
+        for (RadioStation station : stations) {
+            if (station.transmits()) {
+                byFrequency.computeIfAbsent(station.hertz(), hertz -> new ArrayList<>()).add(station);
+            }
+        }
+
+        RadioTerrain terrain = RadioTerrain.of(level);
+        SkyState sky = SkyState.of(level);
+        long gameTime = level.getGameTime();
+        Map<UUID, List<Route>> routes = new HashMap<>();
+        for (RadioStation receiver : stations) {
+            if (receiver.receives() && receivers.test(receiver)) {
+                listenFor(receiver, byFrequency, routes, terrain, sky, gameTime);
+            }
+        }
+        return routes;
+    }
+
+    private static TreeMap<Long, List<RadioStation>> sources(Collection<RadioStation> stations) {
         TreeMap<Long, List<RadioStation>> sources = new TreeMap<>();
         for (RadioStation station : stations) {
             if (station.transmits()) {
                 sources.computeIfAbsent(station.hertz(), hertz -> new ArrayList<>()).add(station);
             }
         }
+        return sources;
+    }
 
-        Map<UUID, List<Route>> routes = new HashMap<>();
-        for (RadioStation receiver : stations) {
-            if (receiver.receives()) {
-                long bandwidth = receiver.modulation().value().bandwidthHertz();
-                List<RadioStation> nearby = new ArrayList<>();
-                sources.subMap(receiver.hertz() - bandwidth, false, receiver.hertz() + bandwidth, false).values().forEach(nearby::addAll);
-                receiver.hear(listen(receiver, nearby, routes, terrain, sky, gameTime));
-            }
-        }
-        return routes;
+    private static float listenFor(RadioStation receiver, TreeMap<Long, List<RadioStation>> sources, Map<UUID, List<Route>> routes,
+                                   RadioTerrain terrain, SkyState sky, long gameTime) {
+        long bandwidth = receiver.modulation().value().bandwidthHertz();
+        List<RadioStation> nearby = new ArrayList<>();
+        sources.subMap(receiver.hertz() - bandwidth, false, receiver.hertz() + bandwidth, false).values().forEach(nearby::addAll);
+        return listen(receiver, nearby, routes, terrain, sky, gameTime);
     }
 
     private record Signal(RadioStation source, double dbm, double noiseDbm) {}

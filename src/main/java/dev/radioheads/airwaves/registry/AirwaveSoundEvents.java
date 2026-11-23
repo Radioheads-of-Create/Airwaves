@@ -3,6 +3,9 @@ package dev.radioheads.airwaves.registry;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.api.audio.RadioAudio;
+import dev.radioheads.airwaves.api.radio.Tuning;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
@@ -281,6 +284,22 @@ public final class AirwaveSoundEvents {
         }
 
         public abstract void playAt(Level world, double x, double y, double z, float volume, float pitch, boolean fade);
+
+        public void playOnRadio(Level level, BlockPos pos, Tuning frequency) {
+            playOnRadio(level, pos, frequency, 1.0F, 1.0F);
+        }
+
+        public void playOnRadio(Level level, BlockPos pos, Tuning frequency, float volume, float pitch) {
+            RadioAudio.playAt(level, pos, getMainEventHolder(), category, frequency, volume, pitch);
+        }
+
+        public void playOnRadioBetween(Level level, BlockPos pos, Tuning band, long fromHertz, long toHertz) {
+            playOnRadioBetween(level, pos, band, fromHertz, toHertz, 1.0F, 1.0F);
+        }
+
+        public void playOnRadioBetween(Level level, BlockPos pos, Tuning band, long fromHertz, long toHertz, float volume, float pitch) {
+            RadioAudio.playBetween(level, pos, getMainEventHolder(), category, band, fromHertz, toHertz, volume, pitch);
+        }
 
     }
 

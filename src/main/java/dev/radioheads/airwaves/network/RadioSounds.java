@@ -1,7 +1,12 @@
 package dev.radioheads.airwaves.network;
 
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.api.antenna.AntennaProfile;
+import dev.radioheads.airwaves.api.link.LinkEnd;
+import dev.radioheads.airwaves.api.radio.Modulation;
+import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.radio.RadioStation;
+import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
 import dev.radioheads.airwaves.network.payload.RadioSongPayload;
 import dev.radioheads.airwaves.network.payload.RadioSoundPayload;
@@ -25,6 +30,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 // Game sounds and jukebox songs that microphones send over the air
 @EventBusSubscriber(modid = Airwaves.MOD_ID)
@@ -87,6 +93,114 @@ public final class RadioSounds {
                     new RadioSoundPayload(sound, source, delivery.speaker(), volume * quality * delivery.gain(), pitch, false).sendTo(listener);
                 }
             }
+        }
+    }
+
+    public static void broadcast(ServerLevel level, BlockPos pos, Holder<SoundEvent> sound, SoundSource category,
+                                 Holder<RadioBand> band, long fromHertz, long toHertz, float volume, float pitch) {
+        if (!level.isLoaded(pos) || !(volume > 0.0F) || !(pitch > 0.0F)) {
+            return;
+        }
+
+        long low = band.value().clamp(Math.min(fromHertz, toHertz));
+        long high = band.value().clamp(Math.max(fromHertz, toHertz));
+        Predicate<RadioStation> target = station -> station.receives()
+                && station.hertz() >= low && station.hertz() <= high
+                && band.value().modulation().value().equals(station.modulation().value());
+
+        Set<Long> frequencies = new TreeSet<>();
+        for (RadioStation station : RadioNetwork.stations(level)) {
+            if (target.test(station)) {
+                frequencies.add(station.hertz());
+            }
+        }
+
+        for (long hertz : frequencies) {
+            BroadcastStation transmitter = new BroadcastStation(pos, new Tuning(hertz, band));
+            List<RadioNetwork.Route> routes = RadioNetwork.routesTo(level, transmitter, target).getOrDefault(transmitter.id(), List.of());
+            for (RadioNetwork.Route route : routes) {
+                RadioStation receiver = route.receiver();
+                float quality = quality(receiver, route.marginDb());
+                if (quality <= 0.0F) {
+                    continue;
+                }
+                float loudness = volume * quality * receiver.volume();
+                if (loudness <= 0.0F) {
+                    continue;
+                }
+                Vec3 speaker = receiver.position();
+                for (ServerPlayer listener : level.players()) {
+                    if (listener.position().closerThan(speaker, RadioVoice.SPEAKER_RANGE)) {
+                        new RadioSoundPayload(sound, category, speaker, loudness, pitch, false).sendTo(listener);
+                    }
+                }
+            }
+        }
+    }
+
+    private static float quality(RadioStation receiver, double marginDb) {
+        float quality = Mth.clamp(receiver.modulation().value().quality(marginDb), 0.0F, 1.0F);
+        return receiver.opensSquelch(quality) ? quality : 0.0F;
+    }
+
+    // Temporary
+    // I mean it works. It's a virtual radio station
+    private static final class BroadcastStation implements RadioStation {
+        private static final double BROADCAST_WATTS = 100.0;
+        private static final double LIGHT = 300.0;
+
+        private final BlockPos position;
+        private final Tuning tuning;
+        private final AntennaProfile antenna;
+        private final UUID id;
+
+        private BroadcastStation(BlockPos position, Tuning tuning) {
+            this.position = position;
+            this.tuning = tuning;
+            double mhz = tuning.hertz() / 1.0E6;
+            double length = Mth.clamp(LIGHT / mhz / 4.0, 0.25, 8.0);
+            this.antenna = AntennaProfile.whip(length, Vec3.atCenterOf(position).add(0.0, length, 0.0));
+            this.id = new UUID(tuning.hertz(), position.asLong());
+        }
+
+        @Override
+        public UUID id() {
+            return this.id;
+        }
+
+        @Override
+        public Vec3 antenna() {
+            return this.antenna.radiator();
+        }
+
+        @Override
+        public Vec3 position() {
+            return Vec3.atCenterOf(this.position);
+        }
+
+        @Override
+        public long hertz() {
+            return this.tuning.hertz();
+        }
+
+        @Override
+        public Holder<Modulation> modulation() {
+            return this.tuning.band().value().modulation();
+        }
+
+        @Override
+        public LinkEnd linkEnd(double mhz, double heightBlocks, Vec3 toward) {
+            return this.antenna.linkEnd(BROADCAST_WATTS, 0.0, 0.0, heightBlocks, mhz, toward);
+        }
+
+        @Override
+        public boolean transmits() {
+            return true;
+        }
+
+        @Override
+        public boolean onAir() {
+            return true;
         }
     }
 

@@ -2,7 +2,11 @@ package dev.radioheads.airwaves.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import dev.radioheads.airwaves.Airwaves;
+import dev.radioheads.airwaves.api.audio.RadioAudio;
 import dev.radioheads.airwaves.api.link.LinkBudget;
 import dev.radioheads.airwaves.api.link.LinkEnd;
 import dev.radioheads.airwaves.api.link.RadioTerrain;
@@ -10,13 +14,19 @@ import dev.radioheads.airwaves.api.link.SkyState;
 import dev.radioheads.airwaves.api.radio.Modulation;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.radio.RadioStation;
+import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.api.registry.AirwaveRegistries;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
+import net.minecraft.commands.synchronization.SuggestionProviders;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -28,6 +38,13 @@ import java.util.Optional;
 @EventBusSubscriber(modid = Airwaves.MOD_ID)
 public final class AirwavesCommand {
     private AirwavesCommand() {}
+
+    private static final SuggestionProvider<CommandSourceStack> BAND_SUGGESTIONS = (context, builder) -> {
+        for (RadioBand band : AirwaveRegistries.RADIO_BAND_REGISTRY) {
+            builder.suggest(String.valueOf(AirwaveRegistries.RADIO_BAND_REGISTRY.getKey(band)));
+        }
+        return builder.buildFuture();
+    };
 
     @SubscribeEvent
     public static void register(RegisterCommandsEvent event) {
@@ -43,7 +60,117 @@ public final class AirwavesCommand {
                                                         BlockPosArgument.getBlockPos(context, "from"),
                                                         BlockPosArgument.getBlockPos(context, "to"),
                                                         DoubleArgumentType.getDouble(context, "mhz")
-                                                )))))));
+                                                ))))))
+                .then(playCommand())
+                .then(playRangeCommand()));
+    }
+
+    private static LiteralArgumentBuilder<CommandSourceStack> playCommand() {
+        return Commands.literal("play")
+                .then(Commands.argument("sound", ResourceLocationArgument.id())
+                        .suggests(SuggestionProviders.AVAILABLE_SOUNDS)
+                        .then(Commands.argument("band", ResourceLocationArgument.id())
+                                .suggests(BAND_SUGGESTIONS)
+                                .then(Commands.argument("pos", BlockPosArgument.blockPos())
+                                        .then(Commands.argument("mhz", DoubleArgumentType.doubleArg(0.0))
+                                                .executes(context -> play(
+                                                        context.getSource(),
+                                                        ResourceLocationArgument.getId(context, "sound"),
+                                                        ResourceLocationArgument.getId(context, "band"),
+                                                        BlockPosArgument.getBlockPos(context, "pos"),
+                                                        DoubleArgumentType.getDouble(context, "mhz"),
+                                                        1.0F, 1.0F))
+                                                .then(Commands.argument("volume", FloatArgumentType.floatArg(0.0F))
+                                                        .then(Commands.argument("pitch", FloatArgumentType.floatArg(0.0F, 2.0F))
+                                                                .executes(context -> play(
+                                                                        context.getSource(),
+                                                                        ResourceLocationArgument.getId(context, "sound"),
+                                                                        ResourceLocationArgument.getId(context, "band"),
+                                                                        BlockPosArgument.getBlockPos(context, "pos"),
+                                                                        DoubleArgumentType.getDouble(context, "mhz"),
+                                                                        FloatArgumentType.getFloat(context, "volume"),
+                                                                        FloatArgumentType.getFloat(context, "pitch")))))))));
+    }
+
+    private static LiteralArgumentBuilder<CommandSourceStack> playRangeCommand() {
+        return Commands.literal("playrange")
+                .then(Commands.argument("sound", ResourceLocationArgument.id())
+                        .suggests(SuggestionProviders.AVAILABLE_SOUNDS)
+                        .then(Commands.argument("band", ResourceLocationArgument.id())
+                                .suggests(BAND_SUGGESTIONS)
+                                .then(Commands.argument("pos", BlockPosArgument.blockPos())
+                                        .then(Commands.argument("fromMhz", DoubleArgumentType.doubleArg(0.0))
+                                                .then(Commands.argument("toMhz", DoubleArgumentType.doubleArg(0.0))
+                                                        .executes(context -> playRange(
+                                                                context.getSource(),
+                                                                ResourceLocationArgument.getId(context, "sound"),
+                                                                ResourceLocationArgument.getId(context, "band"),
+                                                                BlockPosArgument.getBlockPos(context, "pos"),
+                                                                DoubleArgumentType.getDouble(context, "fromMhz"),
+                                                                DoubleArgumentType.getDouble(context, "toMhz"),
+                                                                1.0F, 1.0F))
+                                                        .then(Commands.argument("volume", FloatArgumentType.floatArg(0.0F))
+                                                                .then(Commands.argument("pitch", FloatArgumentType.floatArg(0.0F, 2.0F))
+                                                                        .executes(context -> playRange(
+                                                                                context.getSource(),
+                                                                                ResourceLocationArgument.getId(context, "sound"),
+                                                                                ResourceLocationArgument.getId(context, "band"),
+                                                                                BlockPosArgument.getBlockPos(context, "pos"),
+                                                                                DoubleArgumentType.getDouble(context, "fromMhz"),
+                                                                                DoubleArgumentType.getDouble(context, "toMhz"),
+                                                                                FloatArgumentType.getFloat(context, "volume"),
+                                                                                FloatArgumentType.getFloat(context, "pitch"))))))))));
+    }
+
+    private static int play(CommandSourceStack source, ResourceLocation soundId, ResourceLocation bandId, BlockPos pos, double mhz, float volume, float pitch) {
+        RadioBand band = band(source, bandId);
+        if (band == null) {
+            return 0;
+        }
+        long hertz = Math.round(mhz * 1.0E6);
+        if (!band.contains(hertz)) {
+            source.sendFailure(Component.literal("Frequency " + mhz + " MHz is outside " + bandId));
+            return 0;
+        }
+
+        Holder<SoundEvent> sound = Holder.direct(SoundEvent.createVariableRangeEvent(soundId));
+        RadioAudio.playAt(source.getLevel(), pos, sound, new Tuning(hertz, Holder.direct(band)), volume, pitch);
+        send(source, "Broadcast %s at %s on %s, volume %.2f, pitch %.2f", soundId, band.display(hertz), bandId, volume, pitch);
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int playRange(CommandSourceStack source, ResourceLocation soundId, ResourceLocation bandId,
+                                 BlockPos pos, double fromMhz, double toMhz, float volume, float pitch) {
+        RadioBand band = band(source, bandId);
+        if (band == null) {
+            return 0;
+        }
+        long from = Math.round(fromMhz * 1.0E6);
+        long to = Math.round(toMhz * 1.0E6);
+        if (!band.contains(from) || !band.contains(to)) {
+            source.sendFailure(Component.literal("Frequency range " + fromMhz + "–" + toMhz + " MHz is outside " + bandId));
+            return 0;
+        }
+
+        Holder<SoundEvent> sound = Holder.direct(SoundEvent.createVariableRangeEvent(soundId));
+        RadioAudio.playBetween(source.getLevel(), pos, sound, new Tuning(from, Holder.direct(band)), from, to, volume, pitch);
+        send(source, "Broadcast %s on %s–%s (%s), volume %.2f, pitch %.2f", soundId, band.display(from), band.display(to), bandId, volume, pitch);
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static RadioBand band(CommandSourceStack source, ResourceLocation id) {
+        RadioBand band = AirwaveRegistries.RADIO_BAND_REGISTRY.get(id);
+        if (band == null) {
+            StringBuilder available = new StringBuilder();
+            for (RadioBand candidate : AirwaveRegistries.RADIO_BAND_REGISTRY) {
+                if (!available.isEmpty()) {
+                    available.append(", ");
+                }
+                available.append(AirwaveRegistries.RADIO_BAND_REGISTRY.getKey(candidate));
+            }
+            source.sendFailure(Component.literal("Unknown radio band " + id + ". Available: " + available));
+        }
+        return band;
     }
 
     private static int sky(CommandSourceStack source) {
