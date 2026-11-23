@@ -1,0 +1,50 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "create:precision_mechanism"
+  },
+  "loops": 5,
+  "results": [
+    {
+      "chance": 0.7,
+      "id": "airwaves:silver_precision_mechanism"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_silver_precision_mechanism"
+        },
+        {
+          "tag": "c:spools/silver"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_silver_precision_mechanism"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "airwaves:incomplete_silver_precision_mechanism"
+        },
+        {
+          "item": "create:electron_tube"
+        }
+      ],
+      "results": [
+        {
+          "id": "airwaves:incomplete_silver_precision_mechanism"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "airwaves:incomplete_silver_precision_mechanism"
+  }
+}

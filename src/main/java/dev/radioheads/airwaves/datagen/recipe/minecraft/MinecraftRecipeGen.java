@@ -7,6 +7,7 @@ import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ArmorDyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -79,6 +80,42 @@ public class MinecraftRecipeGen extends RecipeProvider {
                 .pattern("III")
                 .define('I', AirwaveMaterials.SILVER.ingots)
                 .unlockedBy("has_silver_ingot", has(AirwaveMaterials.SILVER.ingots))
+                .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AirwaveBlocks.COPPER_ANTENNA_ROD)
+                .pattern(" S ")
+                .pattern("SIS")
+                .pattern(" S ")
+                .define('S', AirwaveMaterials.COPPER.plates)
+                .define('I', AirwaveMaterials.COPPER.ingots)
+                .unlockedBy("has_copper_ingot", has(AirwaveMaterials.COPPER.ingots))
+                .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AirwaveBlocks.SILVER_ANTENNA_ROD)
+                .pattern(" S ")
+                .pattern("SIS")
+                .pattern(" S ")
+                .define('S', AirwaveMaterials.SILVER.plates)
+                .define('I', AirwaveMaterials.SILVER.ingots)
+                .unlockedBy("has_silver_ingot", has(AirwaveMaterials.COPPER.ingots))
+                .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AirwaveBlocks.GOLD_ANTENNA_ROD)
+                .pattern(" S ")
+                .pattern("SIS")
+                .pattern(" S ")
+                .define('S', AirwaveMaterials.GOLD.plates)
+                .define('I', AirwaveMaterials.GOLD.ingots)
+                .unlockedBy("has_gold_ingot", has(AirwaveMaterials.GOLD.ingots))
+                .save(out);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, AirwaveItems.MOSS_FOIL)
+                .pattern(" M ")
+                .pattern("MEM")
+                .pattern(" M ")
+                .define('M', Items.MOSS_CARPET)
+                .define('E', AirwaveItems.EMPTY_SPOOL)
+                .unlockedBy("has_empty_spool", has(AirwaveItems.EMPTY_SPOOL))
                 .save(out);
 
         createFoil(AirwaveItems.COPPER_FOIL, AirwaveMaterials.COPPER, out);

@@ -1,15 +1,75 @@
 {
   "variants": {
-    "lit=false,powered=false": {
+    "facing=down,lit=false,powered=false": {
       "model": "airwaves:block/chain_copper_bulb"
     },
-    "lit=false,powered=true": {
+    "facing=down,lit=false,powered=true": {
       "model": "airwaves:block/chain_copper_bulb_powered"
     },
-    "lit=true,powered=false": {
+    "facing=down,lit=true,powered=false": {
       "model": "airwaves:block/chain_copper_bulb_lit"
     },
-    "lit=true,powered=true": {
+    "facing=down,lit=true,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_lit_powered"
+    },
+    "facing=east,lit=false,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb"
+    },
+    "facing=east,lit=false,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_powered"
+    },
+    "facing=east,lit=true,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb_lit"
+    },
+    "facing=east,lit=true,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_lit_powered"
+    },
+    "facing=north,lit=false,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb"
+    },
+    "facing=north,lit=false,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_powered"
+    },
+    "facing=north,lit=true,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb_lit"
+    },
+    "facing=north,lit=true,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_lit_powered"
+    },
+    "facing=south,lit=false,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb"
+    },
+    "facing=south,lit=false,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_powered"
+    },
+    "facing=south,lit=true,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb_lit"
+    },
+    "facing=south,lit=true,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_lit_powered"
+    },
+    "facing=up,lit=false,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb"
+    },
+    "facing=up,lit=false,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_powered"
+    },
+    "facing=up,lit=true,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb_lit"
+    },
+    "facing=up,lit=true,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_lit_powered"
+    },
+    "facing=west,lit=false,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb"
+    },
+    "facing=west,lit=false,powered=true": {
+      "model": "airwaves:block/chain_copper_bulb_powered"
+    },
+    "facing=west,lit=true,powered=false": {
+      "model": "airwaves:block/chain_copper_bulb_lit"
+    },
+    "facing=west,lit=true,powered=true": {
       "model": "airwaves:block/chain_copper_bulb_lit_powered"
     }
   }

@@ -23,6 +23,7 @@ public final class AirwaveDataGen {
             AirwavePolishingRecipeGen::new,
             AirwaveGeneratedEntriesProvider::new,
             AirwaveCuttingRecipeGen::new,
+            AirwaveMixingRecipeGen::new,
             AirwavePressingRecipeGen::new,
             AirwaveSequencedAssemblyRecipeGen::new,
             AirwaveItemAppliacationRecipeGen::new,

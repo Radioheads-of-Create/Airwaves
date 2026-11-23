@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/gold"
+    },
+    "S": {
+      "tag": "c:plates/gold"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SIS",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "airwaves:gold_antenna_rod"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "airwaves:empty_spool"
+    },
+    "M": {
+      "item": "minecraft:moss_carpet"
+    }
+  },
+  "pattern": [
+    " M ",
+    "MEM",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "airwaves:moss_foil"
+  }
+}
