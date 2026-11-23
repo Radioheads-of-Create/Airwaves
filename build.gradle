@@ -31,7 +31,7 @@ repositories {
     maven { url = "https://maven.ryanhcode.dev/releases" }
     maven { url = 'https://maven.maxhenkel.de/repository/public' }
     maven { url = "https://maven.blamejared.com/" }
-    maven { url = "https://krystalsmaven.oreostack.uk/releases" }
+    maven { url = "https://maven.metallurgists.dev/releases" }
     maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1"}
 
     exclusiveContent {
@@ -176,7 +176,7 @@ publishing {
     repositories {
         maven {
             name = "KryMaven"
-            url = uri("https://krystalsmaven.oreostack.uk/releases")
+            url = uri("https://maven.metallurgists.dev/releases")
             credentials {
                 username = "${findProperty("kry.maven.username") ?: System.getenv("KRY_MAVEN_USER")}"
                 password = "${findProperty("kry.maven.token") ?: System.getenv("KRY_MAVEN_TOKEN")}"
@@ -184,7 +184,7 @@ publishing {
         }
         maven {
             name = "KrySnapshotMaven"
-            url = uri("https://krystalsmaven.oreostack.uk/snapshots")
+            url = uri("https://maven.metallurgists.dev/snapshots")
             credentials {
                 username = "${findProperty("kry.maven.username") ?: System.getenv("KRY_MAVEN_USER")}"
                 password = "${findProperty("kry.maven.token") ?: System.getenv("KRY_MAVEN_TOKEN")}"
