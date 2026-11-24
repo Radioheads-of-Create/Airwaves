@@ -51,6 +51,10 @@ public class CableNodeSable {
         return toLocal(level, source, toGlobal(level, target, target.anchor()));
     }
 
+    public static boolean inSubLevel(Level level, CableNode node) {
+        return getNodeSubLevel(level, node) != null;
+    }
+
     @Nullable
     private static SubLevelAccess getNodeSubLevel(Level level, CableNode node) {
         if (!(node instanceof BlockEntity blockEntity)) {

@@ -27,8 +27,16 @@ public final class CableGraph extends SavedData {
     // TX or RX per insulator
     private final Map<Long, LineSide> sides = new HashMap<>();
 
-    // Flow length and call delay in ms
-    public record Edge(CableLink.Flow flow, double length, double delayMs) {}
+    // Flow length, call delay in ms, and the spool allowance paid when linked
+    public record Edge(CableLink.Flow flow, double length, double delayMs, int spools) {
+        public Edge(CableLink.Flow flow, double length, double delayMs) {
+            this(flow, length, delayMs, spoolsFor(length));
+        }
+
+        private static int spoolsFor(double length) {
+            return Math.max(1, Cables.spools((int) Math.round(Math.abs(length))));
+        }
+    }
 
     private record Step(long pos, double delayMs) {}
 
@@ -36,7 +44,7 @@ public final class CableGraph extends SavedData {
         return level.getDataStorage().computeIfAbsent(FACTORY, NAME);
     }
 
-    public void link(BlockPos a, LineType lineA, BlockPos b, LineType lineB, double length, CableType type) {
+    public void link(BlockPos a, LineType lineA, BlockPos b, LineType lineB, double length, int spools, CableType type) {
         long from = a.asLong();
         long to = b.asLong();
         Set<Long> sideA = component(from);
@@ -45,7 +53,7 @@ public final class CableGraph extends SavedData {
 
         this.nodes.put(from, lineA);
         this.nodes.put(to, lineB);
-        put(from, to, new Edge(CableLink.Flow.OUT, length, length * type.delayMsPerBlock()));
+        put(from, to, new Edge(CableLink.Flow.OUT, length, length * type.delayMsPerBlock(), Math.max(1, spools)));
 
         // Network number merge
         boolean merged = networkA != null && networkB != null && !networkA.equals(networkB);
@@ -151,7 +159,7 @@ public final class CableGraph extends SavedData {
     // Both ends of a cable
     private void put(long from, long to, Edge edge) {
         this.edges.computeIfAbsent(from, pos -> new HashMap<>()).put(to, edge);
-        this.edges.computeIfAbsent(to, pos -> new HashMap<>()).put(from, new Edge(edge.flow().reverse(), edge.length(), edge.delayMs()));
+        this.edges.computeIfAbsent(to, pos -> new HashMap<>()).put(from, new Edge(edge.flow().reverse(), edge.length(), edge.delayMs(), edge.spools()));
     }
 
     private void drop(long from, long to) {
@@ -186,7 +194,7 @@ public final class CableGraph extends SavedData {
             } else {
                 double v = edge.length() * link.type().delayMsPerBlock();
                 if (edge.delayMs() != v) {
-                    put(at, other, new Edge(edge.flow(), edge.length(), v));
+                    put(at, other, new Edge(edge.flow(), edge.length(), v, edge.spools()));
                     changed = true;
                 }
             }
@@ -202,6 +210,15 @@ public final class CableGraph extends SavedData {
 
     public boolean linked(BlockPos a, BlockPos b) {
         return this.edges.getOrDefault(a.asLong(), Map.of()).containsKey(b.asLong());
+    }
+
+    Map<Long, Map<Long, Edge>> edges() {
+        return this.edges;
+    }
+
+    OptionalInt spoolsBetween(BlockPos a, BlockPos b) {
+        Edge edge = this.edges.getOrDefault(a.asLong(), Map.of()).get(b.asLong());
+        return edge == null ? OptionalInt.empty() : OptionalInt.of(edge.spools());
     }
 
     public Set<Long> component(long start) {
@@ -317,7 +334,8 @@ public final class CableGraph extends SavedData {
             double length = edge.getDouble("Length");
             // Old save copper delay
             double delayMs = edge.contains("Delay") ? edge.getDouble("Delay") : length * CableType.COPPER_DELAY_MS_PER_BLOCK;
-            graph.put(from, to, new Edge(flow, length, delayMs));
+            int spools = edge.contains("Spools") ? Math.max(1, edge.getInt("Spools")) : Edge.spoolsFor(length);
+            graph.put(from, to, new Edge(flow, length, delayMs, spools));
         }
         long[] numbered = tag.getLongArray("Networked");
         int[] numbers = tag.getIntArray("Networks");
@@ -382,6 +400,7 @@ public final class CableGraph extends SavedData {
                     edge.putByte("Flow", (byte) to.getValue().flow().ordinal());
                     edge.putDouble("Length", to.getValue().length());
                     edge.putDouble("Delay", to.getValue().delayMs());
+                    edge.putInt("Spools", to.getValue().spools());
                     list.add(edge);
                 }
             }

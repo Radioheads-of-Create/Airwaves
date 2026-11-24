@@ -4,6 +4,8 @@ import dev.radioheads.airwaves.api.antenna.AntennaProfile;
 import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -89,12 +91,13 @@ public final class Cables {
             return false;
         }
 
+        int spools = spools(length(level, posA, posB));
         a.links().add(posB, type, CableLink.Flow.OUT);
         b.links().add(posA, type, CableLink.Flow.IN);
         if (level instanceof ServerLevel server) {
             Vec3 from = CableNodeSable.toGlobal(level, a, a.anchor());
             Vec3 to = CableNodeSable.toGlobal(level, b, b.anchor());
-            CableGraph.of(server).link(posA, a.line(), posB, b.line(), from.distanceTo(to), type);
+            CableGraph.of(server).link(posA, a.line(), posB, b.line(), from.distanceTo(to), spools, type);
             rewire(server, List.of(posA));
         }
         a.cablesChanged();
@@ -111,6 +114,7 @@ public final class Cables {
 
         List<BlockPos> touched = new ArrayList<>(List.of(pos));
         for (CableLink link : node.links().all()) {
+            int refund = refundSpools(level, pos, link.other());
             CableNode other = node(level, link.other());
             if (other != null && other.links().remove(pos)) {
                 other.cablesChanged();
@@ -119,7 +123,7 @@ public final class Cables {
                 CableGraph.of(server).unlink(pos, link.other());
             }
             touched.add(link.other());
-            cables.add(link.type().cable(spools(length(level, pos, link.other()))));
+            cables.add(link.type().cable(refund));
         }
 
         node.links().all().clear();
@@ -139,6 +143,7 @@ public final class Cables {
             return Optional.empty();
         }
 
+        int refund = refundSpools(level, a, b);
         boolean changedA = nodeA != null && nodeA.links().remove(b);
         boolean changedB = nodeB != null && nodeB.links().remove(a);
         if (level instanceof ServerLevel server) {
@@ -151,7 +156,17 @@ public final class Cables {
         if (changedB) {
             nodeB.cablesChanged();
         }
-        return Optional.of(link.get().type().cable(spools(length(level, a, b))));
+        return Optional.of(link.get().type().cable(refund));
+    }
+
+    private static int refundSpools(Level level, BlockPos a, BlockPos b) {
+        if (level instanceof ServerLevel server) {
+            OptionalInt paid = CableGraph.of(server).spoolsBetween(a, b);
+            if (paid.isPresent()) {
+                return paid.getAsInt();
+            }
+        }
+        return spools(length(level, a, b));
     }
 
     private static Optional<CableLink> linkBetween(@Nullable CableNode node, BlockPos other) {
@@ -199,6 +214,45 @@ public final class Cables {
         for (ItemStack cable : unlink(level, pos)) {
             level.addFreshEntity(new ItemEntity(level, center.x, center.y, center.z, cable));
         }
+    }
+
+    // Cables touching a sublevel can only stretch as far as the spools paid for them
+    public static void checkSublevelLinks(ServerLevel level) {
+        CableGraph graph = CableGraph.of(level);
+        for (Map.Entry<Long, Map<Long, CableGraph.Edge>> from : new ArrayList<>(graph.edges().entrySet())) {
+            for (Map.Entry<Long, CableGraph.Edge> to : new ArrayList<>(from.getValue().entrySet())) {
+                if (from.getKey() < to.getKey()) {
+                    snapIfStretched(level, BlockPos.of(from.getKey()), BlockPos.of(to.getKey()), to.getValue());
+                }
+            }
+        }
+    }
+
+    private static void snapIfStretched(ServerLevel level, BlockPos aPos, BlockPos bPos, CableGraph.Edge edge) {
+        CableNode a = node(level, aPos);
+        CableNode b = node(level, bPos);
+        if (a == null || b == null) {
+            return;
+        }
+        if (!CableNodeSable.inSubLevel(level, a) && !CableNodeSable.inSubLevel(level, b)) {
+            return;
+        }
+
+        int allowance = Math.max(1, edge.spools()) * BLOCKS_PER_SPOOL;
+        if (length(level, aPos, bPos) <= allowance) {
+            return;
+        }
+
+        Optional<ItemStack> refund = cut(level, aPos, bPos);
+        if (refund.isEmpty()) {
+            return;
+        }
+
+        Vec3 center = CableNodeSable.toGlobal(level, a, a.anchor())
+                .add(CableNodeSable.toGlobal(level, b, b.anchor()))
+                .scale(0.5);
+        level.addFreshEntity(new ItemEntity(level, center.x, center.y, center.z, refund.get()));
+        level.playSound(null, center.x, center.y, center.z, SoundEvents.CHAIN_BREAK, SoundSource.BLOCKS, 0.8F, 1.0F);
     }
 
     // Devices past the junctions nearest first

@@ -51,7 +51,7 @@ public final class CableCutterAim {
         }
 
         Vec3 eye = player.getEyePosition();
-        Optional<CableAim.Target> aimed = CableAim.aimed(level, eye, player.getViewVector(1.0F), player.blockInteractionRange());
+        Optional<CableAim.Target> aimed = CableAim.aimed(level, player, eye, player.getViewVector(1.0F), player.blockInteractionRange());
         if (aimed.isEmpty() || hidden(minecraft.hitResult, aimed.get(), eye)) {
             return;
         }
@@ -67,8 +67,12 @@ public final class CableCutterAim {
         if (hit == null || hit.getType() == HitResult.Type.MISS) {
             return false;
         }
-        if (hit instanceof BlockHitResult block && (block.getBlockPos().equals(aimed.from()) || block.getBlockPos().equals(aimed.to()))) {
-            return false;
+        if (hit instanceof BlockHitResult block) {
+            Vec3 location = hit.getLocation();
+            if (block.getBlockPos().equals(aimed.from()) || block.getBlockPos().equals(aimed.to())
+                    || location.distanceTo(aimed.fromAnchor()) < 1.5 || location.distanceTo(aimed.toAnchor()) < 1.5) {
+                return false;
+            }
         }
         return hit.getLocation().distanceTo(eye) < aimed.distance();
     }

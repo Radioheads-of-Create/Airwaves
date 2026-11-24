@@ -1,8 +1,11 @@
 package dev.radioheads.airwaves.api.cable;
 
 import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
+import dev.ryanhcode.sable.companion.SableCompanion;
+import dev.ryanhcode.sable.companion.SubLevelAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -112,15 +115,40 @@ public final class CableAim {
 
     // Nearest cable along the look
     public static Optional<Target> aimed(Level level, Vec3 eye, Vec3 look, double range) {
+        return aimed(level, null, eye, look, range);
+    }
+
+    public static Optional<Target> aimed(Level level, @Nullable Entity viewer, Vec3 eye, Vec3 look, double range) {
         Vec3 end = eye.add(look.normalize().scale(range));
         // Search radius
         double reach = range + Cables.MAX_LENGTH / 2.0 + MAX_SAG + 1.0;
-        int minX = SectionPos.blockToSectionCoord(eye.x - reach);
-        int maxX = SectionPos.blockToSectionCoord(eye.x + reach);
-        int minZ = SectionPos.blockToSectionCoord(eye.z - reach);
-        int maxZ = SectionPos.blockToSectionCoord(eye.z + reach);
         Set<Pair> seen = new HashSet<>();
-        Target best = null;
+        Target best = search(level, eye.x, eye.z, reach, eye, end, seen, null);
+
+        if (viewer != null) {
+            SubLevelAccess subLevel = SableCompanion.INSTANCE.getTrackingSubLevel(viewer);
+            if (subLevel == null) {
+                subLevel = SableCompanion.INSTANCE.getContaining(level, eye);
+            }
+            if (subLevel == null) {
+                subLevel = SableCompanion.INSTANCE.getLastTrackingSubLevel(viewer);
+            }
+            if (subLevel != null) {
+                Vec3 local = subLevel.logicalPose().transformPositionInverse(eye);
+                if (local.x != eye.x || local.z != eye.z) {
+                    best = search(level, local.x, local.z, reach, eye, end, seen, best);
+                }
+            }
+        }
+        return Optional.ofNullable(best);
+    }
+
+    @Nullable
+    private static Target search(Level level, double centerX, double centerZ, double reach, Vec3 eye, Vec3 end, Set<Pair> seen, @Nullable Target best) {
+        int minX = SectionPos.blockToSectionCoord(centerX - reach);
+        int maxX = SectionPos.blockToSectionCoord(centerX + reach);
+        int minZ = SectionPos.blockToSectionCoord(centerZ - reach);
+        int maxZ = SectionPos.blockToSectionCoord(centerZ + reach);
         for (int cx = minX; cx <= maxX; cx++) {
             for (int cz = minZ; cz <= maxZ; cz++) {
                 LevelChunk chunk = level.getChunkSource().getChunkNow(cx, cz);
@@ -134,7 +162,7 @@ public final class CableAim {
                 }
             }
         }
-        return Optional.ofNullable(best);
+        return best;
     }
 
     @Nullable
