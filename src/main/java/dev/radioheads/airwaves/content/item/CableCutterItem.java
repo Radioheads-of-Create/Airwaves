@@ -7,6 +7,7 @@ import dev.radioheads.airwaves.api.content.item.CableItem;
 import dev.radioheads.airwaves.integration.sable.blocks.CableNodeSable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -54,6 +55,7 @@ public class CableCutterItem extends Item {
         player.getInventory().placeItemBackInInventory(spools.get());
         player.containerMenu.broadcastChanges();
         player.displayClientMessage(CableItem.hint("cut"), true);
+        player.playSound(SoundEvents.SHEEP_SHEAR);
         return true;
     }
 }
