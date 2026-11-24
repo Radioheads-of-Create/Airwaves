@@ -7,11 +7,13 @@ import dev.radioheads.airwaves.registry.AirwaveRecipeTypes;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.lang.LangBuilder;
 import net.minecraft.resources.ResourceLocation;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // title case and snake to title case are from
 // https://github.com/kube-mods/kubejs/blob/2601/src/main/java/dev/latvian/mods/kubejs/plugin/builtin/wrapper/StringUtilsWrapper.java
@@ -44,6 +46,12 @@ public final class AirwaveLang extends Lang {
         return joiner.toString();
     }
 
+    public static String toHumanReadable(String key) {
+        String s = key.replace("_", " ");
+        s = Arrays.stream(StringUtils.splitByCharacterTypeCamelCase(s)).map(StringUtils::capitalize).collect(Collectors.joining(" "));
+        s = StringUtils.normalizeSpace(s);
+        return s;
+    }
 
     /**
      * Capitalizes the first letter of the string unless it is "a", "an", "the", "of", "on", "in", "and", "or", "but" or "for"
