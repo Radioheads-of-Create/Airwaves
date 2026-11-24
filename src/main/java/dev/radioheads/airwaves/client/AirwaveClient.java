@@ -5,9 +5,11 @@ import dev.radioheads.airwaves.client.hf.HfTransceiverHud;
 import dev.radioheads.airwaves.client.telephone.TelephoneHud;
 import dev.radioheads.airwaves.content.block.HfTransceiverBlock;
 import dev.radioheads.airwaves.content.screen.TuningTableScreen;
+import dev.radioheads.airwaves.integration.ponder.AirwavePonderPlugin;
 import dev.radioheads.airwaves.registry.AirwaveBlocks;
 import dev.radioheads.airwaves.registry.AirwaveItems;
 import dev.radioheads.airwaves.registry.AirwaveMenuTypes;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.BlockItemStateProperties;
@@ -48,7 +50,8 @@ public class AirwaveClient {
 
     // HF transceiver item finish
     @SubscribeEvent
-    public static void setup(FMLClientSetupEvent event) {
+    public static void setup(final FMLClientSetupEvent event) {
+        PonderIndex.addPlugin(new AirwavePonderPlugin());
         event.enqueueWork(() -> ItemProperties.register(AirwaveBlocks.HF_TRANSCEIVER.asItem(), Airwaves.asResource("finish"), (stack, level, entity, seed) -> {
             BlockItemStateProperties properties = stack.get(DataComponents.BLOCK_STATE);
             return properties != null && properties.get(HfTransceiverBlock.FINISH) == HfTransceiverBlock.Finish.BLACK ? 1.0F : 0.0F;

@@ -3,14 +3,16 @@ package dev.radioheads.airwaves.registry;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import dev.radioheads.airwaves.Airwaves;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
 
 public class AirwaveFluids {
     private AirwaveFluids() {}
 
-    public static final FluidEntry<VirtualFluid>
+    public static final FluidEntry<BaseFlowingFluid.Flowing>
         SALT_SOLUTION = Airwaves.registrate()
             //TODO fix the fluid, why texture no work?? datagen doesnt like .standardFluid
-            .virtualFluid("salt_solution")
+            .standardFluid("salt_solution")
+            .defaultBlock()
             .register();
 
     public static final FluidEntry<VirtualFluid>

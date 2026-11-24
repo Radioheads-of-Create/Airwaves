@@ -1,11 +1,15 @@
 package dev.radioheads.airwaves;
 
 import dev.radioheads.airwaves.api.antenna.CompassPoint;
+import dev.radioheads.airwaves.api.util.Pair;
+import dev.radioheads.airwaves.integration.ponder.AirwavePonderTags;
 import dev.radioheads.airwaves.registry.AirwaveRecipeTypes;
 import net.createmod.catnip.lang.Lang;
 import net.createmod.catnip.lang.LangBuilder;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.ApiStatus;
-import oshi.util.tuples.Pair;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -80,7 +84,7 @@ public final class AirwaveLang extends Lang {
     public static void init() {
         lang = new ArrayList<>();
         collect();
-        lang.forEach(pair -> Airwaves.registrate().addRawLang(pair.getA(), pair.getB()));
+        lang.forEach(pair -> Airwaves.registrate().addRawLang(pair.left(), pair.right()));
         lang = null;
     }
 
@@ -184,6 +188,13 @@ public final class AirwaveLang extends Lang {
         addAdvancement("speaker_cone", "Good Morning Vietnam!", "Obtain a radio");
         addAdvancement("resistor", "Join the resistance", "Ohmmmmmm...");
         addAdvancement("pressed_shape", "The shape goes into a shape press that presses the shape into a pressed shape", "Press a shape into a pressed shape");
+
+        PonderLang.create(AirwavePonderTags.RADIO)
+                .header("Radio")
+                .text("insert text here")
+                .tagTitle("Radios")
+                .describeTag("All about the radio system")
+                .generateLang();
     }
 
     private static void add(String key, String value) {
@@ -191,7 +202,11 @@ public final class AirwaveLang extends Lang {
     }
 
     private static void addBasic(String key, String value) {
-        lang.add(new Pair<>(key, value));
+        lang.add(Pair.of(key, value));
+    }
+
+    private static void addBasic(Pair<String, String> pair) {
+        lang.add(pair);
     }
 
     private static void addAdvancement(String key, String title, String description) {
@@ -205,5 +220,74 @@ public final class AirwaveLang extends Lang {
     
     private static void addHf(String key, String value) {
         add("hf_transceiver." + key, value);
+    }
+
+    private static void ponder(String key, String value) {
+        add("ponder." + key, value);
+    }
+
+    private static class PonderLang {
+        private final String type;
+        private final List<Pair<String, String>> toGenerate = new ArrayList<>();
+        private final List<Pair<String, String>> ponderTexts = new ArrayList<>();
+
+        private PonderLang(@NotNull ResourceLocation type) {
+            this.type = type.getPath();
+        }
+
+        @Contract("_ -> new")
+        public static @NotNull PonderLang create(ResourceLocation type) {
+            return new PonderLang(type);
+        }
+
+        public PonderLang header(String header) {
+            lang(key("header"), header);
+            return this;
+        }
+
+        public PonderLang text(String text) {
+            ponderLang(key("text_" + (ponderTexts.size() + 1)), text);
+            return this;
+        }
+
+        public PonderLang tagTitle(String title) {
+            lang(baseTag(), title);
+            return this;
+        }
+
+        public PonderLang describeTag(String tag) {
+            lang(keyTag("description"), tag);
+            return this;
+        }
+
+        private void lang(String key, String value) {
+            toGenerate.add(Pair.of(key, value));
+        }
+
+        private void ponderLang(String key, String value) {
+            ponderTexts.add(Pair.of(key, value));
+        }
+
+        private String key(String key) {
+          return "airwaves.ponder." + type + "." + key;
+        }
+
+        private String keyTag(String key) {
+            return baseTag() + "." + key;
+        }
+
+        private String baseTag() {
+            return "airwaves.ponder.tag." + type;
+        }
+
+        public void generateLang() {
+            for (var pair : toGenerate) {
+                addBasic(pair);
+            }
+
+            for (var pair : ponderTexts) {
+                addBasic(pair);
+            }
+        }
     }
 }
