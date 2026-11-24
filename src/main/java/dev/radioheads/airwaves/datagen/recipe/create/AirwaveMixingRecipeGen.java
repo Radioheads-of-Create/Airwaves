@@ -7,7 +7,6 @@ import dev.radioheads.airwaves.registry.AirwaveFluids;
 import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.concurrent.CompletableFuture;

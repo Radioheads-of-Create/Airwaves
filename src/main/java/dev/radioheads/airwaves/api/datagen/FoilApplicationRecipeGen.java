@@ -1,7 +1,6 @@
 package dev.radioheads.airwaves.api.datagen;
 
 import com.simibubi.create.api.data.recipe.ProcessingRecipeGen;
-import com.simibubi.create.api.data.recipe.StandardProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.radioheads.airwaves.api.recipe.foil.FoilApplicationRecipeParams;
 import dev.radioheads.airwaves.content.recipe.FoilApplicationRecipe;

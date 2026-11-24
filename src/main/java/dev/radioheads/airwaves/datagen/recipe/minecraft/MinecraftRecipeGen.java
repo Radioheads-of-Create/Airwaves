@@ -7,7 +7,6 @@ import dev.radioheads.airwaves.registry.AirwaveItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.ArmorDyeRecipe;
 import net.minecraft.world.item.crafting.Ingredient;

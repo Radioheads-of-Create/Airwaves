@@ -80,7 +80,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     @Override
     public void lazyTick() {
         super.lazyTick();
-        if (!this.level.isClientSide) {
+        if (this.level != null && !this.level.isClientSide) {
             scanCables();
         }
     }
@@ -92,6 +92,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     @Override
     public void tick() {
         super.tick();
+        if (this.level == null) return;
         if (this.level.isClientSide) {
             holdArm();
             return;
@@ -113,6 +114,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
 
     // Holder's arm frozen part way through a swing
     private void holdArm() {
+        if (this.level == null) return;
         Player player = this.holder == null ? null : this.level.getPlayerByUUID(this.holder);
         if (player != null) {
             player.swinging = true;
@@ -122,7 +124,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     }
 
     public void press(ServerPlayer player) {
-        if (this.holder != null && !this.holder.equals(player.getUUID())) {
+        if (this.level == null || this.holder != null && !this.holder.equals(player.getUUID())) {
             return;
         }
         this.wasOn = this.on;
@@ -132,7 +134,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     }
 
     public void release(ServerPlayer player) {
-        if (!player.getUUID().equals(this.holder)) {
+        if (this.level == null || !player.getUUID().equals(this.holder)) {
             return;
         }
         boolean tapped = this.level.getGameTime() - this.pressedAt < HOLD_TICKS;
@@ -174,7 +176,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     }
 
     private Direction facing() {
-        return getBlockState().getValue(getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.FACING : TurtleMicBlock.FACING);
+        return getBlockState().getValue(MicrophoneBlock.FACING);
     }
 
     private Vec3 model(Vec3 pixels) {
