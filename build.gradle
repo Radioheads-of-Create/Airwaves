@@ -1,8 +1,9 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.148'
     id 'idea'
+    id 'net.neoforged.moddev' version '2.0.148'
+    id "me.modmuss50.mod-publish-plugin" version "2.2.1"
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -201,5 +202,94 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+publishMods {
+    file = tasks.named('jar').flatMap { it.archiveFile }
+    type = STABLE
+    modLoaders.add("neoforge")
+
+    curseforge {
+        projectId = "1833040"
+        projectSlug = "airwave"
+        accessToken = findProperty("tokens.curseforge")
+        minecraftVersions.add("1.21.1")
+        client = true
+        server = true
+        javaVersions.add(JavaVersion.VERSION_21)
+        announcementTitle = "Download from CurseForge"
+
+        requires {
+            slug = "create"
+            version = "6.0.10"
+        }
+
+        requires {
+            slug = "simple-voice-chat"
+            version = "neoforge-${minecraft_version}-${voicechat_api_version}"
+        }
+
+        optional {
+            slug = "curios"
+            version = "${curios_version}"
+        }
+
+        optional {
+            slug = "sable"
+            version = "${sable_version}+mc${minecraft_version}"
+        }
+
+        optional {
+            slug = "jei"
+            version = "${jei_version}"
+        }
+
+        optional {
+            slug = "cc-tweaked"
+            version = "${cc_tweaked_version}"
+        }
+    }
+
+    modrinth {
+        projectId = "JW0OF7KN"
+        accessToken = findProperty("tokens.modrinth")
+        minecraftVersions.add("1.21.1")
+        environment = CLIENT_AND_SERVER
+        announcementTitle = "Download from Modrinth"
+
+        requires {
+            slug = "create"
+            version = "6.0.10"
+        }
+
+        requires {
+            slug = "simple-voice-chat"
+            version = "neoforge-${minecraft_version}-${voicechat_api_version}"
+        }
+
+        optional {
+            slug = "curios"
+            version = "${curios_version}"
+        }
+
+        optional {
+            slug = "sable"
+            version = "${sable_version}+mc${minecraft_version}"
+        }
+
+        optional {
+            slug = "jei"
+            version = "${jei_version}"
+        }
+
+        optional {
+            slug = "cc-tweaked"
+            version = "${cc_tweaked_version}"
+        }
+    }
+
+    discord {
+        webhookUrl = findProperty("airwaves.discord.webhook")
     }
 }
