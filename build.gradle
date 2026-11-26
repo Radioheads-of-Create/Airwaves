@@ -220,35 +220,13 @@ publishMods {
         javaVersions.add(JavaVersion.VERSION_21)
         announcementTitle = "Download from CurseForge"
 
-        requires {
-            slug = "create"
-            version = "6.0.10"
-        }
+        requires("create")
+        requires("simple-voice-chat")
 
-        requires {
-            slug = "simple-voice-chat"
-            version = "neoforge-${minecraft_version}-${voicechat_api_version}"
-        }
-
-        optional {
-            slug = "curios"
-            version = "${curios_version}"
-        }
-
-        optional {
-            slug = "sable"
-            version = "${sable_version}+mc${minecraft_version}"
-        }
-
-        optional {
-            slug = "jei"
-            version = "${jei_version}"
-        }
-
-        optional {
-            slug = "cc-tweaked"
-            version = "${cc_tweaked_version}"
-        }
+        optional("curios")
+        optional("sable")
+        optional("jei")
+        optional("cc-tweaked")
     }
 
     modrinth {
