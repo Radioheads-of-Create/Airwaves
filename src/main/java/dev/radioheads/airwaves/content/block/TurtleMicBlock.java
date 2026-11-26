@@ -2,10 +2,7 @@ package dev.radioheads.airwaves.content.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
-import dev.radioheads.airwaves.api.util.Vec3Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 @NothingNullByDefault

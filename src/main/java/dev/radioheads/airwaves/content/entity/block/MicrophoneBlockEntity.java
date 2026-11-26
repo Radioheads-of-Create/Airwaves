@@ -10,7 +10,6 @@ import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.api.radio.RadioStation;
 import dev.radioheads.airwaves.api.util.Vec3Util;
 import dev.radioheads.airwaves.content.block.AbstractMicrophoneBlock;
-import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.MicrophoneBlockLike;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
