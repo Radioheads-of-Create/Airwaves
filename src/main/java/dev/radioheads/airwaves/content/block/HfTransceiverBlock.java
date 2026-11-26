@@ -5,6 +5,7 @@ import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.content.item.CableItem;
 import dev.radioheads.airwaves.api.radio.Tuning;
 import dev.radioheads.airwaves.api.registry.radio.RadioBandEntry;
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import dev.radioheads.airwaves.content.entity.block.HfTransceiverBlockEntity;
 import dev.radioheads.airwaves.registry.AirwaveBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -117,8 +118,8 @@ public class HfTransceiverBlock extends CabledKineticBlock<HfTransceiverBlockEnt
     }
 
     private static VoxelShape box(Direction facing, float[] box) {
-        Vec3 a = HfTransceiverPanel.toBlock(facing, box[0], box[1], box[2]);
-        Vec3 b = HfTransceiverPanel.toBlock(facing, box[3], box[4], box[5]);
+        Vec3 a = Vec3Util.toBlock(facing, box[0], box[1], box[2]);
+        Vec3 b = Vec3Util.toBlock(facing, box[3], box[4], box[5]);
         return Shapes.box(Math.min(a.x, b.x), Math.min(a.y, b.y), Math.min(a.z, b.z), Math.max(a.x, b.x), Math.max(a.y, b.y), Math.max(a.z, b.z));
     }
 

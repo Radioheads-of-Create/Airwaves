@@ -8,6 +8,7 @@ import dev.radioheads.airwaves.api.cable.CableLinks;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.api.radio.RadioStation;
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import dev.radioheads.airwaves.content.block.AbstractMicrophoneBlock;
 import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.MicrophoneBlockLike;
@@ -193,7 +194,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements AudioReco
     }
 
     private Vec3 model(Vec3 pixels) {
-        return Vec3.atLowerCornerOf(this.worldPosition).add(HfTransceiverPanel.toBlock(facing(), pixels.x, pixels.y, pixels.z));
+        return Vec3.atLowerCornerOf(this.worldPosition).add(Vec3Util.toBlock(facing(), pixels.x, pixels.y, pixels.z));
     }
 
     @Override

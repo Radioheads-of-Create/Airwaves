@@ -2,6 +2,7 @@ package dev.radioheads.airwaves.content.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,7 +37,7 @@ public class TurtleMicBlock extends AbstractMicrophoneBlock {
 
     // Knob and the stand around it
     public boolean onKnob(BlockState state, BlockPos pos, Vec3 hit) {
-        Vec3 model = HfTransceiverPanel.toModel(state.getValue(FACING), pos, hit);
+        Vec3 model = Vec3Util.toModel(state.getValue(FACING), pos, hit);
         return Math.abs(model.x - KNOB.x) <= 2.5 && Math.abs(model.y - KNOB.y) <= 2.0 && model.z <= 9.0;
     }
 }

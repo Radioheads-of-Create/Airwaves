@@ -1,5 +1,6 @@
 package dev.radioheads.airwaves.content.block;
 
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -20,7 +21,7 @@ public interface MicrophoneBlockLike {
         if (knob == null) {
             return false;
         }
-        Vec3 model = HfTransceiverPanel.toModel(facing(state), pos, hit);
+        Vec3 model = Vec3Util.toModel(facing(state), pos, hit);
         return Math.abs(model.x - knob.x) <= 2.5 && Math.abs(model.y - knob.y) <= 2.0 && model.z <= 9.0;
     }
 

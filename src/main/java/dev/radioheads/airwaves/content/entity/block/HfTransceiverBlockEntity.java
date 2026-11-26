@@ -3,6 +3,7 @@ package dev.radioheads.airwaves.content.entity.block;
 import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.antenna.AntennaProfile;
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import dev.radioheads.airwaves.content.block.HfTransceiverBlock;
 import dev.radioheads.airwaves.content.block.HfTransceiverControl;
 import dev.radioheads.airwaves.content.block.HfTransceiverHints;
@@ -69,7 +70,7 @@ public class HfTransceiverBlockEntity extends TransmitterBlockEntity {
     @Override
     public Vec3 anchor() {
         float[] socket = HfTransceiverControl.ANTENNA;
-        return Vec3.atLowerCornerOf(this.worldPosition).add(HfTransceiverPanel.toBlock(facing(), socket[0], socket[1], socket[2]));
+        return Vec3.atLowerCornerOf(this.worldPosition).add(Vec3Util.toBlock(facing(), socket[0], socket[1], socket[2]));
     }
 
     private Direction facing() {

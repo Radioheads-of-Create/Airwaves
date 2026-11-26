@@ -2,6 +2,7 @@ package dev.radioheads.airwaves.content.block;
 
 import com.simibubi.create.foundation.block.IBE;
 import dev.radioheads.airwaves.api.cable.Cables;
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
 import dev.radioheads.airwaves.registry.AirwaveBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -60,8 +61,8 @@ public abstract class AbstractMicrophoneBlock extends HorizontalDirectionalBlock
     private VoxelShape shape(Direction facing) {
         VoxelShape shape = Shapes.empty();
         for (float[] box : this.boxes) {
-            Vec3 a = HfTransceiverPanel.toBlock(facing, box[0], box[1], box[2]);
-            Vec3 b = HfTransceiverPanel.toBlock(facing, box[3], box[4], box[5]);
+            Vec3 a = Vec3Util.toBlock(facing, box[0], box[1], box[2]);
+            Vec3 b = Vec3Util.toBlock(facing, box[3], box[4], box[5]);
             shape = Shapes.or(shape, Shapes.box(Math.min(a.x, b.x), Math.min(a.y, b.y), Math.min(a.z, b.z),
                     Math.max(a.x, b.x), Math.max(a.y, b.y), Math.max(a.z, b.z)));
         }
