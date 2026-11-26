@@ -35,9 +35,8 @@ public class TurtleMicBlock extends AbstractMicrophoneBlock {
         return CODEC;
     }
 
-    // Knob and the stand around it
-    public boolean onKnob(BlockState state, BlockPos pos, Vec3 hit) {
-        Vec3 model = Vec3Util.toModel(state.getValue(FACING), pos, hit);
-        return Math.abs(model.x - KNOB.x) <= 2.5 && Math.abs(model.y - KNOB.y) <= 2.0 && model.z <= 9.0;
+    @Override
+    public Vec3 knobVec() {
+        return KNOB;
     }
 }

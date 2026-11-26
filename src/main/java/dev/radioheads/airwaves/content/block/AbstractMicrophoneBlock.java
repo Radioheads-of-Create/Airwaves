@@ -34,6 +34,8 @@ public abstract class AbstractMicrophoneBlock extends HorizontalDirectionalBlock
     private final float[][] boxes;
     private final Map<Direction, VoxelShape> shapes = new EnumMap<>(Direction.class);
 
+    public static final Vec3 KNOB = new Vec3(8.0, 3.0, 6.75);
+
     protected AbstractMicrophoneBlock(Properties properties, Vec3 capsule, Vec3 socket, @Nullable Vec3 knob, float[][] boxes) {
         super(properties);
         this.capsule = capsule;
@@ -96,6 +98,16 @@ public abstract class AbstractMicrophoneBlock extends HorizontalDirectionalBlock
     @Nullable
     public Vec3 knob() {
         return this.knob;
+    }
+
+    public Vec3 knobVec() {
+        return KNOB;
+    }
+
+    // Knob and the stand around it
+    public boolean onKnob(BlockState state, BlockPos pos, Vec3 hit) {
+        Vec3 model = Vec3Util.toModel(state.getValue(FACING), pos, hit);
+        return Math.abs(model.x - knobVec().x) <= 2.5 && Math.abs(model.y - knobVec().y) <= 2.0 && model.z <= 9.0;
     }
 
     @Override
