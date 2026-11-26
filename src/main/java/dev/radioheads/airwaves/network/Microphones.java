@@ -1,7 +1,7 @@
 package dev.radioheads.airwaves.network;
 
 import dev.radioheads.airwaves.Airwaves;
-import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
+import dev.radioheads.airwaves.api.audio.AudioRecorder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.BlockGetter;
@@ -19,35 +19,34 @@ import java.util.function.Function;
 public final class Microphones {
     public static final double RANGE = 2.0;
 
-    private static final Map<ResourceKey<Level>, Set<MicrophoneBlockEntity>> LOADED = new HashMap<>();
+    private static final Map<ResourceKey<Level>, Set<AudioRecorder>> LOADED = new HashMap<>();
 
     private Microphones() {}
 
-    public static void add(Level level, MicrophoneBlockEntity microphone) {
-        LOADED.computeIfAbsent(level.dimension(), key -> new LinkedHashSet<>()).add(microphone);
+    public static void add(Level level, AudioRecorder recorder) {
+        LOADED.computeIfAbsent(level.dimension(), key -> new LinkedHashSet<>()).add(recorder);
     }
 
-    public static void remove(Level level, MicrophoneBlockEntity microphone) {
-        Set<MicrophoneBlockEntity> microphones = LOADED.get(level.dimension());
-        if (microphones != null) {
-            microphones.remove(microphone);
+    public static void remove(Level level, AudioRecorder recorder) {
+        Set<AudioRecorder> recorders = LOADED.get(level.dimension());
+        if (recorders != null) {
+            recorders.remove(recorder);
         }
     }
 
-    public static Set<MicrophoneBlockEntity> in(Level level) {
+    public static Set<AudioRecorder> in(Level level) {
         return LOADED.getOrDefault(level.dimension(), Set.of());
     }
 
-    // Switched on cabled microphones that hear a sound nearest first
-    public static List<MicrophoneBlockEntity> hearing(Level level, Vec3 sound, BlockPos source) {
-        List<MicrophoneBlockEntity> hearing = new ArrayList<>();
-        for (MicrophoneBlockEntity microphone : in(level)) {
-            if (microphone.on() && microphone.gain() > 0.0F && hears(shapes(level), microphone.capsule(), microphone.getBlockPos(), sound, source)
-                    && microphone.station().isPresent()) {
-                hearing.add(microphone);
+    // Switched on, cabled recorders that hear a sound nearest first
+    public static List<AudioRecorder> hearing(Level level, Vec3 sound, BlockPos source) {
+        List<AudioRecorder> hearing = new ArrayList<>();
+        for (AudioRecorder recorder : in(level)) {
+            if (recorder.active() && hears(shapes(level), recorder.capsule(), recorder.getBlockPos(), sound, source)) {
+                hearing.add(recorder);
             }
         }
-        hearing.sort(Comparator.comparingDouble(microphone -> microphone.capsule().distanceToSqr(sound)));
+        hearing.sort(Comparator.comparingDouble(recorder -> recorder.capsule().distanceToSqr(sound)));
         return hearing;
     }
 

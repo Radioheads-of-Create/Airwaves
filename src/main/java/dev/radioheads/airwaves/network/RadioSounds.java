@@ -2,12 +2,12 @@ package dev.radioheads.airwaves.network;
 
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.antenna.AntennaProfile;
+import dev.radioheads.airwaves.api.audio.AudioRecorder;
 import dev.radioheads.airwaves.api.link.LinkEnd;
 import dev.radioheads.airwaves.api.radio.Modulation;
 import dev.radioheads.airwaves.api.radio.RadioBand;
 import dev.radioheads.airwaves.api.radio.RadioStation;
 import dev.radioheads.airwaves.api.radio.Tuning;
-import dev.radioheads.airwaves.content.entity.block.MicrophoneBlockEntity;
 import dev.radioheads.airwaves.network.payload.RadioSongPayload;
 import dev.radioheads.airwaves.network.payload.RadioSoundPayload;
 import net.minecraft.core.BlockPos;
@@ -79,13 +79,13 @@ public final class RadioSounds {
 
     private static void relay(ServerLevel level, Holder<SoundEvent> sound, SoundSource source, Vec3 position, float volume, float pitch) {
         Set<UUID> stations = new HashSet<>();
-        for (MicrophoneBlockEntity microphone : Microphones.hearing(level, position, BlockPos.containing(position))) {
-            Optional<RadioStation> station = microphone.station();
+        for (AudioRecorder recorder : Microphones.hearing(level, position, BlockPos.containing(position))) {
+            Optional<RadioStation> station = recorder.station();
             if (station.isEmpty() || !stations.add(station.get().id())) {
                 continue;
             }
 
-            RadioVoice.Feed feed = RadioVoice.feed(level, station.get().id(), microphone.id(), microphone.gain());
+            RadioVoice.Feed feed = RadioVoice.feed(level, station.get().id(), recorder.id(), recorder.gain());
             feed.spoke();
             for (RadioVoice.Delivery delivery : feed.deliveries()) {
                 float quality = quality(delivery);
@@ -217,9 +217,9 @@ public final class RadioSounds {
 
         Set<UUID> listening = new HashSet<>();
         for (ServerLevel level : server.getAllLevels()) {
-            for (MicrophoneBlockEntity microphone : Microphones.in(level)) {
-                listening.add(microphone.id());
-                listen(level, microphone);
+            for (AudioRecorder recorder : Microphones.in(level)) {
+                listening.add(recorder.id());
+                listen(level, recorder);
             }
         }
 
@@ -232,11 +232,11 @@ public final class RadioSounds {
         });
     }
 
-    private static void listen(ServerLevel level, MicrophoneBlockEntity microphone) {
-        UUID id = microphone.id();
-        Optional<RadioStation> station = microphone.station();
-        boolean live = station.isPresent() && microphone.on() && microphone.gain() > 0.0F;
-        Optional<Playing> playing = live ? playing(level, microphone) : Optional.empty();
+    private static void listen(ServerLevel level, AudioRecorder recorder) {
+        UUID id = recorder.id();
+        Optional<RadioStation> station = recorder.station();
+        boolean live = recorder.active();
+        Optional<Playing> playing = live ? playing(level, recorder) : Optional.empty();
 
         Relay relay = RELAYS.get(id);
         if (relay != null && (playing.isEmpty() || !relay.carries(playing.get()))) {
@@ -253,7 +253,7 @@ public final class RadioSounds {
         }
         relay.ticks = playing.get().ticks();
 
-        RadioVoice.Feed feed = RadioVoice.feed(level, station.get().id(), id, microphone.gain());
+        RadioVoice.Feed feed = RadioVoice.feed(level, station.get().id(), id, recorder.gain());
         feed.spoke();
         Set<Track> reached = new HashSet<>();
         for (RadioVoice.Delivery delivery : feed.deliveries()) {
@@ -286,15 +286,15 @@ public final class RadioSounds {
     }
 
     // Jukebox in earshot of the capsule
-    private static Optional<Playing> playing(ServerLevel level, MicrophoneBlockEntity microphone) {
-        Vec3 capsule = microphone.capsule();
+    private static Optional<Playing> playing(ServerLevel level, AudioRecorder recorder) {
+        Vec3 capsule = recorder.capsule();
         int reach = Mth.ceil(Microphones.RANGE);
         BlockPos centre = BlockPos.containing(capsule);
         for (BlockPos pos : BlockPos.betweenClosed(centre.offset(-reach, -reach, -reach), centre.offset(reach, reach, reach))) {
             if (level.isLoaded(pos) && level.getBlockEntity(pos) instanceof JukeboxBlockEntity jukebox) {
                 JukeboxSongPlayer player = jukebox.getSongPlayer();
                 JukeboxSong song = player.getSong();
-                if (song != null && Microphones.hears(Microphones.shapes(level), capsule, microphone.getBlockPos(), Vec3.atCenterOf(pos), pos)) {
+                if (song != null && Microphones.hears(Microphones.shapes(level), capsule, recorder.getBlockPos(), Vec3.atCenterOf(pos), pos)) {
                     return Optional.of(new Playing(pos.immutable(), song, player.getTicksSinceSongStarted()));
                 }
             }

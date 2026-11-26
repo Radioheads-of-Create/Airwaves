@@ -3,8 +3,7 @@ package dev.radioheads.airwaves.client.input;
 import com.simibubi.create.AllItems;
 import dev.radioheads.airwaves.Airwaves;
 import dev.radioheads.airwaves.api.content.item.CableItem;
-import dev.radioheads.airwaves.content.block.MicrophoneBlock;
-import dev.radioheads.airwaves.content.block.TurtleMicBlock;
+import dev.radioheads.airwaves.content.block.MicrophoneBlockLike;
 import dev.radioheads.airwaves.network.payload.MicrophonePayload;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -66,8 +65,12 @@ public final class MicrophoneInput {
         Minecraft minecraft = Minecraft.getInstance();
         BlockPos target = target(minecraft);
         int delta = (int) Math.signum(event.getScrollDeltaY());
-        if (target == null || delta == 0 || !(minecraft.hitResult instanceof BlockHitResult hit)
-                || !(minecraft.level.getBlockState(target).getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.onKnob(minecraft.level.getBlockState(target), target, hit.getLocation()) : TurtleMicBlock.onKnob(minecraft.level.getBlockState(target), target, hit.getLocation()))) {
+        if (target == null || delta == 0 || minecraft.level == null || !(minecraft.hitResult instanceof BlockHitResult hit)) {
+            return;
+        }
+        BlockState state = minecraft.level.getBlockState(target);
+        MicrophoneBlockLike microphone = MicrophoneBlockLike.of(state);
+        if (microphone == null || !microphone.onKnob(state, target, hit.getLocation())) {
             return;
         }
         event.setCanceled(true);
@@ -86,7 +89,7 @@ public final class MicrophoneInput {
         }
         BlockState state = minecraft.level.getBlockState(hit.getBlockPos());
         ItemStack held = player.getMainHandItem();
-        if (!(state.getBlock() instanceof MicrophoneBlock || state.getBlock() instanceof TurtleMicBlock) || held.getItem() instanceof CableItem || AllItems.WRENCH.isIn(held)) {
+        if (!(state.getBlock() instanceof MicrophoneBlockLike) || held.getItem() instanceof CableItem || AllItems.WRENCH.isIn(held)) {
             return null;
         }
         return hit.getBlockPos();
