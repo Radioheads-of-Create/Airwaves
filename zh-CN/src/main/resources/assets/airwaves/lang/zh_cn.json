@@ -84,6 +84,8 @@
   "airwaves.section.creative": "创造模式",
   "airwaves.section.hardware": "硬件",
   "airwaves.section.materials": "材料",
+  "airwaves.section.processed_materials": "Processed Materials",
+  "airwaves.section.raw_materials": "Raw Materials",
   "airwaves.subtitle.telephone_ring": "电话铃响",
   "airwaves.telephone.confirm": "确认号码",
   "airwaves.telephone.dial": "拨打 %s",
