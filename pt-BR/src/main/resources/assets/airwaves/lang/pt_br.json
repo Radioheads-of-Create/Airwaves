@@ -84,6 +84,8 @@
   "airwaves.section.creative": "Creative",
   "airwaves.section.hardware": "Hardware",
   "airwaves.section.materials": "Materiais",
+  "airwaves.section.processed_materials": "Processed Materials",
+  "airwaves.section.raw_materials": "Raw Materials",
   "airwaves.subtitle.telephone_ring": "Telefone toca",
   "airwaves.telephone.confirm": "Confirme o número",
   "airwaves.telephone.dial": "Dial %s",
