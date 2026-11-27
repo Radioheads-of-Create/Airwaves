@@ -84,6 +84,8 @@
   "airwaves.section.creative": "Yaratıcı",
   "airwaves.section.hardware": "Donanım",
   "airwaves.section.materials": "Malzemeler",
+  "airwaves.section.processed_materials": "Processed Materials",
+  "airwaves.section.raw_materials": "Raw Materials",
   "airwaves.subtitle.telephone_ring": "Telefon çalıyor",
   "airwaves.telephone.confirm": "Numarayı doğrula",
   "airwaves.telephone.dial": "Tuşla: %s",
