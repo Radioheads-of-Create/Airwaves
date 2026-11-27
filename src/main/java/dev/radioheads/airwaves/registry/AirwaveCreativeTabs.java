@@ -44,13 +44,16 @@ public class AirwaveCreativeTabs {
                         List.of(AirwaveBlocks.COPPER_ANTENNA_ROD, AirwaveBlocks.GOLD_ANTENNA_ROD, AirwaveBlocks.SILVER_ANTENNA_ROD,
                                 AirwaveBlocks.COPPER_ROD_BASE, AirwaveBlocks.GOLD_ROD_BASE, AirwaveBlocks.SILVER_ROD_BASE,
                                 AirwaveBlocks.ANDESITE_INSULATOR, AirwaveBlocks.BRASS_INSULATOR, AirwaveItems.CABLE_CUTTER))),
-                new Section("materials", List.of(
-                        List.of(AirwaveBlocks.SILVER_ORE, AirwaveItems.RAW_SILVER, AirwaveItems.SILVER_INGOT, AirwaveItems.SILVER_NUGGET,
-                                AirwaveBlocks.SILVER_BLOCK, AirwaveItems.SILVER_SHEET, AirwaveItems.COPPER_WIRE, AirwaveItems.GOLD_WIRE, AirwaveItems.SILVER_WIRE),
-                        List.of(AirwaveItems.COPPER_SPOOL, AirwaveItems.GOLD_SPOOL, AirwaveItems.SILVER_SPOOL,
-                                AirwaveItems.COPPER_CABLE_SPOOL, AirwaveItems.GOLD_CABLE_SPOOL, AirwaveItems.SILVER_CABLE_SPOOL,
-                                AirwaveItems.COPPER_FOIL, AirwaveItems.GOLD_FOIL, AirwaveItems.SILVER_FOIL),
-                        List.of(AirwaveItems.MOSS_FOIL, AirwaveItems.EMPTY_SPOOL, AirwaveBlocks.SILVER_CASING, AirwaveItems.CUT_AMETHYST, AirwaveItems.SILVER_PRECISION_MECHANISM, AirwaveItems.ROCK_SALT))),
+                new Section("raw_materials", List.of(
+                        List.of(AirwaveBlocks.SILVER_ORE, AirwaveItems.RAW_SILVER, AirwaveItems.SILVER_INGOT, AirwaveItems.SILVER_NUGGET, AirwaveBlocks.SILVER_BLOCK, AirwaveItems.SILVER_SHEET),
+                        List.of(AirwaveItems.CUT_AMETHYST, AirwaveItems.ROCK_SALT),
+                        List.of(AirwaveItems.EMPTY_SPOOL)
+                )),
+                new Section("processed_materials", List.of(
+                        List.of(AirwaveItems.COPPER_WIRE, AirwaveItems.GOLD_WIRE, AirwaveItems.SILVER_WIRE, AirwaveItems.COPPER_SPOOL, AirwaveItems.GOLD_SPOOL, AirwaveItems.SILVER_SPOOL,
+                                AirwaveItems.COPPER_CABLE_SPOOL, AirwaveItems.GOLD_CABLE_SPOOL, AirwaveItems.SILVER_CABLE_SPOOL),
+                        List.of(AirwaveItems.COPPER_FOIL, AirwaveItems.GOLD_FOIL, AirwaveItems.SILVER_FOIL, AirwaveItems.MOSS_FOIL),
+                        List.of(AirwaveBlocks.SILVER_CASING, AirwaveItems.SILVER_PRECISION_MECHANISM))),
                 new Section("circuitry", List.of(
                         List.of(AirwaveItems.RESISTOR, AirwaveItems.SMALL_CAPACITOR, AirwaveItems.LARGE_CAPACITOR, AirwaveItems.TRANSISTOR,
                                 AirwaveItems.LED, AirwaveItems.CRYSTAL_OSCILLATOR, AirwaveItems.MEMORY_CHIP, AirwaveItems.SPEAKER_CONE))),

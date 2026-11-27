@@ -1,6 +1,8 @@
 {
   "sources": [
     {"type": "single", "resource": "airwaves:fluid/salt_solution_flow"},
-    {"type": "single", "resource": "airwaves:fluid/salt_solution_still"}
+    {"type": "single", "resource": "airwaves:fluid/salt_solution_still"},
+    {"type": "single", "resource": "airwaves:fluid/etching_fluid_flow"},
+    {"type": "single", "resource": "airwaves:fluid/etching_fluid_still"}
   ]
 }
