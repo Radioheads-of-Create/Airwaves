@@ -84,6 +84,8 @@
   "airwaves.section.creative": "Creative",
   "airwaves.section.hardware": "Hardware",
   "airwaves.section.materials": "Materiales",
+  "airwaves.section.processed_materials": "Processed Materials",
+  "airwaves.section.raw_materials": "Raw Materials",
   "airwaves.subtitle.telephone_ring": "Telephone rings",
   "airwaves.telephone.confirm": "Confirm number",
   "airwaves.telephone.dial": "Dial %s",
