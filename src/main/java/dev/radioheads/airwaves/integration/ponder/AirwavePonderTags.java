@@ -10,6 +10,7 @@ import net.minecraft.world.level.ItemLike;
 
 public class AirwavePonderTags {
     public static final ResourceLocation RADIO = Airwaves.asResource("radio");
+    public static final ResourceLocation HF_TRANSCEIVER = Airwaves.asCommon("hf_transceiver");
 
     public static void register(PonderTagRegistrationHelper<ResourceLocation> helper) {
         PonderTagRegistrationHelper<RegistryEntry<?,?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
@@ -23,7 +24,17 @@ public class AirwavePonderTags {
                 .description("Just a Radio.")
                 .register();
 
+        helper.registerTag(HF_TRANSCEIVER)
+                .addToIndex()
+                .item(AirwaveBlocks.HF_TRANSCEIVER)
+                .title("Transceiver")
+                .description("Transceivers")
+                .register();
+
         HELPER.addToTag(RADIO)
                 .add(AirwaveBlocks.RADIO);
+
+        HELPER.addToTag(HF_TRANSCEIVER)
+                .add(AirwaveBlocks.HF_TRANSCEIVER);
     }
 }

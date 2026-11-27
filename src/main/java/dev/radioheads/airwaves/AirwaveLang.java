@@ -205,6 +205,11 @@ public final class AirwaveLang extends Lang {
                 .tagTitle("Radios")
                 .describeTag("All about the radio system")
                 .generateLang();
+
+        PonderLang.create(AirwavePonderTags.HF_TRANSCEIVER)
+                .header("Transceiver")
+                .tagTitle("Transceivers")
+                .generateLang();
     }
 
     private static void add(String key, String value) {
