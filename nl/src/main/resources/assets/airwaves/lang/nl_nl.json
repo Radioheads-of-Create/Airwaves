@@ -84,6 +84,8 @@
   "airwaves.section.creative": "Creative",
   "airwaves.section.hardware": "Hardware",
   "airwaves.section.materials": "Materialen",
+  "airwaves.section.processed_materials": "Processed Materials",
+  "airwaves.section.raw_materials": "Raw Materials",
   "airwaves.subtitle.telephone_ring": "Telefoon gaat over",
   "airwaves.telephone.confirm": "Bevestig nummer",
   "airwaves.telephone.dial": "Kies %s",
