@@ -11,6 +11,6 @@ public class AirwavePonderScenes {
     public static void register(PonderSceneRegistrationHelper<ResourceLocation> helper) {
         PonderSceneRegistrationHelper<ItemProviderEntry<?,?>> HELPER = helper.withKeyFunction((RegistryEntry::getId));
 
-        HELPER.forComponents(AirwaveBlocks.RADIO).addStoryBoard("radio", RadioScenes::radio, AirwavePonderTags.RADIO);
+        HELPER.forComponents(AirwaveBlocks.RADIO).addStoryBoard("radio/test", RadioScenes::radio, AirwavePonderTags.RADIO);
     }
 }

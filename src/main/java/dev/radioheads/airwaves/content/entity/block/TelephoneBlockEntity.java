@@ -4,8 +4,8 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
 import dev.radioheads.airwaves.api.cable.*;
+import dev.radioheads.airwaves.api.util.Vec3Util;
 import dev.radioheads.airwaves.client.telephone.TelephoneRing;
-import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
 import dev.radioheads.airwaves.content.block.TelephoneBlock;
 import dev.radioheads.airwaves.content.telephone.EarpieceBinding;
 import dev.radioheads.airwaves.content.telephone.PhoneNumbers;
@@ -254,7 +254,7 @@ public class TelephoneBlockEntity extends SmartBlockEntity implements CableNode 
     }
 
     public Vec3 model(Vec3 pixels) {
-        return Vec3.atLowerCornerOf(this.worldPosition).add(HfTransceiverPanel.toBlock(facing(), pixels.x, pixels.y, pixels.z));
+        return Vec3.atLowerCornerOf(this.worldPosition).add(Vec3Util.toBlock(facing(), pixels.x, pixels.y, pixels.z));
     }
 
     @Override

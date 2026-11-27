@@ -3,14 +3,14 @@ package dev.radioheads.airwaves.content.entity.block;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import dev.radioheads.airwaves.api.annotations.NothingNullByDefault;
+import dev.radioheads.airwaves.api.audio.AudioRecorder;
 import dev.radioheads.airwaves.api.cable.CableLinks;
 import dev.radioheads.airwaves.api.cable.CableNode;
 import dev.radioheads.airwaves.api.cable.Cables;
 import dev.radioheads.airwaves.api.radio.RadioStation;
-import dev.radioheads.airwaves.content.block.HfTransceiverPanel;
-import dev.radioheads.airwaves.content.block.MicrophoneBlock;
-import dev.radioheads.airwaves.content.block.TurtleMicBlock;
-import dev.radioheads.airwaves.network.Microphones;
+import dev.radioheads.airwaves.api.util.Vec3Util;
+import dev.radioheads.airwaves.content.block.AbstractMicrophoneBlock;
+import dev.radioheads.airwaves.content.block.MicrophoneBlockLike;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -33,7 +33,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @NothingNullByDefault
-public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode {
+public class MicrophoneBlockEntity extends SmartBlockEntity implements AudioRecorder, CableNode {
     private static final int CABLE_SCAN_TICKS = 20;
     // Tap or hold to talk cutoff
     public static final int HOLD_TICKS = 8;
@@ -63,7 +63,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     public void initialize() {
         super.initialize();
         if (this.level instanceof ServerLevel server) {
-            Microphones.add(server, this);
+            AudioRecorder.register(server, this);
             Cables.loaded(server, this.worldPosition, this);
             scanCables();
         }
@@ -73,7 +73,7 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
     public void invalidate() {
         super.invalidate();
         if (this.level != null && !this.level.isClientSide) {
-            Microphones.remove(this.level, this);
+            AudioRecorder.unregister(this.level, this);
         }
     }
 
@@ -106,9 +106,14 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
             }
         }
 
-        BlockState state = getBlockState().setValue( getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.ON_AIR : TurtleMicBlock.ON_AIR, this.on);
-        if (state != getBlockState()) {
-            this.level.setBlockAndUpdate(this.worldPosition, state);
+        BlockState state = getBlockState();
+        MicrophoneBlockLike block = MicrophoneBlockLike.of(state);
+        if (block == null) {
+            return;
+        }
+        BlockState updated = state.setValue(AbstractMicrophoneBlock.ON_AIR, this.on);
+        if (updated != state) {
+            this.level.setBlockAndUpdate(this.worldPosition, updated);
         }
     }
 
@@ -163,31 +168,42 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
         setChanged();
     }
 
-    public boolean on() {
+    @Override
+    public boolean recording() {
         return this.on;
     }
 
+    public boolean on() {
+        return recording();
+    }
+
+    @Override
     public float gain() {
         return this.gain;
     }
 
+    @Override
     public UUID id() {
         return RadioStation.blockId(this.level, this.worldPosition);
     }
 
     private Direction facing() {
-        return getBlockState().getValue(MicrophoneBlock.FACING);
+        MicrophoneBlockLike block = MicrophoneBlockLike.of(getBlockState());
+        return block == null ? Direction.NORTH : block.facing(getBlockState());
     }
 
     private Vec3 model(Vec3 pixels) {
-        return Vec3.atLowerCornerOf(this.worldPosition).add(HfTransceiverPanel.toBlock(facing(), pixels.x, pixels.y, pixels.z));
+        return Vec3.atLowerCornerOf(this.worldPosition).add(Vec3Util.toBlock(facing(), pixels.x, pixels.y, pixels.z));
     }
 
+    @Override
     public Vec3 capsule() {
-        return model(getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.CAPSULE : TurtleMicBlock.CAPSULE);
+        MicrophoneBlockLike block = MicrophoneBlockLike.of(getBlockState());
+        return block == null ? Vec3.atCenterOf(this.worldPosition) : model(block.capsule());
     }
 
     // Nearest cabled transmitter
+    @Override
     public Optional<RadioStation> station() {
         for (BlockPos pos : this.devices) {
             if (this.level.isLoaded(pos) && this.level.getBlockEntity(pos) instanceof RadioStation station && station.transmits()) {
@@ -204,7 +220,8 @@ public class MicrophoneBlockEntity extends SmartBlockEntity implements CableNode
 
     @Override
     public Vec3 anchor() {
-        return model(getBlockState().getBlock() instanceof MicrophoneBlock ? MicrophoneBlock.SOCKET : TurtleMicBlock.SOCKET);
+        MicrophoneBlockLike block = MicrophoneBlockLike.of(getBlockState());
+        return block == null ? Vec3.atCenterOf(this.worldPosition) : model(block.socket());
     }
 
     @Override
