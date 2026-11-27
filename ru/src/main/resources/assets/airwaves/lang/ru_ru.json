@@ -84,6 +84,8 @@
   "airwaves.section.creative": "Творческий",
   "airwaves.section.hardware": "Оборудование",
   "airwaves.section.materials": "Материалы",
+  "airwaves.section.processed_materials": "Processed Materials",
+  "airwaves.section.raw_materials": "Raw Materials",
   "airwaves.subtitle.telephone_ring": "Telephone rings",
   "airwaves.telephone.confirm": "Подтвердить номер",
   "airwaves.telephone.dial": "Набрать %s",
