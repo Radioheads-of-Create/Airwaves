@@ -1,6 +1,7 @@
 package dev.radioheads.airwaves.integration.ponder.scenes;
 
 import dev.radioheads.airwaves.integration.ponder.AirwaveSceneBuilder;
+import dev.radioheads.airwaves.integration.ponder.elements.RadioWaveOverlay;
 import net.createmod.ponder.api.element.ElementLink;
 import net.createmod.ponder.api.element.WorldSectionElement;
 import net.createmod.ponder.api.scene.SceneBuilder;
@@ -11,18 +12,16 @@ import net.minecraft.core.Direction;
 public class RadioScenes {
     public static void radio(SceneBuilder builder, SceneBuildingUtil util) {
         AirwaveSceneBuilder scene = new AirwaveSceneBuilder(builder);
+        RadioWaveOverlay waves = new RadioWaveOverlay();
         scene.title("radio", "Radio");
-        scene.configureBasePlate(0,0,7);
+        scene.configureBasePlate(0,0,9);
         scene.showBasePlate();
 
-        Selection radio = util.select().fromTo(1,1, 1, 1, 1, 1);
+        scene.addInstruction(s -> s.addElement(waves));
 
-        ElementLink<WorldSectionElement> radioElement = scene.world().showIndependentSection(radio, Direction.DOWN);
+        scene.idle(80);
 
-        scene.overlay().showText(70)
-                .attachKeyFrame()
-                .text("This is a radio");
+        scene.addInstruction(s -> waves.setVisible(false));
 
-        scene.idle(60);
     }
 }
